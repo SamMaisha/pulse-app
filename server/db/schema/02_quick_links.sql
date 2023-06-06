@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS quick_links CASCADE;
+
+CREATE TABLE quick_links (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id),
+  name VARCHAR(255) NOT NULL,
+  url VARCHAR (255) NOT NULL
+);
