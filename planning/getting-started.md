@@ -7,5 +7,5 @@
 
 ## Links
 
-1. JIRA ->
-2. Figma ->
+1. JIRA -> https://pulsedashboard.atlassian.net/jira/software/projects/PUL/settings/access
+2. Figma -> https://www.figma.com/file/1Id4GcAYfO9gCiMMCxbP94/Pulse-App?type=design&node-id=0-1&t=dAesXeZhxLpPzAk3-0
