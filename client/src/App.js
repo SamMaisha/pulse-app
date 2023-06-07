@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Container } from '@mui/material'
+import LoginButton from './Pages/LoginButton'
+import LogoutButton from './Pages/LogoutButton'
+import logo from './imgs/pulse.png'
+import Profile from './Pages/Profile'
+import {Routes, Route} from 'react-router-dom'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+        <Container>
+          <Routes>
+            <Route path='/login' element={<LoginButton/>} />
+            <Route path='/profile' element={<div className="profile"> <Profile /> <LogoutButton /> </div> } />
+          </Routes>
+        </Container>
+  )
 }
 
-export default App;
+export default App
+
