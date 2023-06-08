@@ -16,9 +16,10 @@ import Footer from './components/Footer'
 
 
 
-const App = () => {
+function App () {
   return (
         <Container>
+          <Grid>
              <Navbar />
         <Grid
           container
@@ -40,6 +41,7 @@ const App = () => {
           </Routes>
           </Grid>
           <Footer />
+          </Grid>
         </Container>
   )
 }
