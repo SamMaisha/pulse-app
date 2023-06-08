@@ -1,0 +1,2 @@
+INSERT INTO careers (user_id, job_title, company_name, job_link, is_coverletter_generated, is_applied, is_interviewed)
+VALUES (1, 'Junior FE developer', 'Shopify', 'www.shopify.com/careers', true, false, false);

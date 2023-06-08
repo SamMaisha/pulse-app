@@ -1,2 +1,2 @@
-INSERT INTO users (name, email, password) 
-VALUES ('test', 'test@test.com', '123');
+INSERT INTO users (name, auth0_id, email) 
+VALUES ('test', 'abc', 'test@test.com');
