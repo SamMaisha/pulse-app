@@ -18,7 +18,7 @@ const CoverLetter = () => {
         fontSize: '18px',
       }}
     >
-      <h3>Cover Letter Generator</h3>
+      <div className="title">Cover Letter Generator</div>
       <Box mt={4} mb={2}>
         <p> paragraph.</p>
       </Box>

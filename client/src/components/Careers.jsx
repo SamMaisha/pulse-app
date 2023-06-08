@@ -51,7 +51,7 @@ const Careers = () => {
           <AddIcon sx={{ color: 'white' }} />
         </IconButton>
       </Box>
-      <h1 style={{ color: 'white' }}>Careers</h1>
+      <div className="title">Careers</div>
       <DataGrid
         rows={rows}
         columns={columns}

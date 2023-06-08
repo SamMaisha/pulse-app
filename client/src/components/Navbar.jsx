@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, Slide } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import logo from '../imgs/pulse.png';
 
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -14,7 +15,7 @@ const Navbar = () => {
     <>
       <AppBar position="sticky" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', boxShadow: 'none', borderRadius: "10px" }}>
         <Toolbar sx={{ flexGrow: 1, justifyContent: 'space-between' }}>
-          <img src="logo.png" alt="logo" style={{ width: '50px', height: '50px' }} />
+          <img src={logo} alt="logo" style={{ width: '50px', height: '50px' }} />
           
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
               <MenuIcon />
@@ -34,19 +35,19 @@ const Navbar = () => {
         sx={{ width: 300, flexShrink: 0, '& .MuiDrawer-paper': { width: 400, backgroundColor: 'rgba(91, 130, 130, 1)' }}}
       >
         <List>
-          <ListItem button component={Link} to="/">
+          <ListItem component={Link} to="/">
             <ListItemText primary="HOME" />
           </ListItem>
-          <ListItem button component={Link} to="/dashboard">
+          <ListItem component={Link} to="/dashboard">
             <ListItemText primary="DASHBOARD" />
           </ListItem>
-          <ListItem button component={Link} to="/Profile">
+          <ListItem component={Link} to="/Profile">
             <ListItemText primary="PROFILE" />
           </ListItem>
-          <ListItem button component={Link} to="/About">
+          <ListItem component={Link} to="/About">
             <ListItemText primary="ABOUT PULSE"  />
           </ListItem>
-          <ListItem button component={Link} to="/Logout">
+          <ListItem component={Link} to="/Logout">
             <ListItemText primary="LOGOUT" />
           </ListItem>
         </List>

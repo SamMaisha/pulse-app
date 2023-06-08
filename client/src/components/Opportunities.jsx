@@ -98,7 +98,7 @@ const Opportunities = () => {
           color: "white",
         }}
       >
-        Opportunities
+      <div className="title">Opportunities</div>  
       </Box>
       <Box sx={{ marginTop: "20px" }}>
         <DataGrid
