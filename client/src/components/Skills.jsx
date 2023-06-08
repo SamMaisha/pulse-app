@@ -1,40 +1,44 @@
 import React, { useState } from 'react';
 import Box from "@mui/material/Box";
-import { IconButton, MenuItem, Select, TextField } from "@mui/material";
+import { IconButton, MenuItem, Select, TextField, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const Skills = () => {
   const [skills, setSkills] = useState([
-    { id: 1, skill: '', skillLevel: '' }
+    // { id: 1, skill: '', skillLevel: '' }
   ]);
+  const [open, setOpen] = useState(false);
+  const [newSkill, setNewSkill] = useState('');
+  const [newSkillLevel, setNewSkillLevel] = useState('');
 
   const columns = [
     {
       field: 'skill',
       headerName: 'Skill',
-      width: 150,
+      width: 120,
       renderCell: (params) => (
         <TextField
           value={params.value}
-          onChange={(event) => handleSkillChange(event.target.value, params.id)}
           variant="standard"
           size="small"
           fullWidth
+          disabled
         />
       ),
     },
     {
       field: 'skillLevel',
       headerName: 'Skill Level',
-      width: 150,
+      width: 120,
       renderCell: (params) => (
         <Select
           value={params.value}
-          onChange={(event) => handleSkillLevelChange(event.target.value, params.id)}
-          sx={{ minWidth: '120px' }}
           variant="standard"
+          size="small"
+          fullWidth
+          disabled
         >
           <MenuItem value="Beginner">Beginner</MenuItem>
           <MenuItem value="Intermediate">Intermediate</MenuItem>
@@ -45,7 +49,7 @@ const Skills = () => {
     {
       field: 'delete',
       headerName: 'Delete',
-      width: 100,
+      width: 50,
       renderCell: (params) => (
         <IconButton onClick={() => handleDeleteSkill(params.row.id)}>
           <DeleteIcon />
@@ -54,30 +58,41 @@ const Skills = () => {
     },
   ];
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setNewSkill('');
+    setNewSkillLevel('');
+  };
+
   const handleAddSkill = () => {
-    const newSkill = {
+    const newSkillData = {
       id: skills.length + 1,
-      skill: '',
-      skillLevel: '',
+      skill: newSkill,
+      skillLevel: newSkillLevel,
     };
-    setSkills((prevSkills) => [...prevSkills, newSkill]);
+    setSkills((prevSkills) => [...prevSkills, newSkillData]);
+    handleClose();
   };
 
-  const handleSkillChange = (value, id) => {
-    setSkills((prevSkills) =>
-      prevSkills.map((skill) =>
-        skill.id === id ? { ...skill, skill: value } : skill
-      )
-    );
-  };
+  // const handleSkillChange = (value, id) => {
+  //   setSkills((prevSkills) =>
+  //     prevSkills.map((skill) =>
+  //       skill.id === id ? { ...skill, skill: value } : skill
+  //     )
+  //   );
+  // };
 
-  const handleSkillLevelChange = (value, id) => {
-    setSkills((prevSkills) =>
-      prevSkills.map((skill) =>
-        skill.id === id ? { ...skill, skillLevel: value } : skill
-      )
-    );
-  };
+  // const handleSkillLevelChange = (value, id) => {
+  //   setSkills((prevSkills) =>
+  //     prevSkills.map((skill) =>
+  //       skill.id === id ? { ...skill, skillLevel: value } : skill
+  //     )
+  //   );
+  // };
 
   const handleDeleteSkill = (id) => {
     setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
@@ -107,7 +122,7 @@ const Skills = () => {
           right: "10px",
         }}
       >
-        <IconButton onClick={handleAddSkill}>
+        <IconButton onClick={handleOpen}>
           <AddIcon />
         </IconButton>
       </Box>
@@ -124,7 +139,38 @@ const Skills = () => {
           hideFooterPagination
         />
       </Box>
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Add Skill</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Skill"
+            value={newSkill}
+            onChange={(e) => setNewSkill(e.target.value)}
+            variant="standard"
+            fullWidth
+            margin="dense"
+          />
+          <Select
+            label="Skill Level"
+            value={newSkillLevel}
+            onChange={(e) => setNewSkillLevel(e.target.value)}
+            variant="standard"
+            fullWidth
+            margin="dense"
+          >
+            <MenuItem value="Beginner">Beginner</MenuItem>
+            <MenuItem value="Intermediate">Intermediate</MenuItem>
+            <MenuItem value="Advanced">Advanced</MenuItem>
+          </Select>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleAddSkill}>Add</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
+
   );
 };
 
