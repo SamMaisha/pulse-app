@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS skills CASCADE;
+
+CREATE TABLE skills (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id),
+  name VARCHAR(255) NOT NULL,
+  status VARCHAR (255)
+);
