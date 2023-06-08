@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, Slide } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Menu as MenuIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -14,11 +14,11 @@ const Navbar = () => {
     <>
       <AppBar position="sticky" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', boxShadow: 'none', borderRadius: "10px" }}>
         <Toolbar sx={{ flexGrow: 1, justifyContent: 'space-between' }}>
-          <img src="/logo.png" alt="logo" style={{ width: '50px', height: '50px' }} />
+          <img src="logo.png" alt="logo" style={{ width: '50px', height: '50px' }} />
           
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
-            <MenuIcon />
-          </IconButton>
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
+              <MenuIcon />
+            </IconButton>
           
         </Toolbar>
       </AppBar>
