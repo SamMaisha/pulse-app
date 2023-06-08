@@ -4,11 +4,10 @@ import { IconButton, MenuItem, Select, TextField, Dialog, DialogTitle, DialogCon
 import { DataGrid } from "@mui/x-data-grid";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Skills = () => {
-  const [skills, setSkills] = useState([
-    // { id: 1, skill: '', skillLevel: '' }
-  ]);
+  const [skills, setSkills] = useState([]);
   const [open, setOpen] = useState(false);
   const [newSkill, setNewSkill] = useState('');
   const [newSkillLevel, setNewSkillLevel] = useState('');
@@ -17,7 +16,7 @@ const Skills = () => {
     {
       field: 'skill',
       headerName: 'Skill',
-      width: 120,
+      width: 150,
       renderCell: (params) => (
         <TextField
           value={params.value}
@@ -31,7 +30,7 @@ const Skills = () => {
     {
       field: 'skillLevel',
       headerName: 'Skill Level',
-      width: 120,
+      width: 150,
       renderCell: (params) => (
         <Select
           value={params.value}
@@ -47,9 +46,19 @@ const Skills = () => {
       ),
     },
     {
+      field: 'edit',
+      headerName: 'Edit',
+      width: 70,
+      renderCell: (params) => (
+        <IconButton onClick={() => handleEditSkill(params.row)}>
+          <EditIcon />
+        </IconButton>
+      ),
+    },
+    {
       field: 'delete',
       headerName: 'Delete',
-      width: 50,
+      width: 70,
       renderCell: (params) => (
         <IconButton onClick={() => handleDeleteSkill(params.row.id)}>
           <DeleteIcon />
@@ -74,28 +83,30 @@ const Skills = () => {
       skill: newSkill,
       skillLevel: newSkillLevel,
     };
-    setSkills((prevSkills) => [...prevSkills, newSkillData]);
+
+    const existingSkill = skills.findIndex(skill => skill.id === newSkillData.id);
+    if (existingSkill !== -1) {
+      // const updatedSkills = skills.map((skill) =>
+      //   skill.id === newSkillData.id ? newSkillData : skill
+      // );
+      const updatedSkills = [...skills];
+      updatedSkills[existingSkill] = newSkillData;
+      setSkills(updatedSkills);
+    } else {
+      setSkills((prevSkills) => [...prevSkills, newSkillData]);
+    }
+
     handleClose();
   };
 
-  // const handleSkillChange = (value, id) => {
-  //   setSkills((prevSkills) =>
-  //     prevSkills.map((skill) =>
-  //       skill.id === id ? { ...skill, skill: value } : skill
-  //     )
-  //   );
-  // };
-
-  // const handleSkillLevelChange = (value, id) => {
-  //   setSkills((prevSkills) =>
-  //     prevSkills.map((skill) =>
-  //       skill.id === id ? { ...skill, skillLevel: value } : skill
-  //     )
-  //   );
-  // };
-
   const handleDeleteSkill = (id) => {
     setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
+  };
+
+  const handleEditSkill = (skillData) => {
+    setNewSkill(skillData.skill);
+    setNewSkillLevel(skillData.skillLevel);
+    setOpen(true);
   };
 
   return (
@@ -106,8 +117,7 @@ const Skills = () => {
         borderRadius: 5,
         borderColor: "rgba(91, 130, 130, 0.4)",
         height: 300,
-        width: "150%",
-        marginLeft: "58%",
+        width: "200%",
         marginTop: "20px",
         marginBottom: "25px",
         bgcolor: "rgba(91, 130, 130, 0.4)",
@@ -141,7 +151,7 @@ const Skills = () => {
       </Box>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Skill</DialogTitle>
+        <DialogTitle>{newSkill ? "Edit Skill" : "Add Skill"}</DialogTitle>
         <DialogContent>
           <TextField
             label="Skill"
@@ -166,7 +176,7 @@ const Skills = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleAddSkill}>Add</Button>
+          <Button onClick={handleAddSkill}>{newSkill ? "Save" : "Add"}</Button>
         </DialogActions>
       </Dialog>
     </Box>
