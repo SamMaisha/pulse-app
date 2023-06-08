@@ -5,5 +5,5 @@ CREATE TABLE opportunities (
   user_id INTEGER REFERENCES users(id),
   name VARCHAR(255) NOT NULL,
   date DATE NOT NULL,
-  notes VARCHAR(255) NOT NULL
+  notes TEXT
 );

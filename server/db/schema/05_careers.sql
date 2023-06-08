@@ -9,5 +9,5 @@ CREATE TABLE careers (
   is_coverletter_generated BOOLEAN default false,
   is_applied BOOLEAN default false,
   is_interviewed BOOLEAN default false,
-  notes VARCHAR(255) NOT NULL
+  notes TEXT
 );
