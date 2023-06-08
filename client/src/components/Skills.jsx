@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
 import Box from "@mui/material/Box";
-import { IconButton, MenuItem, Select } from "@mui/material";
+import { IconButton, MenuItem, Select, TextField } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-
-
 const Skills = () => {
-  const [skill, setNewSkill] = useState('');
-  const [skillLevel, setSkillLevel] = useState('');
   const [skills, setSkills] = useState([
     { id: 1, skill: '', skillLevel: '' }
   ]);
-  const [open, setOpen] = React.useState(false);
 
   const columns = [
-    { field: 'skill', headerName: 'Skill', width: 150 },
+    {
+      field: 'skill',
+      headerName: 'Skill',
+      width: 150,
+      renderCell: (params) => (
+        <TextField
+          value={params.value}
+          onChange={(event) => handleSkillChange(event.target.value, params.id)}
+          variant="standard"
+          size="small"
+          fullWidth
+        />
+      ),
+    },
     {
       field: 'skillLevel',
       headerName: 'Skill Level',
@@ -24,11 +32,9 @@ const Skills = () => {
       renderCell: (params) => (
         <Select
           value={params.value}
-          onChange={(event) =>
-            handleSkillLevel(event.target.value, params.id)
-          }
-
+          onChange={(event) => handleSkillLevelChange(event.target.value, params.id)}
           sx={{ minWidth: '120px' }}
+          variant="standard"
         >
           <MenuItem value="Beginner">Beginner</MenuItem>
           <MenuItem value="Intermediate">Intermediate</MenuItem>
@@ -41,25 +47,31 @@ const Skills = () => {
       headerName: 'Delete',
       width: 100,
       renderCell: (params) => (
-        <IconButton onClick={() => handleDeleteSkill(params.id)}>
+        <IconButton onClick={() => handleDeleteSkill(params.row.id)}>
           <DeleteIcon />
         </IconButton>
       ),
-    },]
+    },
+  ];
 
   const handleAddSkill = () => {
     const newSkill = {
       id: skills.length + 1,
-      skillName: '',
+      skill: '',
       skillLevel: '',
     };
-    setOpen(true);
     setSkills((prevSkills) => [...prevSkills, newSkill]);
-    setNewSkill('');
-    setSkillLevel('');
   };
 
-  const handleSkillLevel = (value, id) => {
+  const handleSkillChange = (value, id) => {
+    setSkills((prevSkills) =>
+      prevSkills.map((skill) =>
+        skill.id === id ? { ...skill, skill: value } : skill
+      )
+    );
+  };
+
+  const handleSkillLevelChange = (value, id) => {
     setSkills((prevSkills) =>
       prevSkills.map((skill) =>
         skill.id === id ? { ...skill, skillLevel: value } : skill
@@ -113,8 +125,7 @@ const Skills = () => {
         />
       </Box>
     </Box>
+  );
+};
 
-  )
-}
-
-export default Skills
+export default Skills;
