@@ -8,6 +8,8 @@ import axios from 'axios';
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
 
+  console.log(user);
+
   
   useEffect(() => {
     const submitUserData = async () => {
