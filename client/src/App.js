@@ -17,11 +17,13 @@ import './App.css';
 function App() {
   return (
     <div className='App'>
-      <Grid container>
+      <Grid container
+        marginTop="150px"
+        >
         <Navbar />
         <Grid
           container
-          marginTop="50px"
+          marginTop="500px"
           height="auto"
           borderRadius="10px"
           backgroundColor="rgba(255, 255, 255, 0.1)"

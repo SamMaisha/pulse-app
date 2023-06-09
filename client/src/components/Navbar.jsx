@@ -15,7 +15,7 @@ const Navbar = () => {
     <>
       <AppBar position="sticky" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', boxShadow: 'none', borderRadius: "10px" }}>
         <Toolbar sx={{ flexGrow: 1, justifyContent: 'space-between' }}>
-          <img src={logo} alt="logo" style={{ width: '50px', height: '50px' }} />
+          <img src={logo} alt="logo" style={{ width: '50px', height: 'auto' }} />
           
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
               <MenuIcon />
