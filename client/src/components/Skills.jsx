@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Box from "@mui/material/Box";
-import { IconButton, MenuItem, Select, TextField, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import { IconButton, MenuItem, Select, TextField, Dialog, DialogTitle, DialogContent, DialogActions, Button, InputLabel } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -130,7 +130,7 @@ const Skills = () => {
 
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>{selectedSkill ? 'Edit Skill' : 'Add Skill'}</DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ width: '250px' }}>
           <TextField
             label="Skill"
             value={newSkill.skill}
@@ -139,6 +139,13 @@ const Skills = () => {
             fullWidth
             margin="dense"
           />
+          <InputLabel
+            variant="standard"
+            shrink={Boolean(newSkill.skillLevel)}
+            sx={{ fontSize: '1rem', fontWeight: 500, marginTop: '8px' }}
+          >
+            Skill Level
+          </InputLabel>
           <Select
             label="Skill Level"
             value={newSkill.skillLevel}
@@ -146,6 +153,7 @@ const Skills = () => {
             variant="standard"
             fullWidth
             margin="dense"
+            sx={{ minWidth: '120px' }}
           >
             <MenuItem value="Beginner">Beginner</MenuItem>
             <MenuItem value="Intermediate">Intermediate</MenuItem>
@@ -154,7 +162,7 @@ const Skills = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={handleSaveSkill}>{newSkill ? "Save" : "Add"}</Button>
+          <Button onClick={handleSaveSkill}>{selectedSkill ? "Save" : "Add"}</Button>
         </DialogActions>
       </Dialog>
     </Box>
