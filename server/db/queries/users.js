@@ -12,7 +12,7 @@ const addUser = function(user) {
     return new Promise((resolve, reject) => {
         pool
         .query(
-            `INSERT INTO users (userId, name, email) VALUES ($1, $2, $3) RETURNING *`, [user.sub, user.name, user.email])
+            `INSERT INTO users (auth0_id, name) VALUES ($1, $2) RETURNING *`, [user.sub, user.name])
             .then((result) => {
                 let newUser = result.rows;
                 resolve(newUser);
@@ -27,7 +27,7 @@ const getAllUserIds = function() {
     return new Promise((resolve, reject) => {
         pool
         .query(
-            `SELECT userId FROM users`)
+            `SELECT auth0_id FROM users`)
             .then(result => {
                 let allUserIds = result.rows;
                 resolve(allUserIds);
