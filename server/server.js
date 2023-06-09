@@ -20,8 +20,9 @@ app.use(morgan("dev"));
 //check if useEffect fires in other routes/pages
 
 app.post('/users', (req, res) => {
+  console.log(req.body)
   const user = req.body;
-  return userValidator(user.userId)
+  return userValidator(user.sub)
   .then(result => {
     if (result === false) {
       addUser(user)
