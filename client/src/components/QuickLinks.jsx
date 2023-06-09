@@ -27,21 +27,12 @@ const QuickLinks = () => {
 
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'start',
-          justifyContent: 'start',
-          fontWeight: 'bold',
-          fontSize: '30px',
-          color: 'white',
-        }}
-      >
-        Quick Links
-      </Box>
+
+      <div className="title">Quick Links</div>
+
       <Box sx={{ marginTop: '10px' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ flex: 1}}>
+          <Box sx={{ flex: 1 }}>
             <h3>Github:</h3>
           </Box>
           <Box sx={{ flex: 2 }}>
@@ -73,7 +64,7 @@ const QuickLinks = () => {
             <h3>LinkedIn:</h3>
           </Box>
           <Box sx={{ flex: 2 }}>
-            <input type="text" value="linkedin.com/in/user" readOnly style={{ width: '120%', borderRadius: '5px'  }} />
+            <input type="text" value="linkedin.com/in/user" readOnly style={{ width: '120%', borderRadius: '5px' }} />
           </Box>
           <Box sx={{ flex: 1 }}>
             <FileCopyIcon
