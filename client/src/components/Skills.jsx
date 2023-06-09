@@ -10,7 +10,7 @@ const Skills = () => {
   const [skills, setSkills] = useState([]);
   const [open, setOpen] = useState(false);
   const [newSkill, setNewSkill] = useState('');
-  const [newSkillLevel, setNewSkillLevel] = useState('');
+  const [selectedSkill, setSelectedSkill] = useState(null);
 
   const columns = [
     {
@@ -18,13 +18,7 @@ const Skills = () => {
       headerName: 'Skill',
       width: 150,
       renderCell: (params) => (
-        <TextField
-          value={params.value}
-          variant="standard"
-          size="small"
-          fullWidth
-          disabled
-        />
+        <div>{params.value}</div>
       ),
     },
     {
@@ -32,17 +26,7 @@ const Skills = () => {
       headerName: 'Skill Level',
       width: 150,
       renderCell: (params) => (
-        <Select
-          value={params.value}
-          variant="standard"
-          size="small"
-          fullWidth
-          disabled
-        >
-          <MenuItem value="Beginner">Beginner</MenuItem>
-          <MenuItem value="Intermediate">Intermediate</MenuItem>
-          <MenuItem value="Advanced">Advanced</MenuItem>
-        </Select>
+        <div>{params.value}</div>
       ),
     },
     {
@@ -67,46 +51,40 @@ const Skills = () => {
     },
   ];
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setNewSkill('');
-    setNewSkillLevel('');
-  };
-
   const handleAddSkill = () => {
-    const newSkillData = {
-      id: skills.length + 1,
-      skill: newSkill,
-      skillLevel: newSkillLevel,
-    };
-
-    const existingSkill = skills.findIndex(skill => skill.id === newSkillData.id);
-    if (existingSkill !== -1) {
-      // const updatedSkills = skills.map((skill) =>
-      //   skill.id === newSkillData.id ? newSkillData : skill
-      // );
-      const updatedSkills = [...skills];
-      updatedSkills[existingSkill] = newSkillData;
-      setSkills(updatedSkills);
-    } else {
-      setSkills((prevSkills) => [...prevSkills, newSkillData]);
-    }
-
-    handleClose();
+    setSelectedSkill(null);
+    setNewSkill({ skill: '', skillLevel: '' });
+    setOpen(true);
   };
 
   const handleDeleteSkill = (id) => {
     setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
   };
 
-  const handleEditSkill = (skillData) => {
-    setNewSkill(skillData.skill);
-    setNewSkillLevel(skillData.skillLevel);
+  const handleEditSkill = (skill) => {
+    setSelectedSkill(skill);
+    setNewSkill(skill);
     setOpen(true);
+  };
+
+  const handleSaveSkill = () => {
+    if (selectedSkill) {
+      setSkills((prevSkills) =>
+        prevSkills.map((skill) => (skill.id === selectedSkill.id ? { ...newSkill, id: selectedSkill.id } : skill))
+      );
+    } else {
+      const newId = skills.length > 0 ? skills[skills.length - 1].id + 1 : 1;
+      setSkills((prevSkills) => [...prevSkills, { ...newSkill, id: newId }]);
+    }
+
+    setOpen(false);
+  };
+
+  const handleInputChange = (event, field) => {
+    setNewSkill((prevSkill) => ({
+      ...prevSkill,
+      [field]: event.target.value,
+    }));
   };
 
   return (
@@ -132,7 +110,7 @@ const Skills = () => {
           right: "10px",
         }}
       >
-        <IconButton onClick={handleOpen}>
+        <IconButton onClick={handleAddSkill}>
           <AddIcon />
         </IconButton>
       </Box>
@@ -150,21 +128,21 @@ const Skills = () => {
         />
       </Box>
 
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{newSkill ? "Edit Skill" : "Add Skill"}</DialogTitle>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle>{selectedSkill ? 'Edit Skill' : 'Add Skill'}</DialogTitle>
         <DialogContent>
           <TextField
             label="Skill"
-            value={newSkill}
-            onChange={(e) => setNewSkill(e.target.value)}
+            value={newSkill.skill}
+            onChange={(event) => handleInputChange(event, 'skill')}
             variant="standard"
             fullWidth
             margin="dense"
           />
           <Select
             label="Skill Level"
-            value={newSkillLevel}
-            onChange={(e) => setNewSkillLevel(e.target.value)}
+            value={newSkill.skillLevel}
+            onChange={(event) => handleInputChange(event, 'skillLevel')}
             variant="standard"
             fullWidth
             margin="dense"
@@ -175,12 +153,11 @@ const Skills = () => {
           </Select>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleAddSkill}>{newSkill ? "Save" : "Add"}</Button>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={handleSaveSkill}>{newSkill ? "Save" : "Add"}</Button>
         </DialogActions>
       </Dialog>
     </Box>
-
   );
 };
 
