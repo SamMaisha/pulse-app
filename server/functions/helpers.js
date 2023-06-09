@@ -4,7 +4,7 @@ const userValidator = function(userId) {
     return getAllUserIds()
     .then(data => {
         for(const user of data)  {
-            if (userId === user.sub) {
+            if (userId === user.auth0_id) {
                 const result = true;
                 return result;
             }
