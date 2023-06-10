@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, Slide } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
@@ -6,6 +7,8 @@ import logo from '../imgs/pulse.png';
 
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const { logout } = useAuth0();
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -47,7 +50,7 @@ const Navbar = () => {
           <ListItem component={Link} to="/About">
             <ListItemText primary="ABOUT PULSE"  />
           </ListItem>
-          <ListItem component={Link} to="/Logout">
+          <ListItem component={Link} onClick={() => logout()}>
             <ListItemText primary="LOGOUT" />
           </ListItem>
         </List>
