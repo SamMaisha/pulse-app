@@ -11,7 +11,8 @@ router.get("/", (req, res) => {
 
 //GET /api/quicklinks/:userid => return raw data quicklinks for user
 router.get("/:userid", (req, res) => {
-  quickLinksQueries.getQuickLinks().then((result) => {
+  const userid = req.params.userid;
+  quickLinksQueries.getQuickLinks(userid).then((result) => {
     res.json(result);
   });
 });
