@@ -11,8 +11,6 @@ const dbParams = {
   database: process.env.DB_NAME,
 };
 
-console.log(dbParams);
-
 const db = new Pool(dbParams);
 
 db.connect();
