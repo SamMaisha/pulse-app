@@ -6,8 +6,32 @@ import { DataGrid } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 
+// Sample data
+const initialCareers = [
+  {
+    id: 1,
+    company: 'Lighthouse Labs',
+    position: 'Lecturer',
+    website: 'https://www.lighthouselabs.ca/',
+    coverLetter: true,
+    applied: true,
+    interviewed: false,
+    notes: 'Some notes here',
+  },
+  {
+    id: 2,
+    company: 'Company B',
+    position: 'Position B',
+    website: 'https://www.example.com',
+    coverLetter: false,
+    applied: true,
+    interviewed: true,
+    notes: 'Some notes for Company B',
+  },
+];
+
 const Careers = () => {
-  const [careers, setCareers] = useState([]);
+  const [careers, setCareers] = useState(initialCareers); // Set initial data for testing 
   const [open, setOpen] = useState(false);
   const [selectedCareer, setSelectedCareer] = useState(null);
   const [newCareer, setNewCareer] = useState({

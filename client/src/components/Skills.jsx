@@ -6,8 +6,15 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
+// Sample data
+const initialSkills = [
+  { id: 1, skill: 'CSS', skillLevel: 'Intermediate' },
+  { id: 2, skill: 'JavaScript', skillLevel: 'Advanced' },
+  { id: 3, skill: 'Ruby', skillLevel: 'Beginner' },
+];
+
 const Skills = () => {
-  const [skills, setSkills] = useState([]);
+  const [skills, setSkills] = useState(initialSkills); // Set initial data for testing 
   const [open, setOpen] = useState(false);
   const [newSkill, setNewSkill] = useState('');
   const [selectedSkill, setSelectedSkill] = useState(null);

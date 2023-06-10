@@ -7,8 +7,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 import { format, parse } from "date-fns";
 
+// Sample data
+const initialOpportunities = [
+  { id: 1, date: '2022-06-24', opportunity: 'Hackathon', notes: 'Some notes here' },
+];
+
 const Opportunities = () => {
-  const [opportunities, setOpportunities] = useState([]);
+  const [opportunities, setOpportunities] = useState(initialOpportunities); // Set initial data for testing 
   const [open, setOpen] = useState(false);
   const [selectedOpportunity, setSelectedOpportunity] = useState(null);
   const [newOpportunity, setNewOpportunity] = useState({});
