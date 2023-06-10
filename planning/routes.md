@@ -10,8 +10,8 @@
 
 1. `GET /api/quicklinks/:userid` -> get quicklinks for user
 2. `POST /api/quicklinks/:userid` -> create new quicklinks (POST MVP)
-3. `PUT /api/quicklinks/:userid/:quicklinkid` -> edit quicklinks (POST MVP)
-4. `POST /api/quicklinks//:userid/:quicklinkid/delete` -> delete quicklinks (POST MVP)
+3. `PATCH /api/quicklinks/:userid/:quicklinkid` -> edit quicklinks (POST MVP)
+4. `DELETE /api/quicklinks//:userid/:quicklinkid/delete` -> delete quicklinks (POST MVP)
 
 ## Skills
 
