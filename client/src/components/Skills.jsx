@@ -41,7 +41,7 @@ const Skills = () => {
       headerName: 'Edit',
       width: 70,
       renderCell: (params) => (
-        <IconButton onClick={() => handleEditSkill(params.row)} sx={{ color: 'white' }}>
+        <IconButton onClick={() => handleEditSkill(params.row)} sx={{ color: 'rgba(184, 134, 11)' }}>
           <EditIcon />
         </IconButton>
       ),
@@ -51,7 +51,7 @@ const Skills = () => {
       headerName: 'Delete',
       width: 70,
       renderCell: (params) => (
-        <IconButton onClick={() => handleDeleteSkill(params.row.id)} sx={{ color: 'white' }}>
+        <IconButton onClick={() => handleDeleteSkill(params.row.id)} sx={{ color: 'rgba(210, 77, 87)' }}>
           <DeleteIcon />
         </IconButton>
       ),

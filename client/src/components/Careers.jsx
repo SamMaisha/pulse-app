@@ -154,7 +154,7 @@ const Careers = () => {
         borderRadius: 5,
         height: 300,
         width: '100%',
-        maxWidth: 750,
+        maxWidth: 850,
         marginBottom: '20px',
         marginTop: '20px',
         bgcolor: 'rgba(91, 130, 130, 0.4)',

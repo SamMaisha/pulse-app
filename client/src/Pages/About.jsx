@@ -15,46 +15,38 @@ const About = () => {
       opportunities and networking to skill development and tracking.</h3>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <img src={pulsegraphic} alt="pulse" style={{ maxWidth: "90%", height: "auto" }} />
+      <img src={pulsegraphic} alt="pulse" style={{ maxWidth: "80%", height: "auto" }} />
       </Box>
       <h2>Our Mission:</h2>
       
       <p>At Pulse, our mission is to provide a comprehensive career
       management platform that helps users navigate the ever-evolving job market
       and achieve their professional goals. We strive to be the ultimate
-      companion for individuals seeking career growth, offering valuable
-      insights, connections, and opportunities in one convenient app.</p>
+      companion for individuals seeking career growth in one convenient app.</p>
       
       <h2>Key Features:</h2> 
-      
+
+      <h3>Quick Links</h3>
+      <p>Quick Links is a feature that allows you to save your most important links to easily share with eyour network or employers.</p>     
+
       <h3>1. Job Opportunities:</h3>
-      <p> Pulse connects you with a vast array of
-      job opportunities tailored to your interests, experience, and aspirations.
-      Browse through listings from top companies, receive personalized job
-      recommendations, and apply with ease, all within the app. Stay updated on
-      the latest openings and never miss a chance to pursue your dream career.</p>
+      <p> Pulse allows you to track and apply for jobs directly from your phone.
+   .</p>
       
       <h3>2. Networking:</h3> 
       <p>Networking is a crucial aspect of career development, and
-      Pulse empowers you to build and expand your professional connections.
-      Discover like-minded individuals, industry experts, and potential mentors
-      through our networking features. Engage in meaningful conversations, share
-      insights, and collaborate to unlock new opportunities.</p>
+      Pulse empowers you to build and expand your professional connections.</p>
       
       <h3>. Skills Development:</h3> 
       <p>Pulse recognizes the importance of continuous skill
-      development for career growth. With our app, you can access a wide range
-      of resources, including articles, tutorials, and online courses, to
-      enhance your skill set. Set goals, track your progress, and acquire the
+      development for career growth. With our app, you can track your progress, and identify the
       skills needed to thrive in your desired field.</p>
       
-      <h3>4. Customizable Widgets:</h3>
-      <p> Pulse provides personalized widgets that allow you to create a customized dashboard, tailored to your specific career needs. Track your job
-      applications, monitor industry trends, stay updated on networking events, and manage your skill development progress, all at a glance. Our widgets
-      ensure that you have all the essential information at your fingertips.</p>
+      <h3>4. Cover Letter Generator:</h3>
+      <p> Pulse provides AI technology to help you create a cover letter that will stand out to employers.</p>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <img src={Pulse} alt="Pulse GIF" style={{ maxWidth: "90%", height: "auto" }} />
+        <img src={Pulse} alt="Pulse GIF" style={{ maxWidth: "80%", height: "auto" }} />
       </Box>
       
       <h2>Join Pulse today and unlock the full potential of your career.</h2>
