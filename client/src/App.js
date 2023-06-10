@@ -17,12 +17,11 @@ function App() {
   return (
     <div className='App'>
       <Grid container
-        marginTop="100px"
         >
         <Navbar />
         <Grid
           container
-          marginTop="200px"
+          marginTop="50px"
           height="auto"
           borderRadius="10px"
           backgroundColor="rgba(255, 255, 255, 0.1)"
