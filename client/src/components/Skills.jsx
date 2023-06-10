@@ -41,7 +41,7 @@ const Skills = () => {
       headerName: 'Edit',
       width: 70,
       renderCell: (params) => (
-        <IconButton onClick={() => handleEditSkill(params.row)}>
+        <IconButton onClick={() => handleEditSkill(params.row)} sx={{ color: 'white' }}>
           <EditIcon />
         </IconButton>
       ),
@@ -51,7 +51,7 @@ const Skills = () => {
       headerName: 'Delete',
       width: 70,
       renderCell: (params) => (
-        <IconButton onClick={() => handleDeleteSkill(params.row.id)}>
+        <IconButton onClick={() => handleDeleteSkill(params.row.id)} sx={{ color: 'white' }}>
           <DeleteIcon />
         </IconButton>
       ),
@@ -117,7 +117,7 @@ const Skills = () => {
           right: "10px",
         }}
       >
-        <IconButton onClick={handleAddSkill}>
+        <IconButton onClick={handleAddSkill} sx={{ color: 'white' }}>
           <AddIcon />
         </IconButton>
       </Box>
@@ -128,7 +128,15 @@ const Skills = () => {
         <DataGrid
           rows={skills}
           columns={columns}
-          sx={{ borderColor: "transparent" }}
+          sx={{
+            borderColor: "transparent",
+            '& .MuiDataGrid-cell': {
+              color: 'white',
+            },
+            '& .MuiDataGrid-columnHeaderTitle': {
+              color: 'white',
+            },
+          }}
           disableRowSelectionOnClick
           disableColumnMenu
           hideFooterPagination
