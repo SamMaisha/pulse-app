@@ -6,11 +6,12 @@ const port = 8001;
 
 // Middleware
 app.use(morgan("dev"));
+app.use(express.json());
 
-// require routes
+// require routers
 const quickLinksRouter = require("./routers/quicklinks-router");
 
-// use routes
+// use routers
 app.use("/api/quicklinks", quickLinksRouter);
 
 app.listen(port, () => {
