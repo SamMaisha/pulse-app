@@ -11,3 +11,11 @@ const getQuickLinks = function (userId) {
     return data.rows;
   });
 };
+
+const testLink = () => {
+  return db.query("SELECT * FROM quick_links;").then((data) => {
+    return data.rows;
+  });
+};
+
+module.exports = { getQuickLinks, testLink };
