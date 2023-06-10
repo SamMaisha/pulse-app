@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
+import { format, parse } from "date-fns";
 
 const Opportunities = () => {
   const [opportunities, setOpportunities] = useState([]);
@@ -17,20 +18,6 @@ const Opportunities = () => {
     setNewOpportunity({ id: null, date: null, opportunity: "", notes: "" });
     setOpen(true);
   };
-
-  // const handleAddRow = () => {
-  //   const newOpportunity = {
-  //     id: opportunities.length + 1,
-  //     date: null,
-  //     opportunity: "",
-  //     notes: "",
-  //   };
-
-  //   setOpportunities((prevOpportunities) => [
-  //     ...prevOpportunities,
-  //     newOpportunity,
-  //   ]);
-  // };
 
   const handleDeleteOpportunity = (id) => {
     const updatedOpportunities = opportunities.filter((opp) => opp.id !== id);
@@ -59,35 +46,47 @@ const Opportunities = () => {
   };
 
   const handleInputChange = (event, field) => {
-    setNewOpportunity((prevOpportunity) => ({
-      ...prevOpportunity,
-      [field]: event.target.value,
-    }));
+    if (field === "date") {
+      // Parse the input date string into a Date object
+      const parsedDate = parse(event.target.value, "yyyy-MM-dd", new Date());
+      // Format the Date object into the desired format
+      const formattedDate = format(parsedDate, "yyyy-MM-dd");
+      setNewOpportunity((prevOpportunity) => ({
+        ...prevOpportunity,
+        [field]: formattedDate,
+      }));
+    } else {
+      setNewOpportunity((prevOpportunity) => ({
+        ...prevOpportunity,
+        [field]: event.target.value,
+      }));
+    }
   };
 
   const columns = [
     {
       field: "date",
       headerName: "Date",
-      width: 100,
-      editable: true,
+      width: 110,
+      cellClassName: "wrap-text",
     },
     {
       field: "opportunity",
       headerName: "Opportunity",
-      width: 200,
-      editable: true,
+      width: 150,
+      cellClassName: "wrap-text",
     },
     {
       field: "notes",
       headerName: "Notes",
-      width: 300,
-      editable: true,
+      width: 150,
+      cellClassName: "wrap-text",
     },
     {
       field: "edit",
       headerName: "Edit",
       width: 70,
+      cellClassName: "wrap-text",
       renderCell: (params) => (
         <IconButton onClick={() => handleEditOpportunity(params.row)}>
           <EditIcon />
@@ -154,9 +153,11 @@ const Opportunities = () => {
           disableRowSelectionOnClick
           disableColumnMenu
           hideFooterPagination
+          className="datagrid"
         />
       </Box>
 
+      {/* Popup window */}
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>{selectedOpportunity ? "Edit Opportunity" : "Add Opportunity"}</DialogTitle>
         <DialogContent>
@@ -166,6 +167,10 @@ const Opportunities = () => {
             onChange={(e) => handleInputChange(e, "date")}
             fullWidth
             margin="normal"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
           <TextField
             label="Opportunity"

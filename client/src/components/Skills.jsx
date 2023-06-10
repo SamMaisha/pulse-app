@@ -128,6 +128,7 @@ const Skills = () => {
         />
       </Box>
 
+      {/* Popup window */}
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>{selectedSkill ? 'Edit Skill' : 'Add Skill'}</DialogTitle>
         <DialogContent sx={{ width: '250px' }}>
