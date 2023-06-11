@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Snackbar } from '@mui/material';
+import { Box } from '@mui/material';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 const QuickLinksItem = ({handleCopyLink, name, url}) => {
