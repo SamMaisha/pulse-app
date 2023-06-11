@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Box, Snackbar } from '@mui/material';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
+import React, { useState } from "react";
+import { Box, Snackbar } from "@mui/material";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
 
 const QuickLinks = () => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const handleCopyLink = (link) => {
     navigator.clipboard.writeText(link);
@@ -21,55 +21,68 @@ const QuickLinks = () => {
       sx={{
         padding: 3,
         borderRadius: 5,
-        height: 130,
-        width: '110%',
-        bgcolor: 'rgba(91, 130, 130, 0.4)',
-
+        height: 200,
+        width: "110%",
+        bgcolor: "rgba(91, 130, 130, 0.4)",
       }}
     >
-
       <div className="title">Quick Links</div>
 
-      <Box sx={{ marginTop: '10px' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ marginTop: "1px"}}>
+        <Box sx={{ display: "flex", alignItems: "center"}}>
           <Box sx={{ flex: 1 }}>
-            <h3>Github:</h3>
+            <h4>Github:</h4>
           </Box>
           <Box sx={{ flex: 2 }}>
-            <input type="text" value="github.com/user" readOnly style={{ width: '120%', borderRadius: '5px' }} />
+            <input
+              type="text"
+              value="github.com/user"
+              readOnly
+              style={{ width: "120%", borderRadius: "5px" }}
+            />
           </Box>
           <Box sx={{ flex: 1 }}>
             <FileCopyIcon
-              sx={{ color: 'white', cursor: 'pointer', marginLeft: '50%' }}
-              onClick={() => handleCopyLink('github.com/user')}
+              sx={{ color: "white", cursor: "pointer", marginLeft: "50%" }}
+              onClick={() => handleCopyLink("github.com/user")}
             />
           </Box>
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box sx={{ flex: 1 }}>
-            <h3>Resume:</h3>
+            <h4>Resume:</h4>
           </Box>
           <Box sx={{ flex: 2 }}>
-            <input type="text" value="example.com/resume" readOnly style={{ width: '120%', borderRadius: '5px' }} />
+            <input
+              type="text"
+              value="example.com/resume"
+              readOnly
+              style={{ width: "120%", borderRadius: "5px" }}
+            />
           </Box>
           <Box sx={{ flex: 1 }}>
             <FileCopyIcon
-              sx={{ color: 'white', cursor: 'pointer', marginLeft: '50%' }}
-              onClick={() => handleCopyLink('example.com/resume')}
+              sx={{ color: "white", cursor: "pointer", marginLeft: "50%" }}
+              onClick={() => handleCopyLink("example.com/resume")}
             />
           </Box>
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box sx={{ flex: 1 }}>
-            <h3>LinkedIn:</h3>
+            <h4>LinkedIn:</h4>
           </Box>
           <Box sx={{ flex: 2 }}>
-            <input type="text" value="linkedin.com/in/user" readOnly style={{ width: '120%', borderRadius: '5px' }} />
+            <input
+              type="text"
+              value="linkedin.com/in/user"
+              readOnly
+              style={{ width: "120%", borderRadius: "5px" }}
+            />
           </Box>
           <Box sx={{ flex: 1 }}>
             <FileCopyIcon
-              sx={{ color: 'white', cursor: 'pointer', marginLeft: '50%' }}
-              onClick={() => handleCopyLink('linkedin.com/in/user')}
+              sx={{ color: "white", cursor: "pointer", marginLeft: "50%" }}
+              onClick={() => handleCopyLink("linkedin.com/in/user")}
             />
           </Box>
         </Box>
@@ -79,7 +92,7 @@ const QuickLinks = () => {
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}
         message={snackbarMessage}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       />
     </Box>
   );

@@ -103,7 +103,7 @@ const Careers = () => {
       headerName: 'Cover Letter',
       width: 100,
       renderCell: (params) => (
-        <Checkbox checked={params.value} disabled />
+        <Checkbox checked={params.value} style={{color:'white'}} disabled />
       ),
     },
     {
@@ -111,7 +111,7 @@ const Careers = () => {
       headerName: 'Applied',
       width: 80,
       renderCell: (params) => (
-        <Checkbox checked={params.value} disabled />
+        <Checkbox checked={params.value} style={{color:'white'}} disabled />
       ),
     },
     {
@@ -119,7 +119,7 @@ const Careers = () => {
       headerName: 'Interviewed',
       width: 100,
       renderCell: (params) => (
-        <Checkbox checked={params.value} disabled />
+        <Checkbox checked={params.value} style={{color:'white'}} disabled />
       ),
     },
     { field: 'notes', headerName: 'Notes', width: 200 },
@@ -129,7 +129,7 @@ const Careers = () => {
       width: 70,
       renderCell: (params) => (
         <IconButton onClick={() => handleEditCareer(params.row)}>
-          <EditIcon />
+          <EditIcon sx={{color:'rgba(184, 134, 11)'}}/>
         </IconButton>
       ),
     },
@@ -139,7 +139,7 @@ const Careers = () => {
       width: 70,
       renderCell: (params) => (
         <IconButton onClick={() => handleDeleteCareer(params.row.id)}>
-          <DeleteIcon />
+          <DeleteIcon sx={{ color: 'rgba(210, 77, 87)' }}/>
         </IconButton>
       ),
     },
@@ -182,7 +182,14 @@ const Careers = () => {
         hideFooterPagination
         hideFooterSelectedRowCount
         hideFooter
-        sx={{ borderColor: 'transparent' }}
+        sx={{ 
+        borderColor: "transparent",
+            '& .MuiDataGrid-cell': {
+              color: 'white',
+            },
+            '& .MuiDataGrid-columnHeaderTitle': {
+              color: 'white',
+            }}}
       />
 
       {/* Popup window */}

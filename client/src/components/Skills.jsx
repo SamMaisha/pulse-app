@@ -23,7 +23,7 @@ const Skills = () => {
     {
       field: 'skill',
       headerName: 'Skill',
-      width: 150,
+      width: 200,
       renderCell: (params) => (
         <div>{params.value}</div>
       ),
@@ -31,7 +31,7 @@ const Skills = () => {
     {
       field: 'skillLevel',
       headerName: 'Skill Level',
-      width: 150,
+      width: 200,
       renderCell: (params) => (
         <div>{params.value}</div>
       ),

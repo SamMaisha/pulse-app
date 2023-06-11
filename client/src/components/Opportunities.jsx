@@ -78,13 +78,13 @@ const Opportunities = () => {
     {
       field: "opportunity",
       headerName: "Opportunity",
-      width: 150,
+      width: 200,
       cellClassName: "wrap-text",
     },
     {
       field: "notes",
       headerName: "Notes",
-      width: 150,
+      width: 200,
       cellClassName: "wrap-text",
     },
     {
@@ -94,7 +94,7 @@ const Opportunities = () => {
       cellClassName: "wrap-text",
       renderCell: (params) => (
         <IconButton onClick={() => handleEditOpportunity(params.row)}>
-          <EditIcon />
+          <EditIcon sx={{color:'rgba(184, 134, 11)'}}/>
         </IconButton>
       ),
     },
@@ -104,7 +104,7 @@ const Opportunities = () => {
       width: 70,
       renderCell: (params) => (
         <IconButton onClick={() => handleDeleteOpportunity(params.row.id)}>
-          <DeleteIcon />
+          <DeleteIcon sx={{ color: 'rgba(210, 77, 87)' }}/>
         </IconButton>
       ),
     },
@@ -135,7 +135,7 @@ const Opportunities = () => {
         }}
       >
         <IconButton onClick={handleAddOpportunity}>
-          <AddIcon />
+          <AddIcon sx={{ color: 'white' }}/>
         </IconButton>
       </Box>
       <Box
@@ -154,7 +154,14 @@ const Opportunities = () => {
         <DataGrid
           rows={opportunities}
           columns={columns}
-          sx={{ borderColor: "transparent" }}
+          sx={{ 
+            borderColor: "transparent",
+                '& .MuiDataGrid-cell': {
+                  color: 'white',
+                },
+                '& .MuiDataGrid-columnHeaderTitle': {
+                  color: 'white',
+                }}}
           disableRowSelectionOnClick
           disableColumnMenu
           hideFooterPagination

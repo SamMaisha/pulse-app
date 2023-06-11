@@ -7,7 +7,7 @@ const CoverLetter = () => {
       sx={{
         padding: 1,
         borderRadius: 5,
-        height: '57%',
+        height: '60%',
         marginLeft: '50px',
         bgcolor: 'rgba(91, 130, 130, 0.4)',
         display: 'flex',

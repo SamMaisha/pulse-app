@@ -16,7 +16,7 @@ const User = () => {
       <Avatar
         alt="User Avatar"
         src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
-        sx={{ width: 150, height: 150 }}
+        sx={{ width: 200, height: 200 }}
       />
     <h5>Hello, User!</h5>
     </Box>
