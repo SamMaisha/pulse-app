@@ -1,10 +1,33 @@
 import React, { useState } from 'react';
 import { Box, Snackbar } from '@mui/material';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
+import QuickLinksItem from './QuickLinksItem';
 
 const QuickLinks = () => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  const testData = [
+    {
+    "id": 1,
+    "user_id": 1,
+    "name": "linkedin",
+    "url": "https://www.linkedin.com/in/bob-jones-6118825/"
+    },
+    {
+    "id": 2,
+    "user_id": 1,
+    "name": "github",
+    "url": "https://github.com/bjucps209"
+    },
+    {
+    "id": 3,
+    "user_id": 1,
+    "name": "resume",
+    "url": "https://www.resume.com/bob-jones"
+    }
+    ]
+
 
   const handleCopyLink = (link) => {
     navigator.clipboard.writeText(link);
@@ -27,52 +50,15 @@ const QuickLinks = () => {
 
       }}
     >
-
       <div className="title">Quick Links</div>
 
       <Box sx={{ marginTop: '10px' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ flex: 1 }}>
-            <h3>Github:</h3>
-          </Box>
-          <Box sx={{ flex: 2 }}>
-            <input type="text" value="github.com/user" readOnly style={{ width: '120%', borderRadius: '5px' }} />
-          </Box>
-          <Box sx={{ flex: 1 }}>
-            <FileCopyIcon
-              sx={{ color: 'white', cursor: 'pointer', marginLeft: '50%' }}
-              onClick={() => handleCopyLink('github.com/user')}
-            />
-          </Box>
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ flex: 1 }}>
-            <h3>Resume:</h3>
-          </Box>
-          <Box sx={{ flex: 2 }}>
-            <input type="text" value="example.com/resume" readOnly style={{ width: '120%', borderRadius: '5px' }} />
-          </Box>
-          <Box sx={{ flex: 1 }}>
-            <FileCopyIcon
-              sx={{ color: 'white', cursor: 'pointer', marginLeft: '50%' }}
-              onClick={() => handleCopyLink('example.com/resume')}
-            />
-          </Box>
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ flex: 1 }}>
-            <h3>LinkedIn:</h3>
-          </Box>
-          <Box sx={{ flex: 2 }}>
-            <input type="text" value="linkedin.com/in/user" readOnly style={{ width: '120%', borderRadius: '5px' }} />
-          </Box>
-          <Box sx={{ flex: 1 }}>
-            <FileCopyIcon
-              sx={{ color: 'white', cursor: 'pointer', marginLeft: '50%' }}
-              onClick={() => handleCopyLink('linkedin.com/in/user')}
-            />
-          </Box>
-        </Box>
+        
+        {testData.map(({id, name, url})=> {
+          return (
+            <QuickLinksItem key = {id} handleCopyLink={handleCopyLink} name={name} url={url}/>
+          )
+        })}
       </Box>
       <Snackbar
         open={isSnackbarOpen}
