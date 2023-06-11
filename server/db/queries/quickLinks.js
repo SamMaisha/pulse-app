@@ -1,6 +1,6 @@
 const db = require("../index");
 
-// get quicklinks from db for user
+// get quicklinks
 const getQuickLinks = function (userId) {
   const queryParams = [userId];
   const parameterizedQuery = `
@@ -12,6 +12,21 @@ const getQuickLinks = function (userId) {
   });
 };
 
+// add quicklinks to db
+const addQuickLink = function (userId, name, url) {
+  const queryParams = [userId, name, url];
+  const parameterizedQuery = `
+  INSERT INTO quick_links (user_id, name, url)
+  VALUES ($1, $2, $3)
+  RETURNING *
+  `;
+  return db.query(parameterizedQuery, queryParams).then((data) => {
+    console.log(data.rows);
+    return data.rows[0];
+  });
+};
+
+// test get quicklinks
 const testLink = () => {
   return db.query("SELECT * FROM quick_links;").then((data) => {
     return data.rows;
