@@ -1,33 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Snackbar } from '@mui/material';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
 import QuickLinksItem from './QuickLinksItem';
+import axios from 'axios';
 
 const QuickLinks = () => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [quickLinks, setQuickLinks] = useState([])
 
-  const testData = [
-    {
-    "id": 1,
-    "user_id": 1,
-    "name": "linkedin",
-    "url": "https://www.linkedin.com/in/bob-jones-6118825/"
-    },
-    {
-    "id": 2,
-    "user_id": 1,
-    "name": "github",
-    "url": "https://github.com/bjucps209"
-    },
-    {
-    "id": 3,
-    "user_id": 1,
-    "name": "resume",
-    "url": "https://www.resume.com/bob-jones"
-    }
-    ]
-
+// Axios GET request to fetch data from API
+  useEffect(() => {
+    axios.get('/api/quicklinks')
+    .then((response) => {
+      setQuickLinks(response.data);
+    })
+  }, [])
 
   const handleCopyLink = (link) => {
     navigator.clipboard.writeText(link);
@@ -54,7 +41,7 @@ const QuickLinks = () => {
 
       <Box sx={{ marginTop: '10px' }}>
         
-        {testData.map(({id, name, url})=> {
+        {quickLinks.map(({id, name, url})=> {
           return (
             <QuickLinksItem key = {id} handleCopyLink={handleCopyLink} name={name} url={url}/>
           )
