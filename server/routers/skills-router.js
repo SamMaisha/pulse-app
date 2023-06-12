@@ -1,57 +1,57 @@
 const express = require("express");
 const router = express.Router();
-const quickLinksQueries = require("../db/queries/quickLinks");
+const skillsQueries = require("../db/queries/skills");
 
 //////////////////////////// TEST WITHOUT USER ID ////////////////////////////////
 
 //TEST GET
 router.get("/", (req, res) => {
-  quickLinksQueries.testLink().then((result) => {
+  skillsQueries.skills().then((result) => {
     res.json(result);
   });
 });
 
 /////////////////////////////////////// WITH USER ID //////////////////////////////////
 
-//GET /api/quicklinks/:userid => return raw data quicklinks for user
+//GET /api/skills/:userid => return raw data skills for user
 router.get("/:userid", (req, res) => {
   const userId = req.params.userid;
-  quickLinksQueries.getQuickLinks(userId).then((result) => {
+  skillsQueries.getSkills(userId).then((result) => {
     res.json(result);
   });
 });
 
-// PUT /api/quicklinks/:userid/:quicklinkid
-router.put("/:userid/:quicklinkid", (req, res) => {
+// PUT /api/skills/:userid/:skillid
+router.put("/:userid/:skillid", (req, res) => {
   const userId = req.params.userid;
-  const quickLinkId = req.params.quicklinkid;
+  const skillId = req.params.skillid;
   const newName = req.body.name;
-  const newUrl = req.body.url;
-  // update quicklink in database
-  quickLinksQueries
-    .updateQuickLink(userId, quickLinkId, newName, newUrl)
+  const newStatus = req.body.status;
+  // update skill in database
+  skillsQueries
+    .updateSkill(userId, skillId, newName, newStatus)
     .then((result) => res.json(result));
 });
 
-// POST /api/quicklinks/:userid
+// POST /api/skills/:userid
 router.post("/:userid", (req, res) => {
   const userId = req.params.userid;
-  const quickLinkName = req.body.name;
-  const quickLinkUrl = req.body.url;
-  // add quicklink to database
-  quickLinksQueries
-    .addQuickLink(userId, quickLinkName, quickLinkUrl)
+  const skillName = req.body.name;
+  const skillStatus = req.body.status;
+  // add skill to database
+  skillsQueries
+    .addSkill(userId, skillName, skillStatus)
     .then((result) => res.status(201).json(result));
 });
 
-// DELETE /api/quicklinks/:userid/:quicklinkid
-router.delete("/:userid/:quicklinkid", (req, res) => {
+// DELETE /api/skills/:userid/:skillid
+router.delete("/:userid/:skillid", (req, res) => {
   const userId = req.params.userid;
-  const quickLinkId = req.params.quicklinkid;
-  // delete quicklink from database
-  quickLinksQueries
-    .deleteQuickLink(userId, quickLinkId)
-    .then(() => res.status(200).send("quicklink deleted successfully"));
+  const skillId = req.params.skillid;
+  // delete skill from database
+  skillsQueries
+    .deleteSkill(userId, skillId)
+    .then(() => res.status(200).send("skill deleted successfully"));
 });
 
 module.exports = router;
