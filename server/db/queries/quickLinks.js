@@ -26,6 +26,17 @@ const addQuickLink = function (userId, name, url) {
   });
 };
 
+// update quicklink in db
+const updateQuickLink = function (userId, urlId, newName, newUrl) {
+  const queryParams = [userId, urlId, newName, newUrl];
+  const parameterizedQuery = `
+  UPDATE quick_links
+  SET name = $3, url = $4
+  WHERE id = $2 AND user_id = $1
+  RETURNING *
+  `;
+};
+
 // test get quicklinks
 const testLink = () => {
   return db.query("SELECT * FROM quick_links;").then((data) => {
