@@ -23,8 +23,7 @@ router.get("/:userid", (req, res) => {
 
 // PUT /api/quicklinks/:userid/:quicklinkid
 router.put("/:userid/:quicklinkid", (req, res) => {
-  const userId = req.params.userid;
-  const quickLinkId = req.params.quicklinkid;
+  const { userId, quickLinkId } = req.params;
   const newName = req.body.name;
   const newUrl = req.body.url;
 
@@ -43,7 +42,7 @@ router.post("/:userid", (req, res) => {
   // add quicklink to database
   quickLinksQueries
     .addQuickLink(userId, quickLinkName, quickLinkUrl)
-    .then((result) => res.json(result));
+    .then((result) => res.status(201).json(result));
 });
 
 module.exports = router;
