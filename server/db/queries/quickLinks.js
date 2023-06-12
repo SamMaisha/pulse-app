@@ -1,6 +1,6 @@
 const db = require("../index");
 
-// get quicklinks
+// get quicklinks for user
 const getQuickLinks = function (userId) {
   const queryParams = [userId];
   const parameterizedQuery = `
