@@ -18,9 +18,11 @@ app.use(bodyParser.json());
 
 // require routers
 const quickLinksRouter = require("./routers/quicklinks-router");
+const skillsRouter = require("./routers/skills-router");
 
 // use routers
 app.use("/api/quicklinks", quickLinksRouter);
+app.use("/api/skills", skillsRouter);
 
 //////////////////////////////////// USER CONFIG ////////////////////////////////////////
 
