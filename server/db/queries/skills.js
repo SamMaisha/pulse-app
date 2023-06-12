@@ -36,7 +36,7 @@ const updateSkill = function (userId, skillId, newName, newStatus) {
   RETURNING *
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
-    console.log(data.rows[0]);
+    console.log(data.rows);
     return data.rows[0];
   });
 };
