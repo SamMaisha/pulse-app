@@ -6,7 +6,7 @@ const skillsQueries = require("../db/queries/skills");
 
 //TEST GET
 router.get("/", (req, res) => {
-  skillsQueries.skills().then((result) => {
+  skillsQueries.testLinkSkills().then((result) => {
     res.json(result);
   });
 });
