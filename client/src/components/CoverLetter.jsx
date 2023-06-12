@@ -13,6 +13,7 @@ const CoverLetter = () => {
   return (
     <Box
       sx={{
+        position: "relative",
         padding: 1,
         borderRadius: 5,
         height: '60%',
@@ -26,15 +27,30 @@ const CoverLetter = () => {
         fontSize: '18px',
       }}
     >
-      <div className="title">Cover Letter Generator</div>
-      <Box mt={4} mb={2}>
-        <p> paragraph.</p>
-      </Box>
-      <Box mt="auto" width="90%">
-        <TextField label="Enter Text" variant="outlined" fullWidth />
+
+      <Box mt={2}>
+        <div className="title">Cover Letter Generator</div>
       </Box>
 
-      {/* Dialog */}
+      <Box mt={4}>
+        <p> paragraph.</p>
+      </Box>
+
+      <Box mt="auto" mb={2}>
+        <Button
+          variant="contained"
+          onClick={() => setOpen(true)}
+          color="secondary"
+          sx={{
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            color: '#ffffff',
+          }}
+        >
+          Create my Cover Letter
+        </Button>
+      </Box>
+
+      {/* Popup window */}
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>What position are you appllying for?</DialogTitle>
         <DialogContent>
