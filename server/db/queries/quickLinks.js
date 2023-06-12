@@ -27,14 +27,18 @@ const addQuickLink = function (userId, name, url) {
 };
 
 // update quicklink in db
-const updateQuickLink = function (userId, urlId, newName, newUrl) {
-  const queryParams = [userId, urlId, newName, newUrl];
+const updateQuickLink = function (userId, quickLinkId, newName, newUrl) {
+  const queryParams = [userId, quickLinkId, newName, newUrl];
   const parameterizedQuery = `
   UPDATE quick_links
   SET name = $3, url = $4
   WHERE id = $2 AND user_id = $1
   RETURNING *
   `;
+  return db.query(parameterizedQuery, queryParams).then((data) => {
+    console.log(data.rows[0]);
+    return data.rows[0];
+  });
 };
 
 // test get quicklinks
@@ -44,4 +48,4 @@ const testLink = () => {
   });
 };
 
-module.exports = { getQuickLinks, testLink };
+module.exports = { getQuickLinks, testLink, addQuickLink, updateQuickLink };
