@@ -41,6 +41,16 @@ const updateQuickLink = function (userId, quickLinkId, newName, newUrl) {
   });
 };
 
+// delete quicklink from db
+const deleteQuickLink = function (userId, quickLinkId) {
+  const queryParams = [userId, quickLinkId];
+  const parameterizedQuery = `
+  DELETE FROM quick_links
+  WHERE id = $2 AND user_id = $1
+  `;
+  return db.query(parameterizedQuery, queryParams);
+};
+
 // test get quicklinks
 const testLink = () => {
   return db.query("SELECT * FROM quick_links;").then((data) => {
@@ -48,4 +58,10 @@ const testLink = () => {
   });
 };
 
-module.exports = { getQuickLinks, testLink, addQuickLink, updateQuickLink };
+module.exports = {
+  getQuickLinks,
+  testLink,
+  addQuickLink,
+  updateQuickLink,
+  deleteQuickLink,
+};
