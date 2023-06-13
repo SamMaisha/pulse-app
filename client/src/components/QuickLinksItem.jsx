@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const QuickLinksItem = ({ quickLink, handleCopyLink, handleEditLink, handleDeleteLink }) => {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', height: '33%' }}>
       <Box sx={{ flex: 1 }}>
         <h3>{quickLink.name}</h3>
       </Box>
@@ -29,7 +29,7 @@ const QuickLinksItem = ({ quickLink, handleCopyLink, handleEditLink, handleDelet
           onClick={() => handleEditLink(quickLink)}
         />
         <DeleteIcon
-          sx={{  color: 'rgba(210, 77, 87)', cursor: 'pointer', marginLeft: '5%' }}
+          sx={{  color: 'rgba(210, 77, 87)', cursor: 'pointer', marginLeft: '5%', marginRight: '5%' }}
           onClick={() => handleDeleteLink(quickLink.id)}
         />
       </Box>

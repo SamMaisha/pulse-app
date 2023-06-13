@@ -100,6 +100,7 @@ const QuickLinks = () => {
         height: 200,
         width: "110%",
         bgcolor: "rgba(91, 130, 130, 0.4)",
+        margin: 0,
       }}
     >
       <Box
@@ -116,7 +117,12 @@ const QuickLinks = () => {
 
       <div className="title">Quick Links</div>
 
-      <Box sx={{ marginTop: '10px' }}>
+      <Box sx={{
+        marginTop: '10px',
+        fontSize: '1rem',
+        height: '80%',
+        overflow: 'auto',
+      }}>
         {quickLinks.map((quickLink) => (
           <QuickLinksItem
             quickLink={quickLink}
