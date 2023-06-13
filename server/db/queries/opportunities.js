@@ -22,8 +22,8 @@ const addOpportunity = function (userId, name, date, notes) {
   RETURNING *
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
-    console.log("RESULT", data.rows);
-    console.log("RESULT1", data.rows[0]);
+    console.log("RESULT", data.rows); // array
+    console.log("RESULT1", data.rows[0]); // object
     return data.rows[0];
   });
 };
