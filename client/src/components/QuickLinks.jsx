@@ -98,6 +98,7 @@ const QuickLinks = () => {
         marginTop: '10px',
         height: '80%',
         overflow: 'auto',
+        fontSize: 'large',
       }}>
         {quickLinks.map((quickLink) => (
           <QuickLinksItem

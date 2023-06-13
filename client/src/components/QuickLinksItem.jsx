@@ -7,8 +7,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const QuickLinksItem = ({ quickLink, handleCopyLink, handleEditLink, handleDeleteLink }) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', height: '33%' }}>
-      <Box sx={{ flex: 1 }}>
-        <h3>{quickLink.name}</h3>
+      <Box sx={{ flex: 1, marginLeft: '2%' }}>
+        <span>{quickLink.name}</span>
       </Box>
       <Box sx={{ flex: 2 }}>
         <input type="text" value={quickLink.url} readOnly style={{ width: '160%', borderRadius: '5px' }} />
