@@ -13,45 +13,49 @@ router.get("/", (req, res) => {
 
 /////////////////////////////////////// WITH USER ID //////////////////////////////////
 
-//GET /api/skills/:userid => return raw data skills for user
+//GET /api/opportunities/:userid
 router.get("/:userid", (req, res) => {
   const userId = req.params.userid;
-  opportunitiesQueries.getSkills(userId).then((result) => {
+  opportunitiesQueries.getOpportunities(userId).then((result) => {
     res.json(result);
   });
 });
 
-// PUT /api/skills/:userid/:skillid
-router.put("/:userid/:skillid", (req, res) => {
+// PUT /api/opportunities/:userid/:opportunityid
+router.put("/:userid/:opportunityid", (req, res) => {
   const userId = req.params.userid;
-  const skillId = req.params.skillid;
+  const opportunityId = req.params.opportunityid;
   const newName = req.body.name;
-  const newStatus = req.body.status;
-  // update skill in database
+  const newDate = req.body.date;
+  const newNote = req.body.notes;
+  // update opportunity in database
   opportunitiesQueries
-    .updateSkill(userId, skillId, newName, newStatus)
+    .updateOpportunity(userId, opportunityId, newName, newDate, newNote)
     .then((result) => res.json(result));
 });
 
-// POST /api/skills/:userid
+// POST /api/opportunities/:userid
 router.post("/:userid", (req, res) => {
   const userId = req.params.userid;
-  const skillName = req.body.name;
-  const skillStatus = req.body.status;
-  // add skill to database
+  const opportunityName = req.body.name;
+  const opportunityDate = req.body.date;
+  const opportunityNote = req.body.notes;
+  // add opportunity to database
   opportunitiesQueries
-    .addSkill(userId, skillName, skillStatus)
+    .addOpportunity(userId, opportunityName, opportunityDate, opportunityNote)
     .then((result) => res.status(201).json(result));
 });
 
-// DELETE /api/skills/:userid/:skillid
-router.delete("/:userid/:skillid", (req, res) => {
+// DELETE /api/opportunities/:userid/:opportunityid
+router.delete("/:userid/:opportunityid", (req, res) => {
   const userId = req.params.userid;
-  const skillId = req.params.skillid;
-  // delete skill from database
+  const opportunityId = req.params.opportunityid;
+  // delete opportunity from database
   opportunitiesQueries
-    .deleteSkill(userId, skillId)
-    .then(() => res.status(200).send("skill deleted successfully"));
+    .deleteOpportunity(userId, opportunityId)
+    .then(() =>
+      res.status(200).send("networking opportunity deleted successfully")
+    );
 });
 
 module.exports = router;
