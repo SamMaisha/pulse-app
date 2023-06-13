@@ -1,13 +1,82 @@
 import React, { useState } from 'react';
-import { Box, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import {
+  Box,
+  TextField,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  FormGroup,
+  Checkbox,
+} from '@mui/material';
+
+// Sample data
+const initialSkills = [
+  { id: 1, skill: 'CSS', skillLevel: 'Intermediate' },
+  { id: 2, skill: 'JavaScript', skillLevel: 'Advanced' },
+  { id: 3, skill: 'Ruby', skillLevel: 'Beginner' },
+];
+
+const initialCareers = [
+  {
+    id: 1,
+    company: 'Lighthouse Labs',
+    position: 'Lecturer',
+    website: 'https://www.lighthouselabs.ca/',
+    coverLetter: true,
+    applied: true,
+    interviewed: false,
+    notes: 'Some notes here',
+  },
+  {
+    id: 2,
+    company: 'Company B',
+    position: 'Position B',
+    website: 'https://www.example.com',
+    coverLetter: false,
+    applied: true,
+    interviewed: true,
+    notes: 'Some notes for Company B',
+  },
+];
 
 const CoverLetter = () => {
   const [open, setOpen] = useState(false);
   const [company, setCompany] = useState('');
   const [position, setPosition] = useState('');
+  const [experience, setExperience] = useState('');
+  const [skills, setSkills] = useState([]);
+  const [strengths, setStrengths] = useState([]);
+  const [extraInfo, setExtraInfo] = useState('');
 
   const handleSave = () => {
+    const data = {
+      position,
+      company,
+      experience,
+      skills,
+      strengths,
+      extraInfo,
+    };
+    // Save all the information from the client
+    // Generate the message and send it to OpenAI
+    //...
+
     setOpen(false);
+  };
+
+  const handleSkillsChange = (event) => {
+    setSkills(event.target.value);
+  };
+
+  const handleStrengthsChange = (event) => {
+    setStrengths(event.target.value);
   };
 
   return (
@@ -33,7 +102,13 @@ const CoverLetter = () => {
       </Box>
 
       <Box mt={4}>
-        <p> paragraph.</p>
+        <p> Generated Cover Letter here. </p>
+        <p> Position: {position} </p>
+        <p> Company: {company} </p>
+        <p> Experience: {experience} </p>
+        <p> Skills: {skills} </p>
+        <p> Strengths: {strengths} </p>
+        <p> ExtraInfo: {extraInfo} </p>
       </Box>
 
       <Box mt="auto" mb={2}>
@@ -52,26 +127,146 @@ const CoverLetter = () => {
 
       {/* Popup window */}
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>What position are you appllying for?</DialogTitle>
+        <DialogTitle>Information for your Cover Letter</DialogTitle>
         <DialogContent>
-          <TextField
-            label="Company"
-            value={company}
-            variant="outlined"
-            fullWidth
-            margin="dense"
-          />
-          <TextField
-            label="Position"
-            value={position}
-            variant="outlined"
-            fullWidth
-            margin="dense"
-          />
+          <FormControl component="fieldset">
+            <FormLabel component="legend">What position are you appllying for?</FormLabel>
+            <RadioGroup
+              aria-label="career"
+              value={position} // Use the company state to track the selected company
+              onChange={(event) => setPosition(event.target.value)}
+            >
+              {initialCareers.map((career) => (
+                <FormControlLabel
+                  key={career.id}
+                  value={`${career.position},${career.company}`} // Concatenate company and position for value
+                  control={<Radio />}
+                  label={`${career.position} - ${career.company}`}
+                />
+              ))}
+              <FormControlLabel
+                value="custom" // Use "custom" as the value for the custom input option
+                control={<Radio />}
+                label="Custom"
+              />
+            </RadioGroup>
+          </FormControl>
+
+          {position === 'custom' && (
+            <Box mt={2}>
+              <TextField
+                label="Position"
+                value={position}
+                onChange={(event) => setPosition(event.target.value)}
+                variant="outlined"
+                fullWidth
+                margin="dense"
+              />
+              <TextField
+                label="Company"
+                value={company}
+                onChange={(event) => setCompany(event.target.value)}
+                variant="outlined"
+                fullWidth
+                margin="dense"
+              />
+            </Box>
+          )}
+
+          <Box mt={2}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">How many years of experience do you have?</FormLabel>
+              <RadioGroup
+                aria-label="experience"
+                value={experience}
+                onChange={(event) => setExperience(event.target.value)}
+              >
+                <FormControlLabel value="No experience" control={<Radio />} label="No experience" />
+                <FormControlLabel
+                  value="Less than 3 years"
+                  control={<Radio />}
+                  label="Less than 3 years"
+                />
+                <FormControlLabel value="3-5 years" control={<Radio />} label="3-5 years" />
+                <FormControlLabel value="5-10 years" control={<Radio />} label="5-10 years" />
+                <FormControlLabel value="More than 10 years" control={<Radio />} label="More than 10 years" />
+              </RadioGroup>
+            </FormControl>
+          </Box>
+
+          <Box mt={2}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Choose your top 3 job skills for this position</FormLabel>
+              <FormGroup>
+                {initialSkills.map((skill) => (
+                  <FormControlLabel
+                    key={skill.id}
+                    control={
+                      <Checkbox
+                        checked={skills.includes(skill.skill)} // Check if the skill is in the selected job skills
+                        onChange={handleSkillsChange}
+                        value={skill.skill}
+                      />
+                    }
+                    label={skill.skill}
+                  />
+                ))}
+              </FormGroup>
+            </FormControl>
+          </Box>
+
+          <Box mt={2}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Choose your top 3 strengths</FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={strengths.includes('Strength 1')} // Check if the strength is in the selected strengths
+                      onChange={handleStrengthsChange}
+                      value="Strength 1"
+                    />
+                  }
+                  label="Strength 1"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={strengths.includes('Strength 2')}
+                      onChange={handleStrengthsChange}
+                      value="Strength 2"
+                    />
+                  }
+                  label="Strength 2"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={strengths.includes('Strength 3')}
+                      onChange={handleStrengthsChange}
+                      value="Strength 3"
+                    />
+                  }
+                  label="Strength 3"
+                />
+              </FormGroup>
+            </FormControl>
+          </Box>
+
+          <Box mt={2}>
+            <TextField
+              label="Anything you want to specify in your letter?"
+              value={extraInfo}
+              onChange={(event) => setExtraInfo(event.target.value)}
+              variant="outlined"
+              fullWidth
+              margin="dense"
+            />
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={handleSave}>Next</Button>
+          <Button onClick={handleSave}>Submit</Button>
         </DialogActions>
       </Dialog>
     </Box>
