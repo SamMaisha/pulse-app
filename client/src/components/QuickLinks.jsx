@@ -4,36 +4,31 @@ import QuickLinksItem from './QuickLinksItem';
 import axios from 'axios';
 import AddIcon from "@mui/icons-material/Add";
 
-// sample data
-const initialQuickLinks = [
-  {
-    id: 1,
-    user_id: 1,
-    name: 'linkedin',
-    url: 'https://www.linkedin.com/in/bob-jones-6118825/',
-  },
-  {
-    id: 2,
-    user_id: 1,
-    name: 'github',
-    url: 'https://github.com/bjucps209',
-  },
-  {
-    id: 3,
-    user_id: 1,
-    name: 'resume',
-    url: 'https://www.resume.com/bob-jones',
-  },
-];
-
 const QuickLinks = () => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [quickLinks, setQuickLinks] = useState(initialQuickLinks) // Set initial data for testing 
-
+  const [quickLinks, setQuickLinks] = useState([])
   const [open, setOpen] = useState(false);
   const [newLink, setNewLink] = useState('');
   const [selectedLink, setSelectedLink] = useState(null);
+
+  // Axios GET request to fetch data from API
+  useEffect(() => {
+    axios.get('/api/quicklinks')
+      .then((response) => {
+        setQuickLinks(response.data);
+      })
+  }, [])
+
+  const handleCopyLink = (link) => {
+    navigator.clipboard.writeText(link);
+    setSnackbarMessage(`Link copied: ${link}`);
+    setIsSnackbarOpen(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setIsSnackbarOpen(false);
+  };
 
   const handleAddLink = () => {
     setSelectedLink(null);
@@ -73,24 +68,6 @@ const QuickLinks = () => {
     }));
   };
 
-  // Axios GET request to fetch data from API
-  useEffect(() => {
-    axios.get('/api/quicklinks')
-      .then((response) => {
-        setQuickLinks(response.data);
-      })
-  }, [])
-
-  const handleCopyLink = (link) => {
-    navigator.clipboard.writeText(link);
-    setSnackbarMessage(`Link copied: ${link}`);
-    setIsSnackbarOpen(true);
-  };
-
-  const handleCloseSnackbar = () => {
-    setIsSnackbarOpen(false);
-  };
-
   return (
     <Box
       sx={{
@@ -119,7 +96,6 @@ const QuickLinks = () => {
 
       <Box sx={{
         marginTop: '10px',
-        fontSize: '1rem',
         height: '80%',
         overflow: 'auto',
       }}>
