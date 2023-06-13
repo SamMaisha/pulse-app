@@ -26,10 +26,12 @@ const openai = new OpenAIApi(configuration);
 // require routers
 const quickLinksRouter = require("./routers/quicklinks-router");
 const skillsRouter = require("./routers/skills-router");
+const opportunitiesRouter = require("./routers/opportunities-router");
 
 // use routers
 app.use("/api/quicklinks", quickLinksRouter);
 app.use("/api/skills", skillsRouter);
+app.use("/api/opportunities", opportunitiesRouter);
 
 //////////////////////////////////// USER CONFIG ////////////////////////////////////////
 
