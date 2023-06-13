@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
   Box,
   TextField,
@@ -54,6 +55,7 @@ const CoverLetter = () => {
   const [skills, setSkills] = useState([]);
   const [strengths, setStrengths] = useState([]);
   const [extraInfo, setExtraInfo] = useState('');
+  const [response, setResponse] = useState("");
 
   const handleSave = () => {
     const data = {
@@ -67,6 +69,15 @@ const CoverLetter = () => {
     // Save all the information from the client
     // Generate the message and send it to OpenAI
     //...
+    axios.post("http://localhost:8001/gpt-prompt", data )
+    .then((res) => {
+      setResponse(res.data);
+      console.log(res.data);
+      console.log(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 
     setOpen(false);
   };
@@ -78,7 +89,31 @@ const CoverLetter = () => {
   const handleStrengthsChange = (event) => {
     setStrengths(event.target.value);
   };
-
+  if (response !== "") {
+    return (
+    <Box
+      sx={{
+        position: "relative",
+        padding: 1,
+        borderRadius: 5,
+        height: '60%',
+        marginLeft: '50px',
+        bgcolor: 'rgba(91, 130, 130, 0.4)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontWeight: 'bold',
+        fontSize: '18px'
+    }}>
+      <Box sx = {{overflow: 'auto'}}>
+        {response}
+      </Box>
+      <Button onClick={() => setResponse("")} variant="contained">Reset</Button>
+    </Box>
+    )
+  }
+  else {
   return (
     <Box
       sx={{
@@ -96,7 +131,6 @@ const CoverLetter = () => {
         fontSize: '18px',
       }}
     >
-
       <Box mt={2}>
         <div className="title">Cover Letter Generator</div>
       </Box>
@@ -271,6 +305,7 @@ const CoverLetter = () => {
       </Dialog>
     </Box>
   );
+}
 };
 
 export default CoverLetter;
