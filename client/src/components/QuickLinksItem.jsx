@@ -11,23 +11,25 @@ const QuickLinksItem = ({ quickLink, handleCopyLink, handleEditLink, handleDelet
         <h3>{quickLink.name}</h3>
       </Box>
       <Box sx={{ flex: 2 }}>
-        <input type="text" value={quickLink.url} readOnly style={{ width: '120%', borderRadius: '5px' }} />
+        <input type="text" value={quickLink.url} readOnly style={{ width: '160%', borderRadius: '5px' }} />
       </Box>
-      <Box sx={{ flex: 1 }}>
+      <Box sx={{
+        flex: 2,
+        marginLeft: '10%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+      }}>
         <FileCopyIcon
-          sx={{ color: 'white', cursor: 'pointer', marginLeft: '50%' }}
+          sx={{ color: 'rgba(103, 128, 159)', cursor: 'pointer', marginLeft: '5%' }}
           onClick={() => handleCopyLink(quickLink.url)}
         />
-      </Box>
-      <Box sx={{ flex: 1 }}>
         <EditIcon
-          sx={{ color: 'white', cursor: 'pointer', marginLeft: '50%' }}
-          onClick={() => handleEditLink(quickLink.url)}
+          sx={{ color: 'rgba(184, 134, 11)', cursor: 'pointer', marginLeft: '5%' }}
+          onClick={() => handleEditLink(quickLink)}
         />
-      </Box>
-      <Box sx={{ flex: 1 }}>
         <DeleteIcon
-          sx={{ color: 'white', cursor: 'pointer', marginLeft: '50%' }}
+          sx={{  color: 'rgba(210, 77, 87)', cursor: 'pointer', marginLeft: '5%' }}
           onClick={() => handleDeleteLink(quickLink.id)}
         />
       </Box>

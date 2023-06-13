@@ -32,7 +32,7 @@ const QuickLinks = () => {
   const [quickLinks, setQuickLinks] = useState(initialQuickLinks) // Set initial data for testing 
 
   const [open, setOpen] = useState(false);
-  const [newLink, setNewLink] = useState({ name: '', url: '' });
+  const [newLink, setNewLink] = useState('');
   const [selectedLink, setSelectedLink] = useState(null);
 
   const handleAddLink = () => {
@@ -45,9 +45,9 @@ const QuickLinks = () => {
     setQuickLinks((prevLinks) => prevLinks.filter((link) => link.id !== id));
   };
 
-  const handleEditLink = (link) => {
-    setSelectedLink(link);
-    setNewLink(link);
+  const handleEditLink = (quickLink) => {
+    setSelectedLink(quickLink);
+    setNewLink(quickLink);
     setOpen(true);
   };
 
@@ -117,7 +117,6 @@ const QuickLinks = () => {
       <div className="title">Quick Links</div>
 
       <Box sx={{ marginTop: '10px' }}>
-
         {quickLinks.map((quickLink) => (
           <QuickLinksItem
             quickLink={quickLink}
