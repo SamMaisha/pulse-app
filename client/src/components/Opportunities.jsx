@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import AddIcon from "@mui/icons-material/Add";
 import { DataGrid } from "@mui/x-data-grid";
@@ -6,17 +6,21 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 import { format, parse } from "date-fns";
-
-// Sample data
-const initialOpportunities = [
-  { id: 1, date: '2022-06-24', opportunity: 'Hackathon', notes: 'Some notes here' },
-];
+import axios from 'axios';
 
 const Opportunities = () => {
-  const [opportunities, setOpportunities] = useState(initialOpportunities); // Set initial data for testing 
+  const [opportunities, setOpportunities] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedOpportunity, setSelectedOpportunity] = useState(null);
   const [newOpportunity, setNewOpportunity] = useState({});
+
+  // Axios GET request to fetch data from API
+  useEffect(() => {
+    axios.get('/api/opportunities')
+      .then((response) => {
+        setOpportunities(response.data);
+      })
+  }, [])
 
   const handleAddOpportunity = () => {
     setSelectedOpportunity(null);
@@ -94,7 +98,7 @@ const Opportunities = () => {
       cellClassName: "wrap-text",
       renderCell: (params) => (
         <IconButton onClick={() => handleEditOpportunity(params.row)}>
-          <EditIcon sx={{color:'rgba(184, 134, 11)'}}/>
+          <EditIcon sx={{ color: 'rgba(184, 134, 11)' }} />
         </IconButton>
       ),
     },
@@ -104,7 +108,7 @@ const Opportunities = () => {
       width: 70,
       renderCell: (params) => (
         <IconButton onClick={() => handleDeleteOpportunity(params.row.id)}>
-          <DeleteIcon sx={{ color: 'rgba(210, 77, 87)' }}/>
+          <DeleteIcon sx={{ color: 'rgba(210, 77, 87)' }} />
         </IconButton>
       ),
     },
@@ -135,7 +139,7 @@ const Opportunities = () => {
         }}
       >
         <IconButton onClick={handleAddOpportunity}>
-          <AddIcon sx={{ color: 'white' }}/>
+          <AddIcon sx={{ color: 'white' }} />
         </IconButton>
       </Box>
       <Box
@@ -154,14 +158,12 @@ const Opportunities = () => {
         <DataGrid
           rows={opportunities}
           columns={columns}
-          sx={{ 
+          sx={{
             borderColor: "transparent",
-                '& .MuiDataGrid-cell': {
-                  color: 'white',
-                },
-                '& .MuiDataGrid-columnHeaderTitle': {
-                  color: 'white',
-                }}}
+            '& .MuiDataGrid-cell, & .MuiDataGrid-columnHeaderTitle': {
+              color: 'white',
+            }
+          }}
           disableRowSelectionOnClick
           disableColumnMenu
           hideFooterPagination
