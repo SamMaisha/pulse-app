@@ -1,58 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Checkbox } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-
-// Sample data
-const initialCareers = [
-  {
-    id: 1,
-    company: 'Lighthouse Labs',
-    position: 'Lecturer',
-    website: 'https://www.lighthouselabs.ca/',
-    coverLetter: true,
-    applied: true,
-    interviewed: false,
-    notes: 'Some notes here',
-  },
-  {
-    id: 2,
-    company: 'Company B',
-    position: 'Position B',
-    website: 'https://www.example.com',
-    coverLetter: false,
-    applied: true,
-    interviewed: true,
-    notes: 'Some notes for Company B',
-  },
-];
+import axios from 'axios';
 
 const Careers = () => {
-  const [careers, setCareers] = useState(initialCareers); // Set initial data for testing 
+  const [careers, setCareers] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedCareer, setSelectedCareer] = useState(null);
-  const [newCareer, setNewCareer] = useState({
-    company: '',
-    position: '',
-    website: '',
-    coverLetter: false,
-    applied: false,
-    interviewed: false,
-    notes: '',
-  });
+  const [newCareer, setNewCareer] = useState('');
+
+  // Axios GET request to fetch data from API
+  useEffect(() => {
+    axios.get('/api/careers')
+      .then((response) => {
+        setCareers(response.data);
+      })
+  }, [])
 
   const handleAddCareer = () => {
     setSelectedCareer(null);
     setNewCareer({
-      company: '',
-      position: '',
-      website: '',
-      coverLetter: false,
-      applied: false,
-      interviewed: false,
+      company_name: '',
+      job_title: '',
+      job_link: '',
+      is_coverletter_generated: false,
+      is_applied: false,
+      is_interviewed: false,
       notes: '',
     });
     setOpen(true);
@@ -86,7 +63,7 @@ const Careers = () => {
   };
 
   const handleInputChange = (event, field) => {
-    const value = field === 'coverLetter' || field === 'applied' || field === 'interviewed' ? event.target.checked : event.target.value;
+    const value = field === 'is_coverletter_generated' || field === 'is_applied' || field === 'is_interviewed' ? event.target.checked : event.target.value;
 
     setNewCareer((prevCareer) => ({
       ...prevCareer,
@@ -95,31 +72,31 @@ const Careers = () => {
   };
 
   const columns = [
-    { field: 'company', headerName: 'Company', width: 150 },
-    { field: 'position', headerName: 'Position', width: 150 },
-    { field: 'website', headerName: 'Website', width: 200 },
+    { field: 'company_name', headerName: 'Company', width: 150 },
+    { field: 'job_title', headerName: 'Position', width: 150 },
+    { field: 'job_link', headerName: 'Website', width: 200 },
     {
-      field: 'coverLetter',
+      field: 'is_coverletter_generated',
       headerName: 'Cover Letter',
       width: 100,
       renderCell: (params) => (
-        <Checkbox checked={params.value} style={{color:'white'}} disabled />
+        <Checkbox checked={params.value} style={{ color: 'white' }} disabled />
       ),
     },
     {
-      field: 'applied',
+      field: 'is_applied',
       headerName: 'Applied',
       width: 80,
       renderCell: (params) => (
-        <Checkbox checked={params.value} style={{color:'white'}} disabled />
+        <Checkbox checked={params.value} style={{ color: 'white' }} disabled />
       ),
     },
     {
-      field: 'interviewed',
+      field: 'is_interviewed',
       headerName: 'Interviewed',
       width: 100,
       renderCell: (params) => (
-        <Checkbox checked={params.value} style={{color:'white'}} disabled />
+        <Checkbox checked={params.value} style={{ color: 'white' }} disabled />
       ),
     },
     { field: 'notes', headerName: 'Notes', width: 200 },
@@ -129,7 +106,7 @@ const Careers = () => {
       width: 70,
       renderCell: (params) => (
         <IconButton onClick={() => handleEditCareer(params.row)}>
-          <EditIcon sx={{color:'rgba(184, 134, 11)'}}/>
+          <EditIcon sx={{ color: 'rgba(184, 134, 11)' }} />
         </IconButton>
       ),
     },
@@ -139,7 +116,7 @@ const Careers = () => {
       width: 70,
       renderCell: (params) => (
         <IconButton onClick={() => handleDeleteCareer(params.row.id)}>
-          <DeleteIcon sx={{ color: 'rgba(210, 77, 87)' }}/>
+          <DeleteIcon sx={{ color: 'rgba(210, 77, 87)' }} />
         </IconButton>
       ),
     },
@@ -182,14 +159,15 @@ const Careers = () => {
         hideFooterPagination
         hideFooterSelectedRowCount
         hideFooter
-        sx={{ 
-        borderColor: "transparent",
-            '& .MuiDataGrid-cell': {
-              color: 'white',
-            },
-            '& .MuiDataGrid-columnHeaderTitle': {
-              color: 'white',
-            }}}
+        sx={{
+          borderColor: "transparent",
+          '& .MuiDataGrid-cell': {
+            color: 'white',
+          },
+          '& .MuiDataGrid-columnHeaderTitle': {
+            color: 'white',
+          }
+        }}
       />
 
       {/* Popup window */}
@@ -198,40 +176,42 @@ const Careers = () => {
         <DialogContent>
           <TextField
             label="Company"
-            value={newCareer.company}
-            onChange={(e) => handleInputChange(e, 'company')}
+            value={newCareer.company_name}
+            onChange={(e) => handleInputChange(e, 'company_name')}
             fullWidth
             margin="normal"
           />
           <TextField
             label="Position"
-            value={newCareer.position}
-            onChange={(e) => handleInputChange(e, 'position')}
+            value={newCareer.job_title}
+            onChange={(e) => handleInputChange(e, 'job_title')}
             fullWidth
             margin="normal"
           />
           <TextField
             label="Website"
-            value={newCareer.website}
-            onChange={(e) => handleInputChange(e, 'website')}
+            value={newCareer.job_link}
+            onChange={(e) => handleInputChange(e, 'job_link')}
             fullWidth
             margin="normal"
           />
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Checkbox
-              checked={newCareer.coverLetter}
-              onChange={(e) => handleInputChange(e, 'coverLetter')}
+              checked={newCareer.is_coverletter_generated}
+              onChange={(e) => handleInputChange(e, 'is_coverletter_generated')}
             />
             <span>Cover Letter</span>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Checkbox checked={newCareer.applied} onChange={(e) => handleInputChange(e, 'applied')} />
+            <Checkbox
+              checked={newCareer.is_applied}
+              onChange={(e) => handleInputChange(e, 'is_applied')} />
             <span>Applied</span>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Checkbox
-              checked={newCareer.interviewed}
-              onChange={(e) => handleInputChange(e, 'interviewed')}
+              checked={newCareer.is_interviewed}
+              onChange={(e) => handleInputChange(e, 'is_interviewed')}
             />
             <span>Interviewed</span>
           </Box>
