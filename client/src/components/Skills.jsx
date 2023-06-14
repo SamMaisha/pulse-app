@@ -1,66 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from "@mui/material/Box";
 import { IconButton, MenuItem, Select, TextField, Dialog, DialogTitle, DialogContent, DialogActions, Button, InputLabel } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-
-// Sample data
-const initialSkills = [
-  { id: 1, skill: 'CSS', skillLevel: 'Intermediate' },
-  { id: 2, skill: 'JavaScript', skillLevel: 'Advanced' },
-  { id: 3, skill: 'Ruby', skillLevel: 'Beginner' },
-];
+import axios from 'axios';
 
 const Skills = () => {
-  const [skills, setSkills] = useState(initialSkills); // Set initial data for testing 
+  const [skills, setSkills] = useState([]);
   const [open, setOpen] = useState(false);
   const [newSkill, setNewSkill] = useState('');
   const [selectedSkill, setSelectedSkill] = useState(null);
 
-  const columns = [
-    {
-      field: 'skill',
-      headerName: 'Skill',
-      width: 200,
-      renderCell: (params) => (
-        <div>{params.value}</div>
-      ),
-    },
-    {
-      field: 'skillLevel',
-      headerName: 'Skill Level',
-      width: 200,
-      renderCell: (params) => (
-        <div>{params.value}</div>
-      ),
-    },
-    {
-      field: 'edit',
-      headerName: 'Edit',
-      width: 70,
-      renderCell: (params) => (
-        <IconButton onClick={() => handleEditSkill(params.row)} sx={{ color: 'rgba(184, 134, 11)' }}>
-          <EditIcon />
-        </IconButton>
-      ),
-    },
-    {
-      field: 'delete',
-      headerName: 'Delete',
-      width: 70,
-      renderCell: (params) => (
-        <IconButton onClick={() => handleDeleteSkill(params.row.id)} sx={{ color: 'rgba(210, 77, 87)' }}>
-          <DeleteIcon />
-        </IconButton>
-      ),
-    },
-  ];
+  // Axios GET request to fetch data from API
+  useEffect(() => {
+    axios.get('/api/skills')
+      .then((response) => {
+        setSkills(response.data);
+      })
+  }, [])
 
   const handleAddSkill = () => {
     setSelectedSkill(null);
-    setNewSkill({ skill: '', skillLevel: '' });
+    setNewSkill({ skill: '', status: '' });
     setOpen(true);
   };
 
@@ -93,6 +56,45 @@ const Skills = () => {
       [field]: event.target.value,
     }));
   };
+
+  const columns = [
+    {
+      field: 'name',
+      headerName: 'Skill',
+      width: 180,
+      renderCell: (params) => (
+        <div>{params.value}</div>
+      ),
+    },
+    {
+      field: 'status',
+      headerName: 'Status',
+      width: 150,
+      renderCell: (params) => (
+        <div>{params.value}</div>
+      ),
+    },
+    {
+      field: 'edit',
+      headerName: 'Edit',
+      width: 70,
+      renderCell: (params) => (
+        <IconButton onClick={() => handleEditSkill(params.row)} sx={{ color: 'rgba(184, 134, 11)' }}>
+          <EditIcon />
+        </IconButton>
+      ),
+    },
+    {
+      field: 'delete',
+      headerName: 'Delete',
+      width: 70,
+      renderCell: (params) => (
+        <IconButton onClick={() => handleDeleteSkill(params.row.id)} sx={{ color: 'rgba(210, 77, 87)' }}>
+          <DeleteIcon />
+        </IconButton>
+      ),
+    },
+  ];
 
   return (
     <Box
@@ -130,10 +132,7 @@ const Skills = () => {
           columns={columns}
           sx={{
             borderColor: "transparent",
-            '& .MuiDataGrid-cell': {
-              color: 'white',
-            },
-            '& .MuiDataGrid-columnHeaderTitle': {
+            '& .MuiDataGrid-cell, & .MuiDataGrid-columnHeaderTitle': {
               color: 'white',
             },
           }}
@@ -149,29 +148,29 @@ const Skills = () => {
         <DialogContent sx={{ width: '250px' }}>
           <TextField
             label="Skill"
-            value={newSkill.skill}
-            onChange={(event) => handleInputChange(event, 'skill')}
+            value={newSkill.name}
+            onChange={(event) => handleInputChange(event, 'name')}
             variant="standard"
             fullWidth
             margin="dense"
           />
           <InputLabel
             variant="standard"
-            shrink={Boolean(newSkill.skillLevel)}
+            shrink={Boolean(newSkill.status)}
             sx={{ fontSize: '1rem', fontWeight: 500, marginTop: '8px' }}
           >
             Skill Level
           </InputLabel>
           <Select
             label="Skill Level"
-            value={newSkill.skillLevel}
-            onChange={(event) => handleInputChange(event, 'skillLevel')}
+            value={newSkill.status}
+            onChange={(event) => handleInputChange(event, 'status')}
             variant="standard"
             fullWidth
             margin="dense"
             sx={{ minWidth: '120px' }}
           >
-            <MenuItem value="Beginner">Beginner</MenuItem>
+            <MenuItem value="Novice">Novice</MenuItem>
             <MenuItem value="Intermediate">Intermediate</MenuItem>
             <MenuItem value="Advanced">Advanced</MenuItem>
           </Select>
