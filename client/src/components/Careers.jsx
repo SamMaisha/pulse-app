@@ -8,10 +8,18 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
 const Careers = () => {
+  // careers state used to store the careers data fetched from the API 
+  // and represents the list of careers that will be displayed in the component.
   const [careers, setCareers] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [selectedCareer, setSelectedCareer] = useState(null);
+
+  // newCareer state holds the temporary data for the career being added or edited.
   const [newCareer, setNewCareer] = useState('');
+
+  // selectedCareer state holds the selection of the career being edited.
+  const [selectedCareer, setSelectedCareer] = useState(null);
+
+  // open state controls the Dialog(popup window).
+  const [open, setOpen] = useState(false);
 
   // Axios GET request to fetch data from API
   useEffect(() => {
@@ -37,6 +45,7 @@ const Careers = () => {
 
 
   const handleDeleteCareer = (id) => {
+    // ------TODO------- Axios DELETE request to delete data here
     const updatedCareers = careers.filter((career) => career.id !== id);
     setCareers(updatedCareers);
   };
@@ -49,12 +58,14 @@ const Careers = () => {
 
   const handleSaveCareer = () => {
     if (selectedCareer) {
+      // ------TODO------- Axios PUT request to edit data here
       setCareers((prevCareers) =>
         prevCareers.map((career) =>
           career.id === selectedCareer.id ? { ...newCareer, id: selectedCareer.id } : career
         )
       );
     } else {
+      // ------TODO------- Axios POST request to add data here
       const newId = careers.length > 0 ? careers[careers.length - 1].id + 1 : 1;
       setCareers((prevCareers) => [...prevCareers, { ...newCareer, id: newId }]);
     }
