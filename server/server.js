@@ -16,8 +16,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY
-})
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 const openai = new OpenAIApi(configuration);
 
@@ -27,11 +27,13 @@ const openai = new OpenAIApi(configuration);
 const quickLinksRouter = require("./routers/quicklinks-router");
 const skillsRouter = require("./routers/skills-router");
 const opportunitiesRouter = require("./routers/opportunities-router");
+const careersRouter = require("./routers/careers-router");
 
 // use routers
 app.use("/api/quicklinks", quickLinksRouter);
 app.use("/api/skills", skillsRouter);
 app.use("/api/opportunities", opportunitiesRouter);
+app.use("/api/careers", careersRouter);
 
 //////////////////////////////////// USER CONFIG ////////////////////////////////////////
 
@@ -57,7 +59,7 @@ app.post("/users", (req, res) => {
 
 /////////////////////////////// CHAT-GPT ///////////////////////////////////////////////
 app.post("/gpt-prompt", async (req, res) => {
-  const promptData  = req.body;
+  const promptData = req.body;
 
   const prompt = `
   Hello chatGPT. Please craft a cover letter
@@ -72,18 +74,15 @@ app.post("/gpt-prompt", async (req, res) => {
   ${promptData.strengths}. Please use this additional
   information to really drive home an authentic and
   genuine cover letter, ${promptData.extraInfo}.
-  `
-  
-  
+  `;
+
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: prompt,
-    max_tokens:2500
+    max_tokens: 2500,
   });
   res.send(completion.data.choices[0].text);
-})
-
-
+});
 
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);
