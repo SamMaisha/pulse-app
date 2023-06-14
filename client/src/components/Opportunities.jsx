@@ -9,10 +9,18 @@ import { format, parse } from "date-fns";
 import axios from 'axios';
 
 const Opportunities = () => {
+  // opportunities state used to store the opportunities data fetched from the API 
+  // and represents the list of opportunities that will be displayed in the component.
   const [opportunities, setOpportunities] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [selectedOpportunity, setSelectedOpportunity] = useState(null);
+
+  // newOpportunity state holds the temporary data for the opportunity being added or edited.
   const [newOpportunity, setNewOpportunity] = useState({});
+
+  // selectedOpportunity state holds the selection of the quick link being edited.
+  const [selectedOpportunity, setSelectedOpportunity] = useState(null);
+
+  // open state controls the Dialog(popup window).
+  const [open, setOpen] = useState(false);
 
   // Axios GET request to fetch data from API
   useEffect(() => {
@@ -29,6 +37,7 @@ const Opportunities = () => {
   };
 
   const handleDeleteOpportunity = (id) => {
+    // ------TODO------- Axios DELETE request to delete data here
     const updatedOpportunities = opportunities.filter((opp) => opp.id !== id);
     setOpportunities(updatedOpportunities);
   };
@@ -41,12 +50,14 @@ const Opportunities = () => {
 
   const handleSaveOpportunity = () => {
     if (selectedOpportunity) {
+      // ------TODO------- Axios PUT request to edit data here
       setOpportunities((prevOpportunities) =>
         prevOpportunities.map((opp) =>
           opp.id === selectedOpportunity.id ? { ...newOpportunity, id: selectedOpportunity.id } : opp
         )
       );
     } else {
+      // ------TODO------- Axios POST request to add data here
       const newId = opportunities.length > 0 ? opportunities[opportunities.length - 1].id + 1 : 1;
       setOpportunities((prevOpportunities) => [...prevOpportunities, { ...newOpportunity, id: newId }]);
     }
