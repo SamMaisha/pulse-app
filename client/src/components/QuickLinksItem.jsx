@@ -21,7 +21,7 @@ const QuickLinksItem = ({ quickLink, handleCopyLink, handleEditLink, handleDelet
         justifyContent: 'flex-end',
       }}>
         <FileCopyIcon
-          sx={{ color: 'rgba(103, 128, 159)', cursor: 'pointer', marginLeft: '5%' }}
+          sx={{ color: 'rgba(62, 144, 193, 0.8)', cursor: 'pointer', marginLeft: '5%' }}
           onClick={() => handleCopyLink(quickLink.url)}
         />
         <EditIcon
