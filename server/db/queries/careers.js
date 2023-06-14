@@ -27,11 +27,31 @@ const addCareer = function (userId, jobTitle, companyName, jobLink, notes) {
 };
 
 // update career entry in db
-const updateCareer = function (userId, careerId, new, newStatus) {
-  const queryParams = [userId, skillId, newName, newStatus];
+const updateCareer = function (
+  userId,
+  careerId,
+  jobTitle,
+  companyName,
+  jobLink,
+  isCoverLetterGenerated,
+  isApplied,
+  isInterviewed,
+  notes
+) {
+  const queryParams = [
+    userId,
+    careerId,
+    jobTitle,
+    companyName,
+    jobLink,
+    isCoverLetterGenerated,
+    isApplied,
+    isInterviewed,
+    notes,
+  ];
   const parameterizedQuery = `
-  UPDATE skills
-  SET name = $3, status = $4
+  UPDATE careers
+  SET job_title = $3, company_name = $4, job_link = $5, is_coverletter_generated = $6, is_applied = $7, is_interviewed = $8, notes = $9
   WHERE id = $2 AND user_id = $1
   RETURNING *
   `;
@@ -63,5 +83,6 @@ module.exports = {
   testGetCareer,
   getCareers,
   addCareer,
-  deleteCareer
+  updateCareer,
+  deleteCareer,
 };
