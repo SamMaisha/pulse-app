@@ -38,10 +38,7 @@ const Navbar = () => {
         sx={{ width: 300, flexShrink: 0, '& .MuiDrawer-paper': { width: 400, backgroundColor: 'rgba(91, 130, 130, 1)' }}}
       >
         <List>
-          <ListItem component={Link} to="/">
-            <ListItemText primary="HOME" />
-          </ListItem>
-          <ListItem component={Link} to="/dashboard">
+              <ListItem component={Link} to="/dashboard">
             <ListItemText primary="DASHBOARD" />
           </ListItem>
           <ListItem component={Link} to="/About">
