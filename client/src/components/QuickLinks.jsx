@@ -100,7 +100,6 @@ const QuickLinks = () => {
         overflow: 'auto',
         fontSize: 'large',
       }}>
-        
         {quickLinks.map((quickLink) => (
           <QuickLinksItem
             quickLink={quickLink}
