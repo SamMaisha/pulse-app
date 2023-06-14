@@ -32,7 +32,7 @@ const Opportunities = () => {
 
   const handleAddOpportunity = () => {
     setSelectedOpportunity(null);
-    setNewOpportunity({ id: null, date: null, opportunity: "", notes: "" });
+    setNewOpportunity({ id: null, date: null, name: "", notes: "" });
     setOpen(true);
   };
 
@@ -91,7 +91,7 @@ const Opportunities = () => {
       cellClassName: "wrap-text",
     },
     {
-      field: "opportunity",
+      field: "name",
       headerName: "Opportunity",
       width: 200,
       cellClassName: "wrap-text",
@@ -199,7 +199,7 @@ const Opportunities = () => {
           />
           <TextField
             label="Opportunity"
-            value={newOpportunity.opportunity}
+            value={newOpportunity.name}
             onChange={(e) => handleInputChange(e, "opportunity")}
             fullWidth
             margin="normal"
