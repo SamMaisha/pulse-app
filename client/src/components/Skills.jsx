@@ -8,10 +8,18 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from 'axios';
 
 const Skills = () => {
+  // skills state used to store the skills data fetched from the API 
+  // and represents the list of skills that will be displayed in the component.
   const [skills, setSkills] = useState([]);
-  const [open, setOpen] = useState(false);
+
+  // newSkill state holds the temporary data for the skill being added or edited.
   const [newSkill, setNewSkill] = useState('');
+
+  // selectedSkill state holds the selection of the skill being edited.
   const [selectedSkill, setSelectedSkill] = useState(null);
+
+  // open state controls the Dialog(popup window).
+  const [open, setOpen] = useState(false);
 
   // Axios GET request to fetch data from API
   useEffect(() => {
@@ -28,6 +36,7 @@ const Skills = () => {
   };
 
   const handleDeleteSkill = (id) => {
+    // ------TODO------- Axios DELETE request to delete data here
     setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
   };
 
@@ -39,10 +48,12 @@ const Skills = () => {
 
   const handleSaveSkill = () => {
     if (selectedSkill) {
+      // ------TODO------- Axios PUT request to edit data here
       setSkills((prevSkills) =>
         prevSkills.map((skill) => (skill.id === selectedSkill.id ? { ...newSkill, id: selectedSkill.id } : skill))
       );
     } else {
+      // ------TODO------- Axios POST request to add data here
       const newId = skills.length > 0 ? skills[skills.length - 1].id + 1 : 1;
       setSkills((prevSkills) => [...prevSkills, { ...newSkill, id: newId }]);
     }
