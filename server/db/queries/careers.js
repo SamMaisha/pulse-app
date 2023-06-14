@@ -13,11 +13,29 @@ const getCareers = function (userId) {
 };
 
 // add new career entry to db
-const addCareer = function (userId, jobTitle, companyName, jobLink, notes) {
-  const queryParams = [userId, jobTitle, companyName, jobLink, notes];
+const addCareer = function (
+  userId,
+  jobTitle,
+  companyName,
+  jobLink,
+  isCoverLetterGenerated,
+  isApplied,
+  isInterviewed,
+  notes
+) {
+  const queryParams = [
+    userId,
+    jobTitle,
+    companyName,
+    jobLink,
+    isCoverLetterGenerated,
+    isApplied,
+    isInterviewed,
+    notes,
+  ];
   const parameterizedQuery = `
-  INSERT INTO careers (user_id, job_title, company_name, job_link, notes)
-  VALUES ($1, $2, $3, $4, $5)
+  INSERT INTO careers (user_id, job_title, company_name, job_link, is_coverletter_generated, is_applied, is_interviewed, notes)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
   RETURNING *
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
