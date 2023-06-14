@@ -6,9 +6,7 @@ import Home from "./Pages/Home";
 import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
 import About from "./Pages/About";
-import Register from "./Pages/Register";
 import Footer from "./components/Footer";
-import Profile from "./Pages/Profile";
 import { Navigate } from "react-router-dom";
 import "./imgs/pulse.png";
 import "./App.css";
@@ -29,11 +27,8 @@ function App() {
           <Routes>
             <Route index element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/about" element={<About />} />
           </Routes>
         </Grid>
