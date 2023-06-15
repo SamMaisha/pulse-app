@@ -25,13 +25,13 @@ body {
 
 .title {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 25px;
   color: darkgoldenrod;
   font-family: 'Lato', sans-serif;
 }
 
 .title:hover {
-  color: #fff;
+  color: #dfebe7;
 }
 
 
