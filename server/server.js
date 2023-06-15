@@ -57,9 +57,11 @@ app.post("/users", (req, res) => {
 
 /////////////////////////////// CHAT-GPT ///////////////////////////////////////////////
 app.post("/gpt-prompt", async (req, res) => {
-  const promptData  = req.body;
 
-  const prompt = `
+  try {
+    const promptData = req.body;
+
+    const prompt = `
   Hello chatGPT. Please craft a cover letter
   for the position of ${promptData.position}. 
   The company that I will be applying at is 
@@ -73,14 +75,18 @@ app.post("/gpt-prompt", async (req, res) => {
   information to really drive home an authentic and
   genuine cover letter, ${promptData.extraInfo}.
   `
-  
-  
-  const completion = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: prompt,
-    max_tokens:2500
-  });
-  res.send(completion.data.choices[0].text);
+
+
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: prompt,
+      max_tokens: 2500
+    });
+    res.send(completion.data.choices[0].text);
+  } catch (err) {
+    console.log(err); //more specific error
+  }
+
 })
 
 
