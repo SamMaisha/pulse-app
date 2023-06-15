@@ -5,6 +5,7 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import logo from '../imgs/pulse.png';
 
+
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -35,17 +36,17 @@ const Navbar = () => {
           direction: 'left',
           timeout: 10000,
         }}
-        sx={{ width: 300, flexShrink: 0, '& .MuiDrawer-paper': { width: 400, backgroundColor: 'rgba(91, 130, 130, 1)' }}}
+        sx={{ width: 300, flexShrink: 0, '& .MuiDrawer-paper': { width: 400, backgroundColor: '#487a6c' }}}
       >
         <List>
               <ListItem component={Link} to="/dashboard">
-            <ListItemText primary="DASHBOARD" />
+            <ListItemText className="title" primary="DASHBOARD" />
           </ListItem>
           <ListItem component={Link} to="/About">
-            <ListItemText primary="ABOUT PULSE"  />
+            <ListItemText className="title" primary="ABOUT PULSE"  />
           </ListItem>
           <ListItem component={Link} onClick={() => logout()}>
-            <ListItemText primary="LOGOUT" />
+            <ListItemText className="title" primary="LOGOUT" />
           </ListItem>
         </List>
       </Drawer>
