@@ -156,12 +156,6 @@ const CoverLetter = () => {
 
           <Box mt={4}>
             <p> Generated Cover Letter here. </p>
-            <p> Position: {position} </p>
-            <p> Company: {company} </p>
-            <p> Experience: {experience} </p>
-            <p> Skills: {skills} </p>
-            <p> Strengths: {strengths} </p>
-            <p> ExtraInfo: {extraInfo} </p>
           </Box>
 
           <Box mt="auto" mb={2}>
@@ -170,8 +164,9 @@ const CoverLetter = () => {
               onClick={() => setOpen(true)}
               color="secondary"
               sx={{
-                backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                color: '#ffffff',
+                borderRadius: "5px",
+                background: "rgba(184, 134, 11)",
+                fontSize: "15px",
               }}
             >
               Create my Cover Letter
