@@ -96,6 +96,7 @@ const CoverLetter = () => {
   };
   if (response !== "") {
     return (
+      
       <Box
         sx={{
           position: "relative",
@@ -111,6 +112,9 @@ const CoverLetter = () => {
           fontWeight: 'bold',
           fontSize: '18px'
         }}>
+            <Box mt={2}>
+            <div className="title">Cover Letter Generator</div>
+          </Box>
         <Box sx={{ overflow: 'auto', height: '85%', marginBottom: '10px' }}>
           {response}
         </Box>
@@ -120,7 +124,8 @@ const CoverLetter = () => {
   }
   else {
     return (
-      <>{isloading ? <Box sx={{
+      <>
+      {isloading ? <Box sx={{
         position: "relative",
         padding: 1,
         borderRadius: 5,
@@ -133,7 +138,11 @@ const CoverLetter = () => {
         justifyContent: 'center',
         fontWeight: 'bold',
         fontSize: '18px'
-      }}><ClimbingBoxLoader loading={isloading} /><Box>Loading Response</Box></Box> :
+      }}>
+          <Box>
+            <div className="title">Cover Letter Generator</div>
+          </Box>
+        <ClimbingBoxLoader loading={isloading} /><Box>Loading Response</Box></Box> :
         <Box
           sx={{
             position: "relative",
