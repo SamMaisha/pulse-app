@@ -30,6 +30,11 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
+.title:hover {
+  color: #fff;
+}
+
+
 .datagrid .wrap-text {
   white-space: normal !important;
   word-wrap: break-word !important;
