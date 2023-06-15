@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ClimbingBoxLoader from "react-spinners/ClipLoader";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import {
   Box,
   TextField,
@@ -141,7 +141,7 @@ const CoverLetter = () => {
               fontSize: "18px",
             }}
           >
-            <ClimbingBoxLoader loading={isloading} />
+            <ClimbingBoxLoader sx={{opacity:"70%"}} loading={isloading} color={'#003933'}/>
             <Box>Loading Response</Box>
           </Box>
         ) : (
