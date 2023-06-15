@@ -68,7 +68,7 @@ const Opportunities = () => {
   const handleInputChange = (event, field) => {
     if (field === "date") {
       // Parse the input date string into a Date object
-      const parsedDate = parse(event.target.value, "yyyy-MM-dd", new Date());
+      const parsedDate = new Date(event.target.value);
       // Format the Date object into the desired format
       const formattedDate = format(parsedDate, "yyyy-MM-dd");
       setNewOpportunity((prevOpportunity) => ({
@@ -200,7 +200,7 @@ const Opportunities = () => {
           <TextField
             label="Opportunity"
             value={newOpportunity.name}
-            onChange={(e) => handleInputChange(e, "opportunity")}
+            onChange={(e) => handleInputChange(e, "name")}
             fullWidth
             margin="normal"
           />
