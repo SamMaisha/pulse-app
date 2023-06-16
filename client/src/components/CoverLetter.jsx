@@ -19,63 +19,85 @@ import {
 } from "@mui/material";
 import { set } from "date-fns";
 
-// Sample data
-const initialSkills = [
-  { id: 1, skill: "CSS", skillLevel: "Intermediate" },
-  { id: 2, skill: "JavaScript", skillLevel: "Advanced" },
-  { id: 3, skill: "Ruby", skillLevel: "Beginner" },
-];
+// // Sample data
+// const initialSkills = [
+//   { id: 1, skill: 'CSS', skillLevel: 'Intermediate' },
+//   { id: 2, skill: 'JavaScript', skillLevel: 'Advanced' },
+//   { id: 3, skill: 'Ruby', skillLevel: 'Beginner' },
+// ];
 
-const initialCareers = [
-  {
-    id: 1,
-    company: "Lighthouse Labs",
-    position: "Lecturer",
-    website: "https://www.lighthouselabs.ca/",
-    coverLetter: true,
-    applied: true,
-    interviewed: false,
-    notes: "Some notes here",
-  },
-  {
-    id: 2,
-    company: "Company B",
-    position: "Position B",
-    website: "https://www.example.com",
-    coverLetter: false,
-    applied: true,
-    interviewed: true,
-    notes: "Some notes for Company B",
-  },
-];
+// const initialCareers = [
+//   {
+//     id: 1,
+//     company: 'Lighthouse Labs',
+//     position: 'Lecturer',
+//     website: 'https://www.lighthouselabs.ca/',
+//     coverLetter: true,
+//     applied: true,
+//     interviewed: false,
+//     notes: 'Some notes here',
+//   },
+//   {
+//     id: 2,
+//     company: 'Company B',
+//     position: 'Position B',
+//     website: 'https://www.example.com',
+//     coverLetter: false,
+//     applied: true,
+//     interviewed: true,
+//     notes: 'Some notes for Company B',
+//   },
+// ];
 
 const CoverLetter = () => {
   const [open, setOpen] = useState(false);
-  const [company, setCompany] = useState("");
-  const [position, setPosition] = useState("");
-  const [experience, setExperience] = useState("");
-  const [skills, setSkills] = useState([]);
-  const [strengths, setStrengths] = useState([]);
-  const [extraInfo, setExtraInfo] = useState("");
+  const [state, setState] = useState({
+    careers: [], // store the careers data fetched from the API 
+    skills: [], // store the skills data fetched from the API 
+    selectedCareer: '', // track the selected career and store it as an Array [position, company], or "custom"
+    position: '', // track selected careers's position or store the custom position
+    company: '', // track selected careers's company or store the custom company
+    experience: '',
+    topSkills: [], // track selected skills (0-3)
+    extraInfo: '',
+  })
+  // const [company, setCompany] = useState('');
+  // const [position, setPosition] = useState('');
+  // const [experience, setExperience] = useState('');
+  // const [skills, setSkills] = useState([]);
+  // const [strengths, setStrengths] = useState([]);
+  // const [extraInfo, setExtraInfo] = useState('');
   const [response, setResponse] = useState("");
   const [isloading, setIsLoading] = useState(false);
 
-  const promptData = {
-    position,
-    company,
-    experience,
-    skills,
-    strengths,
-    extraInfo,
-  };
+  // Axios GET request to fetch data from API
+  useEffect(() => {
+    Promise.all([
+      axios.get('/api/careers'),
+      axios.get('/api/skills'),
+    ])
+      .then((response) => {
+        setState(prev => ({
+          ...prev,
+          careers: response[0].data,
+          skills: response[1].data,
+        }))
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log("Error on fetching data: " + error);
+      })
+  }, [])
 
+  // Save all the information from the client
+  // Generate the message and send it to OpenAI
   const handleSave = async () => {
     setOpen(false);
     try {
       setIsLoading(true); //set state at beginning of call
       const gptResponse = await axios.post(
         "http://localhost:8001/gpt-prompt",
-        promptData
+        state
       );
       setResponse(gptResponse.data); //setResponse to chatgpt data
     } catch (err) {
@@ -85,13 +107,24 @@ const CoverLetter = () => {
     }
   };
 
-  const handleSkillsChange = (event) => {
-    setSkills(event.target.value);
+  const handleInputChange = (event, field) => {
+    setState((prevState) => ({
+      ...prevState,
+      [field]: event.target.value,
+    }));
   };
 
-  const handleStrengthsChange = (event) => {
-    setStrengths(event.target.value);
+  const handleSkillsChange = (event) => {
+    const selectedSkills = Array.from(
+      event.target.querySelectorAll('input[type="checkbox"]:checked')
+    ).map((checkbox) => checkbox.value);
+
+    setState({
+      ...state,
+      topSkills: selectedSkills,
+    });
   };
+
   if (response !== "") {
     return (
       <Box
@@ -141,7 +174,7 @@ const CoverLetter = () => {
               fontSize: "18px",
             }}
           >
-            <ClimbingBoxLoader sx={{opacity:"70%"}} loading={isloading} color={'#003933'}/>
+            <ClimbingBoxLoader sx={{ opacity: "70%" }} loading={isloading} color={'#003933'} />
             <Box>Loading Response</Box>
           </Box>
         ) : (
@@ -190,19 +223,29 @@ const CoverLetter = () => {
               <DialogContent>
                 <FormControl component="fieldset">
                   <FormLabel component="legend">
-                    What position are you appllying for?
+                    What position are you applying for?
                   </FormLabel>
                   <RadioGroup
                     aria-label="career"
-                    value={position} // Use the company state to track the selected company
-                    onChange={(event) => setPosition(event.target.value)}
+                    value={state.selectedCareer} // Use the state to track the selected position
+                    onChange={(event) => {
+                      const value = event.target.value;
+                      const isCustom = value === 'custom';
+
+                      setState((prevState) => ({
+                        ...prevState,
+                        selectedCareer: value,
+                        position: isCustom ? '' : value.split(',')[0],
+                        company: isCustom ? '' : value.split(',')[1],
+                      }));
+                    }}
                   >
-                    {initialCareers.map((career) => (
+                    {state.careers.map((career) => (
                       <FormControlLabel
                         key={career.id}
-                        value={`${career.position},${career.company}`} // Concatenate company and position for value
+                        value={`${career.job_title},${career.company_name}`} // Concatenate company and position for value
                         control={<Radio />}
-                        label={`${career.position} - ${career.company}`}
+                        label={`${career.job_title} - ${career.company_name}`}
                       />
                     ))}
                     <FormControlLabel
@@ -213,23 +256,29 @@ const CoverLetter = () => {
                   </RadioGroup>
                 </FormControl>
 
-                {position === "custom" && (
+                {/* If want to input custom position and company, show the following textfield */}
+                {state.selectedCareer === 'custom' && (
                   <Box mt={2}>
                     <TextField
                       label="Position"
-                      value={position}
-                      onChange={(event) => setPosition(event.target.value)}
+                      value={state.position}
+                      onChange={(event) => {
+                        handleInputChange(event, "position");
+                      }}
                       variant="outlined"
                       fullWidth
                       margin="dense"
                     />
                     <TextField
                       label="Company"
-                      value={company}
-                      onChange={(event) => setCompany(event.target.value)}
+                      value={state.company}
+                      onChange={(event) => {
+                        handleInputChange(event, "company");
+                      }}
                       variant="outlined"
                       fullWidth
                       margin="dense"
+                      name="company"
                     />
                   </Box>
                 )}
@@ -241,8 +290,10 @@ const CoverLetter = () => {
                     </FormLabel>
                     <RadioGroup
                       aria-label="experience"
-                      value={experience}
-                      onChange={(event) => setExperience(event.target.value)}
+                      value={state.experience}
+                      onChange={(event) => {
+                        handleInputChange(event, "experience");
+                      }}
                     >
                       <FormControlLabel
                         value="No experience"
@@ -279,24 +330,24 @@ const CoverLetter = () => {
                       Choose your top 3 job skills for this position
                     </FormLabel>
                     <FormGroup>
-                      {initialSkills.map((skill) => (
+                      {state.skills.map((skill) => (
                         <FormControlLabel
                           key={skill.id}
                           control={
                             <Checkbox
-                              checked={skills.includes(skill.skill)} // Check if the skill is in the selected job skills
+                              checked={state.topSkills.includes(skill.name)} // Check if the skill is in the selected skills
                               onChange={handleSkillsChange}
-                              value={skill.skill}
+                              value={skill.name}
                             />
                           }
-                          label={skill.skill}
+                          label={skill.name}
                         />
                       ))}
                     </FormGroup>
                   </FormControl>
                 </Box>
 
-                <Box mt={2}>
+                {/* <Box mt={2}>
                   <FormControl component="fieldset">
                     <FormLabel component="legend">
                       Choose your top 3 strengths
@@ -334,13 +385,15 @@ const CoverLetter = () => {
                       />
                     </FormGroup>
                   </FormControl>
-                </Box>
+                </Box> */}
 
                 <Box mt={2}>
                   <TextField
                     label="Anything you want to specify in your letter?"
-                    value={extraInfo}
-                    onChange={(event) => setExtraInfo(event.target.value)}
+                    value={state.extraInfo}
+                    onChange={(event) => {
+                      handleInputChange(event, "extraInfo");
+                    }}
                     variant="outlined"
                     fullWidth
                     margin="dense"
@@ -349,7 +402,7 @@ const CoverLetter = () => {
               </DialogContent>
               <DialogActions>
                 <Button onClick={() => setOpen(false)}>Cancel</Button>
-                <Button onClick={() => handleSave()}>Submit</Button>
+                <Button onClick={handleSave}>Submit</Button>
               </DialogActions>
             </Dialog>
           </Box>
