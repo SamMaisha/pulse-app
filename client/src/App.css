@@ -45,4 +45,75 @@ body {
   width: 200px;
 }
 
+.about-title {
+  font-weight: bold;
+  font-size: 50px;
+  color: darkgoldenrod;
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+p {
+  font-size: 20px;
+  color: #dfebe7;
+  font-family: 'Lato', sans-serif;
+}
+
+h2 {
+  font-size: 30px;
+  color: darkgoldenrod;
+  font-family: 'Lato', sans-serif;
+}
+
+.about-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.header-text {
+  font-size: 30px;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  padding-left: 70px;
+  padding-right: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  line-height: 1.5;
+  width: 100%;
+ }
+
+.pulse-graphic {
+  width: 100%;
+}
+
+.about-text {
+  font-size: 25px;
+  color: #dfebe7;
+  font-family: 'Lato', sans-serif;
+  padding-left: 60px;
+  line-height: 1.5;
+  width: 90%;
+}
+
+strong {
+  font-weight: bold;
+  font-size: 25px;
+  color: darkgoldenrod;
+  font-family: 'Lato', sans-serif;
+}
 
