@@ -15,14 +15,14 @@ const Dashboard = () => {
 
   console.log(user);
 
-  useEffect(() => {
-    const submitUserData = async() => {
-      const result = await axios.post('http://localhost:8001/users', user);
+  // useEffect(() => {
+  //   const submitUserData = async() => {
+  //     const result = await axios.post('http://localhost:8001/users', user);
 
-      console.log(result);
-    }
-    submitUserData();
-  }, [user])
+  //     console.log(result);
+  //   }
+  //   submitUserData();
+  // }, [user])
   return (
     <>
       <Hidden smDown>
