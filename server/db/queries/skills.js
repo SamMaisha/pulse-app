@@ -1,9 +1,13 @@
 const db = require("../index");
 
 // get skills for user
-const getSkills = function () {
-  return db.query("SELECT * FROM skills;").then((data) => {
-    //console.log(data.rows);
+const getSkills = function (userId) {
+  const queryParams = [userId];
+  const parameterizedQuery = `
+  SELECT * FROM skills
+  WHERE user_id = $1
+  `;
+  return db.query(parameterizedQuery, queryParams).then((data) => {
     return data.rows;
   });
 };
@@ -17,7 +21,6 @@ const addSkill = function (userId, name, status) {
   RETURNING *
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
-    //console.log(data.rows);
     return data.rows[0];
   });
 };
@@ -32,7 +35,6 @@ const updateSkill = function (userId, skillId, newName, newStatus) {
   RETURNING *
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
-    //console.log(data.rows);
     return data.rows[0];
   });
 };
