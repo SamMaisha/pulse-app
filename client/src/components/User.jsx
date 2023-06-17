@@ -1,8 +1,11 @@
 import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Box } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 
 const User = () => {
+
+  const { user } = useAuth0();
   return (
     <Box
       sx={{
@@ -15,10 +18,10 @@ const User = () => {
     >
       <Avatar
         alt="User Avatar"
-        src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+        src={user.picture}
         sx={{ width: 200, height: 200 }}
       />
-    <h5>Hello, User!</h5>
+    <h5>{user.name}</h5>
     </Box>
   );
 };
