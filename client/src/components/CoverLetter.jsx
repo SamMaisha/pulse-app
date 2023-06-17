@@ -96,7 +96,7 @@ const CoverLetter = () => {
     try {
       setIsLoading(true); //set state at beginning of call
       const gptResponse = await axios.post(
-        "http://localhost:8001/gpt-prompt",
+        "/api/openAI",
         state
       );
       setResponse(gptResponse.data); //setResponse to chatgpt data
