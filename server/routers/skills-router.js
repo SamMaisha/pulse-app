@@ -4,26 +4,19 @@ const skillsQueries = require("../db/queries/skills");
 
 //////////////////////////// TEST WITHOUT USER ID ////////////////////////////////
 
-//TEST GET
-router.get("/", (req, res) => {
-  skillsQueries.testLinkSkills().then((result) => {
-    res.json(result);
-  });
-});
-
 /////////////////////////////////////// WITH USER ID //////////////////////////////////
 
-//GET /api/skills/:userid => return raw data skills for user
-router.get("/:userid", (req, res) => {
-  const userId = req.params.userid;
-  skillsQueries.getSkills(userId).then((result) => {
+//GET /api/skills => return raw data skills for user
+router.get("/", (req, res) => {
+  skillsQueries.getSkills().then((result) => {
     res.json(result);
   });
 });
 
 // PUT /api/skills/:userid/:skillid
-router.put("/:userid/:skillid", (req, res) => {
-  const userId = req.params.userid;
+router.put("/1/:skillid", (req, res) => {
+  console.log("REQ BODY", req.body);
+  const userId = 1;
   const skillId = req.params.skillid;
   const newName = req.body.name;
   const newStatus = req.body.status;
@@ -34,8 +27,8 @@ router.put("/:userid/:skillid", (req, res) => {
 });
 
 // POST /api/skills/:userid
-router.post("/:userid", (req, res) => {
-  const userId = req.params.userid;
+router.post("/", (req, res) => {
+  //const userId = req.params.userid;
   const skillName = req.body.name;
   const skillStatus = req.body.status;
   // add skill to database
