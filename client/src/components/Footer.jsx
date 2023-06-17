@@ -17,7 +17,9 @@ const footerStyles = {
 };
 
 const Footer = () => {
-  return <div style={footerStyles}>Footer</div>;
+  return <div style={footerStyles}>
+    <p class="footer-text">© 2023 Pulse</p>
+  </div>;
 };
 
 export default Footer;

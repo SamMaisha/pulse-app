@@ -11,11 +11,12 @@ const Login = () => {
         <img
           src={pulse}
           alt="logo"
+          class="logo"
           style={{ width: "500px", height: "auto" }}
         />
       </Box>
       <Box textAlign="center">
-        <h1 style={{ color: "gray", fontSize: "30px" }}>FIND YOUR <em>PULSE</em></h1>
+        <h1 class="home-title">FIND YOUR <em>PULSE</em></h1>
       </Box>
       <LoginButton />
     </Container>

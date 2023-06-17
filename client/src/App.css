@@ -1,7 +1,7 @@
 
 
 body {
-  color: white;
+  color: #dfebe7;
   font-family: 'Nunito', sans-serif;
   padding: 15px;
   background: linear-gradient(
@@ -22,6 +22,8 @@ body {
 .custom-data-grid .MuiDataGrid-row {
   border-color: transparent !important;
 }
+
+
 
 .title {
   font-weight: bold;
@@ -85,7 +87,7 @@ h2 {
 
 .header-text {
   font-size: 30px;
-  color: white;
+  color: #dfebe7;
   font-family: 'Lato', sans-serif;
   padding-left: 70px;
   padding-right: 70px;
@@ -115,5 +117,32 @@ strong {
   font-size: 25px;
   color: darkgoldenrod;
   font-family: 'Lato', sans-serif;
+}
+
+.footer-text {
+  font-size: 15px;
+  color: #dfebe7;
+  font-family: 'Lato', sans-serif;
+  line-height: 1.5;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-title {
+  font-size: 35px;
+  color: #dfebe7;
+  opacity: .5;
+  letter-spacing: 15px;
+  font-family: "lato";
+  margin-bottom: 50px;
+}
+
+.home-title:hover {
+  color: #dfebe7;
+  opacity: 1;
+  transition: 800ms ease-in;
+  font-size: 40px;
 }
 
