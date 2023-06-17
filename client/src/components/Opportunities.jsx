@@ -42,9 +42,12 @@ const Opportunities = () => {
   };
 
   const handleDeleteOpportunity = (id) => {
-    // ------TODO------- Axios DELETE request to delete data here
-    const updatedOpportunities = opportunities.filter((opp) => opp.id !== id);
-    setOpportunities(updatedOpportunities);
+    // Axios DELETE request to delete data here
+    axios.delete(`/api/opportunities/1/${id}`, id).then(() => {
+      const updatedOpportunities = opportunities.filter((opp) => opp.id !== id);
+      setOpportunities(updatedOpportunities);
+    })
+    
   };
 
   const handleEditOpportunity = (opportunity) => {
