@@ -3,22 +3,21 @@ import { Box, Snackbar, Dialog, DialogTitle, DialogContent, DialogActions, TextF
 import QuickLinksItem from './QuickLinksItem';
 import axios from 'axios';
 import AddIcon from "@mui/icons-material/Add";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const QuickLinks = () => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  // quickLinks state used to store the quickLinks data fetched from the API 
-  // and represents the list of quickLinks that will be displayed in the component.
   const [quickLinks, setQuickLinks] = useState([])
-
-  // newLink state holds the temporary data for the quick link being added or edited.
+  const [open, setOpen] = useState(false);
+  
   const [newLink, setNewLink] = useState('');
-
-  // selectedLink state holds the selection of the quick link being edited.
+  // selected link and setSelectedLink is being used to track the message that shows up in pop up 
   const [selectedLink, setSelectedLink] = useState(null);
 
-  // open state controls the Dialog(popup window).
-  const [open, setOpen] = useState(false);
+  // Fetch auth0_id for user
+const {user} = useAuth0();
+const auth0ID = user.sub;
 
   // Axios GET request to fetch data from API
   useEffect(() => {
@@ -45,7 +44,6 @@ const QuickLinks = () => {
   };
 
   const handleDeleteLink = (id) => {
-    // ------TODO------- Axios DELETE request to delete data here
     setQuickLinks((prevLinks) => prevLinks.filter((link) => link.id !== id));
   };
 
@@ -57,14 +55,12 @@ const QuickLinks = () => {
 
   const handleSaveLink = () => {
     if (selectedLink) {
-      // ------TODO------- Axios PUT request to edit data here
       setQuickLinks((prevLinks) =>
         prevLinks.map((quickLink) =>
           quickLink.id === selectedLink.id ? { ...newLink, id: selectedLink.id } : quickLink
         )
       );
     } else {
-      // ------TODO------- Axios POST request to add data here
       const newId = quickLinks.length > 0 ? quickLinks[quickLinks.length - 1].id + 1 : 1;
       setQuickLinks((prevLinks) => [...prevLinks, { ...newLink, id: newId }]);
     }
@@ -113,6 +109,7 @@ const QuickLinks = () => {
       }}>
         {quickLinks.map((quickLink) => (
           <QuickLinksItem
+          key = {quickLink.id}
             quickLink={quickLink}
             handleCopyLink={handleCopyLink}
             handleEditLink={handleEditLink}
