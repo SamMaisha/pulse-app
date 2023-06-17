@@ -1,4 +1,4 @@
-## Loading Database table and seeding files
+## Loading Database table and seeding files in server
 
 1. on vagrant run command `psql`
 2. run commands:
