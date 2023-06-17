@@ -7,7 +7,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 import { format } from "date-fns";
 import axios from 'axios';
-import { useAuth0 } from "@auth0/auth0-react";
 
 const Opportunities = () => {
   // opportunities state used to store the opportunities data fetched from the API 
@@ -23,13 +22,12 @@ const Opportunities = () => {
   // open state controls the Dialog(popup window).
   const [open, setOpen] = useState(false);
 
-  // fetch auth0_id for user 
-  const {user} = useAuth0();
-  const auth0ID = user.sub;
+  // get user id from session storage
+  const userId = window.sessionStorage.getItem('userId');
 
   // Axios GET request to fetch data from API
   useEffect(() => {
-    axios.get('/api/opportunities')
+    axios.get(`/api/opportunities/${userId}`)
       .then((response) => {
         setOpportunities(response.data);
       })
@@ -43,7 +41,7 @@ const Opportunities = () => {
 
   const handleDeleteOpportunity = (id) => {
     // Axios DELETE request to delete data here
-    axios.delete(`/api/opportunities/1/${id}`, id).then(() => {
+    axios.delete(`/api/opportunities/${userId}/${id}`, id).then(() => {
       const updatedOpportunities = opportunities.filter((opp) => opp.id !== id);
       setOpportunities(updatedOpportunities);
     })
@@ -61,7 +59,7 @@ const Opportunities = () => {
       // Axios PUT request to edit data here
       const opportunityId = selectedOpportunity.id;
       console.log(opportunityId);
-      axios.put(`/api/opportunities/1/${opportunityId}`, newOpportunity)
+      axios.put(`/api/opportunities/${userId}/${opportunityId}`, newOpportunity)
       .then(() => {
         setOpportunities((prevOpportunities) =>
         prevOpportunities.map((opp) =>
@@ -69,10 +67,9 @@ const Opportunities = () => {
         )
       );
       })
-      
     } else {
       // Axios POST request to add data here
-      axios.post(`/api/opportunities/1`, newOpportunity)
+      axios.post(`/api/opportunities/${userId}`, newOpportunity)
       .then((response) => {
         console.log(response.data)
         const newId = response.data.id;
