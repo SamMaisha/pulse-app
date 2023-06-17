@@ -8,7 +8,6 @@ const getOpportunities = function (userId) {
   WHERE user_id = $1
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
-    //console.log("RESULT:", data.rows);
     return data.rows;
   });
 };
@@ -22,8 +21,6 @@ const addOpportunity = function (userId, name, date, notes) {
   RETURNING *
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
-    // console.log("RESULT", data.rows); // array
-    // console.log("RESULT1", data.rows[0]); // object
     return data.rows[0];
   });
 };
@@ -44,8 +41,6 @@ const updateOpportunity = function (
   RETURNING *
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
-    // console.log("1", data.rows);
-    // console.log("2", data.rows[0]);
     return data.rows[0];
   });
 };
@@ -60,17 +55,7 @@ const deleteOpportunity = function (userId, opportunityId) {
   return db.query(parameterizedQuery, queryParams);
 };
 
-// test get opportunities
-const testOpportunities = function () {
-  return db.query("SELECT * FROM opportunities;").then((data) => {
-    // console.log("TEST1", data.rows);
-    // console.log("TEST2", data.rows[0]);
-    return data.rows;
-  });
-};
-
 module.exports = {
-  testOpportunities,
   getOpportunities,
   addOpportunity,
   updateOpportunity,
