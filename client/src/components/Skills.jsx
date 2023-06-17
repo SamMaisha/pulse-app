@@ -22,16 +22,12 @@ const Skills = () => {
   // open state controls the Dialog(popup window).
   const [open, setOpen] = useState(false);
 
-  // fetch auth0_id for user 
-  const {user} = useAuth0();
-  const auth0ID = user.sub;
-
   // get user id from session storage
   const userId = window.sessionStorage.getItem('userId');
 
   // Axios GET request to fetch data from API
   useEffect(() => {
-    axios.get(`/api/skills`)
+    axios.get(`/api/skills/${userId}`)
       .then((response) => {
         setSkills(response.data);
       })
@@ -61,7 +57,7 @@ const Skills = () => {
     if (selectedSkill) {
       //Axios PUT request to edit data here
       const skillId = selectedSkill.id;
-      axios.put(`/api/skills/1/${skillId}`, newSkill)
+      axios.put(`/api/skills/${userId}/${skillId}`, newSkill)
       .then(() => {
         setSkills((prevSkills) =>
         prevSkills.map((skill) => (skill.id === selectedSkill.id ? { ...newSkill, id: selectedSkill.id } : skill))
@@ -69,7 +65,7 @@ const Skills = () => {
       )     
     } else {
       //Axios POST request to add data here
-      axios.post(`/api/skills/1`, newSkill)
+      axios.post(`/api/skills/${userId}`, newSkill)
       .then((response) => {
         console.log(response.data)
         const newId = response.data.id
