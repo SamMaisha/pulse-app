@@ -52,15 +52,15 @@ import { set } from "date-fns";
 const CoverLetter = () => {
   const [open, setOpen] = useState(false);
   const [state, setState] = useState({
-    careers: [], // store the careers data fetched from the API 
-    skills: [], // store the skills data fetched from the API 
-    selectedCareer: '', // track the selected career and store it as an Array [position, company], or "custom"
-    position: '', // track selected careers's position or store the custom position
-    company: '', // track selected careers's company or store the custom company
-    experience: '',
+    careers: [], // store the careers data fetched from the API
+    skills: [], // store the skills data fetched from the API
+    selectedCareer: "", // track the selected career and store it as an Array [position, company], or "custom"
+    position: "", // track selected careers's position or store the custom position
+    company: "", // track selected careers's company or store the custom company
+    experience: "",
     topSkills: [], // track selected skills (0-3)
-    extraInfo: '',
-  })
+    extraInfo: "",
+  });
   // const [company, setCompany] = useState('');
   // const [position, setPosition] = useState('');
   // const [experience, setExperience] = useState('');
@@ -72,22 +72,19 @@ const CoverLetter = () => {
 
   // Axios GET request to fetch data from API
   useEffect(() => {
-    Promise.all([
-      axios.get('/api/careers'),
-      axios.get('/api/skills'),
-    ])
+    Promise.all([axios.get("/api/careers"), axios.get("/api/skills")])
       .then((response) => {
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
           careers: response[0].data,
           skills: response[1].data,
-        }))
+        }));
         console.log(response.data);
       })
       .catch((error) => {
         console.log("Error on fetching data: " + error);
-      })
-  }, [])
+      });
+  }, []);
 
   // Save all the information from the client
   // Generate the message and send it to OpenAI
@@ -174,7 +171,11 @@ const CoverLetter = () => {
               fontSize: "18px",
             }}
           >
-            <ClimbingBoxLoader sx={{ opacity: "70%" }} loading={isloading} color={'#003933'} />
+            <ClimbingBoxLoader
+              sx={{ opacity: "70%" }}
+              loading={isloading}
+              color={"#003933"}
+            />
             <Box>Loading Response</Box>
           </Box>
         ) : (
@@ -206,7 +207,6 @@ const CoverLetter = () => {
               <Button
                 variant="contained"
                 onClick={() => setOpen(true)}
-                color="secondary"
                 sx={{
                   borderRadius: "5px",
                   background: "rgba(184, 134, 11)",
@@ -230,13 +230,13 @@ const CoverLetter = () => {
                     value={state.selectedCareer} // Use the state to track the selected position
                     onChange={(event) => {
                       const value = event.target.value;
-                      const isCustom = value === 'custom';
+                      const isCustom = value === "custom";
 
                       setState((prevState) => ({
                         ...prevState,
                         selectedCareer: value,
-                        position: isCustom ? '' : value.split(',')[0],
-                        company: isCustom ? '' : value.split(',')[1],
+                        position: isCustom ? "" : value.split(",")[0],
+                        company: isCustom ? "" : value.split(",")[1],
                       }));
                     }}
                   >
@@ -257,7 +257,7 @@ const CoverLetter = () => {
                 </FormControl>
 
                 {/* If want to input custom position and company, show the following textfield */}
-                {state.selectedCareer === 'custom' && (
+                {state.selectedCareer === "custom" && (
                   <Box mt={2}>
                     <TextField
                       label="Position"

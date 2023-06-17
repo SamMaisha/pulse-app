@@ -2,7 +2,7 @@
 
 body {
   color: #dfebe7;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Lato', sans-serif;
   padding: 15px;
   background: linear-gradient(
     45deg,
@@ -145,4 +145,5 @@ strong {
   transition: 800ms ease-in;
   font-size: 40px;
 }
+
 
