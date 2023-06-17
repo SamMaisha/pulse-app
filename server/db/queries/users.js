@@ -6,7 +6,7 @@ const pool = new Pool({
   password: "labber",
   host: "localhost",
   database: "final",
-  port: 5433,
+  port: 5432,
 });
 
 const addUser = function (user) {
