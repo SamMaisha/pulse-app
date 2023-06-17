@@ -47,8 +47,8 @@ router.post("/1", (req, res) => {
 });
 
 // DELETE /api/opportunities/:userid/:opportunityid
-router.delete("/:userid/:opportunityid", (req, res) => {
-  const userId = req.params.userid;
+router.delete("/1/:opportunityid", (req, res) => {
+  const userId = 1;
   const opportunityId = req.params.opportunityid;
   // delete opportunity from database
   opportunitiesQueries
