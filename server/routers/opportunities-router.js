@@ -22,8 +22,8 @@ router.get("/:userid", (req, res) => {
 });
 
 // PUT /api/opportunities/:userid/:opportunityid
-router.put("/:userid/:opportunityid", (req, res) => {
-  const userId = req.params.userid;
+router.put("/1/:opportunityid", (req, res) => {
+  const userId = 1;
   const opportunityId = req.params.opportunityid;
   const newName = req.body.name;
   const newDate = req.body.date;
