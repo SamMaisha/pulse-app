@@ -217,7 +217,7 @@ const Careers = () => {
             <Checkbox
               checked={newCareer.is_applied}
               onChange={(e) => handleInputChange(e, 'is_applied')} />
-            <span>Applied</span>
+                          <span>Applied</span>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Checkbox

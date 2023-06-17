@@ -5,7 +5,6 @@ import { PageLoader } from "./components/page-loader"
 import AuthenticationGuard from "./components/authentication-guard";
 import Navbar from "./components/Navbar";
 import Grid from "@mui/material/Grid";
-import Home from "./Pages/Home";
 import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
 import About from "./Pages/About";

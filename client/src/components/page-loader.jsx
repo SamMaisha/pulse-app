@@ -11,7 +11,7 @@ export const PageLoader = () => {
             height: "100vh",
         }}>
             <img src={loadingImg} alt="Loading..." style={{
-                width: "50%",
+                width: "20%",
                 opacity: "0.3",
             }} />
         </div>
