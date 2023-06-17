@@ -1,73 +1,128 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Snackbar, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, IconButton } from '@mui/material';
-import QuickLinksItem from './QuickLinksItem';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Snackbar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  IconButton,
+} from "@mui/material";
+import QuickLinksItem from "./QuickLinksItem";
+import axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const QuickLinks = () => {
+  //snack bar notifies user that link is copied
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [quickLinks, setQuickLinks] = useState([])
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  // quickLinks state used to store the quickLinks data fetched from the API
+  const [quickLinks, setQuickLinks] = useState([]);
+
+  // open state controls the Dialog(popup window).
   const [open, setOpen] = useState(false);
-  
-  const [newLink, setNewLink] = useState('');
-  // selected link and setSelectedLink is being used to track the message that shows up in pop up 
+
+  // newLink state holds the temporary data for the link being added or edited.
+  const [newLink, setNewLink] = useState("");
+
+  // selected link and setSelectedLink is being used to track the message that shows up in pop up
   const [selectedLink, setSelectedLink] = useState(null);
 
   // Fetch auth0_id for user
-const {user} = useAuth0();
-const auth0ID = user.sub;
+  const { user } = useAuth0();
+  const auth0ID = user.sub;
 
   // Axios GET request to fetch data from API
   useEffect(() => {
-    axios.get('/api/quicklinks')
+    axios
+      .get("/api/quicklinks")
       .then((response) => {
         setQuickLinks(response.data);
       })
-  }, [])
+      .catch((error) => {
+        console.error("Failed to fetch Quicklink:", error);
+      });
+  }, []);
 
+  // Copy link to clipboard and show snackbar message on bottom right of screen
   const handleCopyLink = (link) => {
     navigator.clipboard.writeText(link);
     setSnackbarMessage(`Link copied: ${link}`);
     setIsSnackbarOpen(true);
   };
 
+  // Snackbar message closes after 3 seconds
   const handleCloseSnackbar = () => {
     setIsSnackbarOpen(false);
   };
 
+  // Add new link to quickLinks
   const handleAddLink = () => {
     setSelectedLink(null);
-    setNewLink({ name: '', url: '' });
+    setNewLink({ name: "", url: "" });
     setOpen(true);
   };
 
+  // Delete link from quickLinks
   const handleDeleteLink = (id) => {
-    setQuickLinks((prevLinks) => prevLinks.filter((link) => link.id !== id));
+    // Axios DELETE request to delete data here
+    axios
+      .delete(`/api/quicklinks/${id}`)
+      .then(() => {
+        setQuickLinks((prevLinks) =>
+          prevLinks.filter((link) => link.id !== id)
+        );
+      })
+      .catch((error) => {
+        console.error("Failed to delete Quicklink:", error);
+      });
   };
 
+  // Edit link from quickLinks
   const handleEditLink = (quickLink) => {
     setSelectedLink(quickLink);
     setNewLink(quickLink);
     setOpen(true);
   };
 
+  // Save the edited or new link to quickLinks
   const handleSaveLink = () => {
     if (selectedLink) {
-      setQuickLinks((prevLinks) =>
-        prevLinks.map((quickLink) =>
-          quickLink.id === selectedLink.id ? { ...newLink, id: selectedLink.id } : quickLink
-        )
-      );
+      // update existing link
+      // Axios PUT request to edit data
+      axios
+        .put(`/api/quicklinks/${selectedLink.id}`, newLink)
+        .then(() => {
+          setQuickLinks((prevLinks) =>
+            prevLinks.map((quickLink) =>
+              quickLink.id === selectedLink.id
+                ? { ...newLink, id: selectedLink.id }
+                : quickLink
+            )
+          );
+        })
+        .catch((error) => {
+          console.error("Failed to edit Quicklink:", error);
+        });
     } else {
-      const newId = quickLinks.length > 0 ? quickLinks[quickLinks.length - 1].id + 1 : 1;
+      // add new link
+      // Axios POST request to add data
+      axios.post("/api/quicklinks", newLink).then((response) => {
+        setQuickLinks((prevLinks) => [...prevLinks, response.data]);
+      });
+      const newId =
+        quickLinks.length > 0 ? quickLinks[quickLinks.length - 1].id + 1 : 1;
       setQuickLinks((prevLinks) => [...prevLinks, { ...newLink, id: newId }]);
     }
 
     setOpen(false);
   };
 
+  // Hande input change for link name and url
   const handleInputChange = (event, field) => {
     setNewLink((prevLinks) => ({
       ...prevLinks,
@@ -94,22 +149,24 @@ const auth0ID = user.sub;
           right: "10px",
         }}
       >
-        <IconButton onClick={handleAddLink} sx={{ color: 'white' }}>
+        <IconButton onClick={handleAddLink} sx={{ color: "white" }}>
           <AddIcon />
         </IconButton>
       </Box>
 
       <div className="title">Quick Links</div>
 
-      <Box sx={{
-        marginTop: '10px',
-        height: '80%',
-        overflow: 'auto',
-        fontSize: 'large',
-      }}>
+      <Box
+        sx={{
+          marginTop: "10px",
+          height: "80%",
+          overflow: "auto",
+          fontSize: "large",
+        }}
+      >
         {quickLinks.map((quickLink) => (
           <QuickLinksItem
-          key = {quickLink.id}
+            key={quickLink.id}
             quickLink={quickLink}
             handleCopyLink={handleCopyLink}
             handleEditLink={handleEditLink}
@@ -127,12 +184,14 @@ const auth0ID = user.sub;
 
       {/* Popup window */}
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>{selectedLink ? 'Edit Quick Link' : 'Add Quick Link'}</DialogTitle>
-        <DialogContent sx={{ width: '250px' }}>
+        <DialogTitle>
+          {selectedLink ? "Edit Quick Link" : "Add Quick Link"}
+        </DialogTitle>
+        <DialogContent sx={{ width: "250px" }}>
           <TextField
             label="Name"
             value={newLink.name}
-            onChange={(event) => handleInputChange(event, 'name')}
+            onChange={(event) => handleInputChange(event, "name")}
             variant="standard"
             fullWidth
             margin="dense"
@@ -140,7 +199,7 @@ const auth0ID = user.sub;
           <TextField
             label="URL"
             value={newLink.url}
-            onChange={(event) => handleInputChange(event, 'url')}
+            onChange={(event) => handleInputChange(event, "url")}
             variant="standard"
             fullWidth
             margin="dense"
@@ -148,11 +207,12 @@ const auth0ID = user.sub;
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={handleSaveLink}>{selectedLink ? 'Save' : 'Add'}</Button>
+          <Button onClick={handleSaveLink}>
+            {selectedLink ? "Save" : "Add"}
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>
-
   );
 };
 
