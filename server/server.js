@@ -3,7 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { addUser } = require("./db/queries/users");
+const { addUser, getUserInfo } = require("./db/queries/users");
 const { userValidator } = require("./functions/helpers");
 const { Configuration, OpenAIApi } = require("openai");
 const app = express();
@@ -55,6 +55,11 @@ app.post("/users", (req, res) => {
     }
     if (result === true) {
       console.log("user already in database");
+      getUserInfo(user.sub)
+        .then((user) => {
+          res.send(user);
+        })
+        .catch((e) => res.send(e));
     }
   });
 });

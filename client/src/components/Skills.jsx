@@ -26,9 +26,12 @@ const Skills = () => {
   const {user} = useAuth0();
   const auth0ID = user.sub;
 
+  // get user id from session storage
+  const userId = window.sessionStorage.getItem('userId');
+
   // Axios GET request to fetch data from API
   useEffect(() => {
-    axios.get('/api/skills')
+    axios.get(`/api/skills`)
       .then((response) => {
         setSkills(response.data);
       })
@@ -42,7 +45,7 @@ const Skills = () => {
 
   const handleDeleteSkill = (id) => {
     // Axios DELETE request to delete data here
-    axios.delete(`/api/skills/1/${id}`, id).then(() => {
+    axios.delete(`/api/skills/${userId}/${id}`, id).then(() => {
       setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
     })
     

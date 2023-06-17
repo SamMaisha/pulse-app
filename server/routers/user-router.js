@@ -8,4 +8,9 @@ router.get("/", (req, res) => {
   });
 });
 
+router.post("/find", (req, res) => {
+  const user = req.body;
+  console.log(user);
+  console.log("FIRE");
+});
 module.exports = router;

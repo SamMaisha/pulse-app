@@ -15,6 +15,11 @@ const Navbar = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
 
+  const userLogout = () => {
+    window.sessionStorage.removeItem('userId')
+    logout()
+  }
+
   return (
     <>
       <AppBar position="sticky" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', boxShadow: 'none', borderRadius: "10px" }}>
@@ -46,7 +51,7 @@ const Navbar = () => {
           <ListItem component={Link} to="/About">
             <ListItemText className="title" primary="ABOUT PULSE"  />
           </ListItem>
-          <ListItem component={Link} onClick={() => logout()}>
+          <ListItem component={Link} onClick={userLogout}>
             <ListItemText className="title" primary="LOGOUT" />
           </ListItem>
         </List>
