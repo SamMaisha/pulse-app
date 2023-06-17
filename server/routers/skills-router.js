@@ -27,8 +27,9 @@ router.put("/1/:skillid", (req, res) => {
 });
 
 // POST /api/skills/:userid
-router.post("/", (req, res) => {
-  //const userId = req.params.userid;
+router.post("/1", (req, res) => {
+  const userId = 1;
+  console.log("REQ BODY", req.body);
   const skillName = req.body.name;
   const skillStatus = req.body.status;
   // add skill to database
@@ -38,8 +39,8 @@ router.post("/", (req, res) => {
 });
 
 // DELETE /api/skills/:userid/:skillid
-router.delete("/:userid/:skillid", (req, res) => {
-  const userId = req.params.userid;
+router.delete("/1/:skillid", (req, res) => {
+  const userId = 1;
   const skillId = req.params.skillid;
   // delete skill from database
   skillsQueries
