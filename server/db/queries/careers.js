@@ -74,7 +74,7 @@ const updateCareer = function (
   RETURNING *
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
-    console.log(data.rows);
+    //console.log(data.rows);
     return data.rows[0];
   });
 };
@@ -92,7 +92,7 @@ const deleteCareer = function (userId, careerId) {
 // test get career
 const testGetCareer = function () {
   return db.query("SELECT * FROM careers;").then((data) => {
-    console.log(data.rows);
+    //console.log(data.rows);
     return data.rows;
   });
 };

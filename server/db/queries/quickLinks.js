@@ -21,7 +21,7 @@ const addQuickLink = function (userId, name, url) {
   RETURNING *
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
-    console.log(data.rows);
+    // console.log(data.rows);
     return data.rows[0];
   });
 };
@@ -36,7 +36,7 @@ const updateQuickLink = function (userId, quickLinkId, newName, newUrl) {
   RETURNING *
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
-    console.log(data.rows[0]);
+    // console.log(data.rows[0]);
     return data.rows[0];
   });
 };
