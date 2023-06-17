@@ -6,6 +6,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Careers = () => {
   // careers state used to store the careers data fetched from the API 
@@ -20,6 +21,10 @@ const Careers = () => {
 
   // open state controls the Dialog(popup window).
   const [open, setOpen] = useState(false);
+
+  // fetch auth0_id for user 
+  const {user} = useAuth0();
+  const auth0ID = user.sub;
 
   // Axios GET request to fetch data from API
   useEffect(() => {
