@@ -22,8 +22,8 @@ router.get("/:userid", (req, res) => {
 });
 
 // PUT /api/opportunities/:userid/:opportunityid
-router.put("/1/:opportunityid", (req, res) => {
-  const userId = 1;
+router.put("/:userid/:opportunityid", (req, res) => {
+  const userId = req.params.userid;
   const opportunityId = req.params.opportunityid;
   const newName = req.body.name;
   const newDate = req.body.date;
@@ -35,8 +35,8 @@ router.put("/1/:opportunityid", (req, res) => {
 });
 
 // POST /api/opportunities/:userid
-router.post("/1", (req, res) => {
-  const userId = 1;
+router.post("/:userid", (req, res) => {
+  const userId = req.params.userid;
   const opportunityName = req.body.name;
   const opportunityDate = req.body.date;
   const opportunityNote = req.body.notes;
@@ -47,8 +47,8 @@ router.post("/1", (req, res) => {
 });
 
 // DELETE /api/opportunities/:userid/:opportunityid
-router.delete("/1/:opportunityid", (req, res) => {
-  const userId = 1;
+router.delete("/:userid/:opportunityid", (req, res) => {
+  const userId = req.params.userid;
   const opportunityId = req.params.opportunityid;
   // delete opportunity from database
   opportunitiesQueries
