@@ -9,7 +9,7 @@ import logo from '../imgs/pulse.png';
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const { logout } = useAuth0();
+  const { logout, isAuthenticated, loginWithRedirect } = useAuth0();
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -27,7 +27,8 @@ const Navbar = () => {
           
         </Toolbar>
       </AppBar>
-      <Drawer
+      {isAuthenticated && (
+        <Drawer
         anchor="right"
         open={isDrawerOpen}
         onClose={toggleDrawer}
@@ -50,6 +51,29 @@ const Navbar = () => {
           </ListItem>
         </List>
       </Drawer>
+      )}
+      {!isAuthenticated && (
+        <Drawer
+        anchor="right"
+        open={isDrawerOpen}
+        onClose={toggleDrawer}
+        TransitionComponent={Slide}
+        TransitionProps={{
+          direction: 'left',
+          timeout: 10000,
+        }}
+        sx={{ width: 300, flexShrink: 0, '& .MuiDrawer-paper': { width: 400, backgroundColor: '#487a6c' }}}
+      >
+        <List>
+          <ListItem component={Link} to="/About">
+            <ListItemText className="title" primary="ABOUT PULSE"  />
+          </ListItem>
+          <ListItem component={Link} onClick={() => loginWithRedirect()}>
+            <ListItemText className="title" primary="LOGIN" />
+          </ListItem>
+        </List>
+      </Drawer>
+      )}
     </>
   );
 };
