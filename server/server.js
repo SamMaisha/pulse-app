@@ -28,12 +28,14 @@ const quickLinksRouter = require("./routers/quicklinks-router");
 const skillsRouter = require("./routers/skills-router");
 const opportunitiesRouter = require("./routers/opportunities-router");
 const careersRouter = require("./routers/careers-router");
+const userRouter = require("./routers/user-router");
 
 // use routers
 app.use("/api/quicklinks", quickLinksRouter);
 app.use("/api/skills", skillsRouter);
 app.use("/api/opportunities", opportunitiesRouter);
 app.use("/api/careers", careersRouter);
+app.use("/api/user", userRouter);
 
 //////////////////////////////////// USER CONFIG ////////////////////////////////////////
 
@@ -59,7 +61,6 @@ app.post("/users", (req, res) => {
 
 /////////////////////////////// CHAT-GPT ///////////////////////////////////////////////
 app.post("/gpt-prompt", async (req, res) => {
-
   try {
     const promptData = req.body;
 
@@ -76,22 +77,18 @@ app.post("/gpt-prompt", async (req, res) => {
   ${promptData.strengths}. Please use this additional
   information to really drive home an authentic and
   genuine cover letter, ${promptData.extraInfo}.
-  `
-
+  `;
 
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,
-      max_tokens: 2500
+      max_tokens: 2500,
     });
     res.send(completion.data.choices[0].text);
   } catch (err) {
     console.log(err); //more specific error
   }
-
-})
-
-
+});
 
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);
