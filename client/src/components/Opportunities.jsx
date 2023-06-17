@@ -55,12 +55,18 @@ const Opportunities = () => {
 
   const handleSaveOpportunity = () => {
     if (selectedOpportunity) {
-      // ------TODO------- Axios PUT request to edit data here
-      setOpportunities((prevOpportunities) =>
+      // Axios PUT request to edit data here
+      const opportunityId = selectedOpportunity.id;
+      console.log(opportunityId);
+      axios.put(`/api/opportunities/1/${opportunityId}`, newOpportunity)
+      .then(() => {
+        setOpportunities((prevOpportunities) =>
         prevOpportunities.map((opp) =>
           opp.id === selectedOpportunity.id ? { ...newOpportunity, id: selectedOpportunity.id } : opp
         )
       );
+      })
+      
     } else {
       // ------TODO------- Axios POST request to add data here
       const newId = opportunities.length > 0 ? opportunities[opportunities.length - 1].id + 1 : 1;
