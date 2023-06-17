@@ -41,8 +41,11 @@ const Skills = () => {
   };
 
   const handleDeleteSkill = (id) => {
-    // ------TODO------- Axios DELETE request to delete data here
-    setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
+    // Axios DELETE request to delete data here
+    axios.delete(`/api/skills/1/${id}`, id).then(() => {
+      setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
+    })
+    
   };
 
   const handleEditSkill = (skill) => {
@@ -60,14 +63,16 @@ const Skills = () => {
         setSkills((prevSkills) =>
         prevSkills.map((skill) => (skill.id === selectedSkill.id ? { ...newSkill, id: selectedSkill.id } : skill))
       )}
-      )
-      
+      )     
     } else {
-      // ------TODO------- Axios POST request to add data here
-      const newId = skills.length > 0 ? skills[skills.length - 1].id + 1 : 1;
-      setSkills((prevSkills) => [...prevSkills, { ...newSkill, id: newId }]);
+      //Axios POST request to add data here
+      axios.post(`/api/skills/1`, newSkill)
+      .then((response) => {
+        console.log(response.data)
+        const newId = response.data.id
+        setSkills((prevSkills) => [...prevSkills, { ...newSkill, id: newId }]);
+      })
     }
-
     setOpen(false);
   };
 
