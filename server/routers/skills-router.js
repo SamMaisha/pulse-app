@@ -6,15 +6,15 @@ const skillsQueries = require("../db/queries/skills");
 
 //GET /api/skills/:userid => return raw data skills for user
 router.get("/:userid", (req, res) => {
-  skillsQueries.getSkills().then((result) => {
+  const userId = req.params.userid;
+  skillsQueries.getSkills(userId).then((result) => {
     res.json(result);
   });
 });
 
 // PUT /api/skills/:userid/:skillid
-router.put("/1/:skillid", (req, res) => {
-  console.log("REQ BODY", req.body);
-  const userId = 1;
+router.put("/:userid/:skillid", (req, res) => {
+  const userId = req.params.userid;
   const skillId = req.params.skillid;
   const newName = req.body.name;
   const newStatus = req.body.status;
@@ -25,9 +25,8 @@ router.put("/1/:skillid", (req, res) => {
 });
 
 // POST /api/skills/:userid
-router.post("/1", (req, res) => {
-  const userId = 1;
-  console.log("REQ BODY", req.body);
+router.post("/:userid", (req, res) => {
+  const userId = req.params.userid;
   const skillName = req.body.name;
   const skillStatus = req.body.status;
   // add skill to database
@@ -37,8 +36,8 @@ router.post("/1", (req, res) => {
 });
 
 // DELETE /api/skills/:userid/:skillid
-router.delete("/1/:skillid", (req, res) => {
-  const userId = 1;
+router.delete("/:userid/:skillid", (req, res) => {
+  const userId = req.params.userid;
   const skillId = req.params.skillid;
   // delete skill from database
   skillsQueries
