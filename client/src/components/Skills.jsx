@@ -53,10 +53,15 @@ const Skills = () => {
 
   const handleSaveSkill = () => {
     if (selectedSkill) {
-      // ------TODO------- Axios PUT request to edit data here
-      setSkills((prevSkills) =>
+      //Axios PUT request to edit data here
+      const skillId = selectedSkill.id;
+      axios.put(`/api/skills/1/${skillId}`, newSkill)
+      .then(() => {
+        setSkills((prevSkills) =>
         prevSkills.map((skill) => (skill.id === selectedSkill.id ? { ...newSkill, id: selectedSkill.id } : skill))
-      );
+      )}
+      )
+      
     } else {
       // ------TODO------- Axios POST request to add data here
       const newId = skills.length > 0 ? skills[skills.length - 1].id + 1 : 1;
