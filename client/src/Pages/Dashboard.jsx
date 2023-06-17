@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Grid, Hidden } from '@mui/material';
 import User  from '../components/User';
 import QuickLinks from '../components/QuickLinks';
@@ -6,8 +7,22 @@ import Careers from '../components/Careers';
 import Skills from '../components/Skills';
 import Opportunities from '../components/Opportunities';
 import CoverLetter from '../components/CoverLetter';
+import axios from 'axios';
 
 const Dashboard = () => {
+
+  const {user} = useAuth0();
+
+  console.log(user);
+
+  useEffect(() => {
+    const submitUserData = async() => {
+      const result = await axios.post('http://localhost:8001/users', user);
+
+      console.log(result);
+    }
+    submitUserData();
+  }, [user])
   return (
     <>
       <Hidden smDown>
