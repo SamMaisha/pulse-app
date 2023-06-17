@@ -2,12 +2,10 @@ const express = require("express");
 const router = express.Router();
 const skillsQueries = require("../db/queries/skills");
 
-//////////////////////////// TEST WITHOUT USER ID ////////////////////////////////
-
 /////////////////////////////////////// WITH USER ID //////////////////////////////////
 
-//GET /api/skills => return raw data skills for user
-router.get("/", (req, res) => {
+//GET /api/skills/:userid => return raw data skills for user
+router.get("/:userid", (req, res) => {
   skillsQueries.getSkills().then((result) => {
     res.json(result);
   });
