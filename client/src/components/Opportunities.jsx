@@ -7,6 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 import { format } from "date-fns";
 import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Opportunities = () => {
   // opportunities state used to store the opportunities data fetched from the API 
@@ -21,6 +22,10 @@ const Opportunities = () => {
 
   // open state controls the Dialog(popup window).
   const [open, setOpen] = useState(false);
+
+  // fetch auth0_id for user 
+  const {user} = useAuth0();
+  const auth0ID = user.sub;
 
   // Axios GET request to fetch data from API
   useEffect(() => {

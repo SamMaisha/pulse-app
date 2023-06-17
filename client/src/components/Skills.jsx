@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Skills = () => {
   // skills state used to store the skills data fetched from the API 
@@ -20,6 +21,10 @@ const Skills = () => {
 
   // open state controls the Dialog(popup window).
   const [open, setOpen] = useState(false);
+
+  // fetch auth0_id for user 
+  const {user} = useAuth0();
+  const auth0ID = user.sub;
 
   // Axios GET request to fetch data from API
   useEffect(() => {
