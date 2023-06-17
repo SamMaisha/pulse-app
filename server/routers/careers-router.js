@@ -54,15 +54,14 @@ router.put("/:userid/:careerid", (req, res) => {
 // POST /api/careers/:userid
 router.post("/:userid", (req, res) => {
   const userId = req.params.userid;
-  const {
-    jobTitle,
-    companyName,
-    jobLink,
-    isCoverLetterGenerated,
-    isApplied,
-    isInterviewed,
-    notes,
-  } = req.body;
+  console.log("REQ BODY", req.body);
+  const jobTitle = req.body.job_title;
+  const companyName = req.body.company_name;
+  const jobLink = req.body.job_link;
+  const isCoverLetterGenerated = req.body.is_coverletter_generated;
+  const isApplied = req.body.is_applied;
+  const isInterviewed = req.body.is_interviewed;
+  const notes = req.body.notes;
   // add career to database
   careersQueries
     .addCareer(
