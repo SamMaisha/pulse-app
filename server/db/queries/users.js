@@ -40,7 +40,7 @@ const getAllUserIds = function () {
   });
 };
 
-const getUserId = function (auth0Id) {
+const getUserInfo = function (auth0Id) {
   const queryParams = [auth0Id];
   const parameterizedQuery = `
   SELECT * from users
@@ -48,12 +48,12 @@ const getUserId = function (auth0Id) {
   `;
   return db.query(parameterizedQuery, queryParams).then((data) => {
     console.log(data.rows[0]);
-    return data.rows[0];
+    return data.rows;
   });
 };
 
 module.exports = {
   addUser,
   getAllUserIds,
-  getUserId,
+  getUserInfo,
 };
