@@ -68,9 +68,13 @@ const Opportunities = () => {
       })
       
     } else {
-      // ------TODO------- Axios POST request to add data here
-      const newId = opportunities.length > 0 ? opportunities[opportunities.length - 1].id + 1 : 1;
-      setOpportunities((prevOpportunities) => [...prevOpportunities, { ...newOpportunity, id: newId }]);
+      // Axios POST request to add data here
+      axios.post(`/api/opportunities/1`, newOpportunity)
+      .then((response) => {
+        console.log(response.data)
+        const newId = response.data.id;
+        setOpportunities((prevOpportunities) => [...prevOpportunities, { ...newOpportunity, id: newId }]);
+      })     
     }
 
     setOpen(false);
