@@ -17,7 +17,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     const submitUserData = async() => {
-      const {data} = await axios.post('/users', user);
+      const {data} = await axios.post('/api/user', user);
+      console.log(data);
       const userId = data[0].id;
       window.sessionStorage.setItem('userId',userId)
     }
