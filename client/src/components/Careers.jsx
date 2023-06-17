@@ -22,13 +22,12 @@ const Careers = () => {
   // open state controls the Dialog(popup window).
   const [open, setOpen] = useState(false);
 
-  // fetch auth0_id for user 
-  const {user} = useAuth0();
-  const auth0ID = user.sub;
+  // get user id from session storage
+  const userId = window.sessionStorage.getItem('userId');
 
   // Axios GET request to fetch data from API
   useEffect(() => {
-    axios.get('/api/careers')
+    axios.get(`/api/careers/${userId}`)
       .then((response) => {
         setCareers(response.data);
       })
@@ -50,9 +49,10 @@ const Careers = () => {
 
 
   const handleDeleteCareer = (id) => {
-    // ------TODO------- Axios DELETE request to delete data here
-    const updatedCareers = careers.filter((career) => career.id !== id);
-    setCareers(updatedCareers);
+    // Axios DELETE request to delete data here
+    axios.delete(`/api/careers/${userId}/${id}`, id).then(() => {
+      setCareers((prevCareers) => prevCareers.filter((career) => career.id !== id));
+    })
   };
 
   const handleEditCareer = (career) => {
@@ -63,18 +63,23 @@ const Careers = () => {
 
   const handleSaveCareer = () => {
     if (selectedCareer) {
-      // ------TODO------- Axios PUT request to edit data here
-      setCareers((prevCareers) =>
+      // Axios PUT request to edit data here
+      const careerId = selectedCareer.id
+      axios.put(`/api/careers/${userId}/${careerId}`, newCareer).then(() => {
+        setCareers((prevCareers) =>
         prevCareers.map((career) =>
           career.id === selectedCareer.id ? { ...newCareer, id: selectedCareer.id } : career
         )
       );
+      })
     } else {
-      // ------TODO------- Axios POST request to add data here
-      const newId = careers.length > 0 ? careers[careers.length - 1].id + 1 : 1;
-      setCareers((prevCareers) => [...prevCareers, { ...newCareer, id: newId }]);
+      // Axios POST request to add data here
+      axios.post(`/api/careers/${userId}`, newCareer).then((response) => {
+        console.log(response.data)
+        const newId = response.data.id
+        setCareers((prevCareers) => [...prevCareers, { ...newCareer, id: newId }]);
+      })
     }
-
     setOpen(false);
   };
 
