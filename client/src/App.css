@@ -178,17 +178,23 @@ strong {
 
 @keyframes pulse-white {
   0% {
-		transform: scale(0.95);
-		box-shadow: 1px rgba(255, 82, 82, 0.4);
+		transform: scale(0.98);
+		box-shadow: 1px rgba(255, 82, 82, 0.1);
 	}
 	
 	70% {
 		transform: scale(1);
-		box-shadow: 5px rgba(255, 82, 82, 0.1);
+		box-shadow: 5px rgba(255, 82, 82, 0.3);
 	}
 	
 	100% {
-		transform: scale(0.96);
-		box-shadow: 1px rgba(255, 82, 82, 0.1);
+		transform: scale(0.98);
+		box-shadow: 1px rgba(255, 82, 82, 0.2);
 }
+}
+
+.MuiDataGrid-columnHeadersInner {
+  color: #dfebe7 !important;
+  font-size: 20px;
+  font-family: 'Lato', sans-serif;
 }
