@@ -1,15 +1,8 @@
-
-
 body {
   color: #dfebe7;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   padding: 15px;
-  background: linear-gradient(
-    45deg,
-    #245E4D,
-    #000403,
-    #2B69B2
-  );
+  background: linear-gradient(45deg, #245e4d, #000403, #2b69b2);
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -23,19 +16,16 @@ body {
   border-color: transparent !important;
 }
 
-
-
 .title {
   font-weight: bold;
   font-size: 25px;
   color: darkgoldenrod;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .title:hover {
   color: #dfebe7;
 }
-
 
 .datagrid .wrap-text {
   white-space: normal !important;
@@ -51,7 +41,7 @@ body {
   font-weight: bold;
   font-size: 50px;
   color: darkgoldenrod;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,13 +58,13 @@ body {
 p {
   font-size: 20px;
   color: #dfebe7;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 h2 {
   font-size: 30px;
   color: darkgoldenrod;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .about-header {
@@ -88,7 +78,7 @@ h2 {
 .header-text {
   font-size: 30px;
   color: #dfebe7;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   padding-left: 70px;
   padding-right: 70px;
   display: flex;
@@ -97,7 +87,7 @@ h2 {
   flex-direction: column;
   line-height: 1.5;
   width: 100%;
- }
+}
 
 .pulse-graphic {
   width: 100%;
@@ -106,7 +96,7 @@ h2 {
 .about-text {
   font-size: 25px;
   color: #dfebe7;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   padding-left: 60px;
   line-height: 1.5;
   width: 90%;
@@ -116,13 +106,13 @@ strong {
   font-weight: bold;
   font-size: 25px;
   color: darkgoldenrod;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .footer-text {
   font-size: 15px;
   color: #dfebe7;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   line-height: 1.5;
   width: 90%;
   display: flex;
@@ -133,7 +123,7 @@ strong {
 .home-title {
   font-size: 35px;
   color: #dfebe7;
-  opacity: .5;
+  opacity: 0.5;
   letter-spacing: 15px;
   font-family: "lato";
   margin-bottom: 50px;
@@ -145,4 +135,3 @@ strong {
   transition: 800ms ease-in;
   font-size: 40px;
 }
-

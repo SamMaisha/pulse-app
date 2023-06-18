@@ -16,7 +16,9 @@ const Login = () => {
         />
       </Box>
       <Box textAlign="center">
-        <h1 class="home-title">FIND YOUR <em>PULSE</em></h1>
+        <h1 class="home-title">
+          FIND YOUR <em>PULSE</em>
+        </h1>
       </Box>
       <LoginButton />
     </Container>
