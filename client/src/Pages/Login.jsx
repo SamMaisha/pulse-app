@@ -11,7 +11,7 @@ const Login = () => {
         <img
           src={pulse}
           alt="logo"
-          class="logo"
+          class="home-logo"
           style={{ width: "500px", height: "auto" }}
         />
       </Box>

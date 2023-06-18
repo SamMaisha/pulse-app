@@ -124,16 +124,34 @@ strong {
   font-size: 35px;
   color: #dfebe7;
   opacity: 0.5;
-  letter-spacing: 15px;
+  letter-spacing: 25px;
   font-family: "lato";
   margin-bottom: 50px;
+  background: transparent;
+	animation: pulse-white 3s infinite;
+  border-radius: 50%;
 }
+
+@keyframes pulse-white {
+	0% {
+		transform: scale(0.98);
+
+  	}
+	
+	70% {
+		transform: scale(1);
+	}
+	
+	100% {
+		transform: scale(0.98);
+	}
+}
+
 
 .home-title:hover {
   color: #dfebe7;
   opacity: 1;
-  transition: 800ms ease-in;
-  font-size: 40px;
+
 }
 
 .welcome-user {
@@ -147,4 +165,26 @@ strong {
 .MuiDataGrid-overlay {
   color: transparent !important;
   background-color: transparent !important;
+}
+
+.home-logo {
+	background: transparent;
+	animation: pulse-white 3s infinite;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 1);
+}
+
+@keyframes pulse-white {
+	0% {
+		transform: scale(0.98);
+
+  	}
+	
+	70% {
+		transform: scale(1);
+	}
+	
+	100% {
+		transform: scale(0.98);
+	}
 }
