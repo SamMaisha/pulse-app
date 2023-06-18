@@ -1,6 +1,6 @@
 body {
   color: #dfebe7;
-  font-family: "Nunito", sans-serif;
+  font-family: "Lato", sans-serif;
   padding: 15px;
   background: linear-gradient(45deg, #245e4d, #000403, #2b69b2);
   background-position: center;
@@ -17,10 +17,14 @@ body {
 }
 
 .title {
-  font-weight: bold;
+  font-style: bold;
   font-size: 25px;
+  font-weight: 500;
   color: darkgoldenrod;
   font-family: "Lato", sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .title:hover {
@@ -125,41 +129,39 @@ strong {
   color: #dfebe7;
   opacity: 0.5;
   letter-spacing: 25px;
-  font-family: "lato";
+  font-family: "Lato", sans-serif;
   margin-bottom: 50px;
   background: transparent;
-	animation: pulse-white 2s infinite;
+  animation: pulse-white 2s infinite;
   border-radius: 50%;
 }
 
 @keyframes pulse-white {
-	0% {
-		transform: scale(0.98);
+  0% {
+    transform: scale(0.98);
+  }
 
-  	}
-	
-	70% {
-		transform: scale(1);
-	}
-	
-	100% {
-		transform: scale(0.98);
-	}
+  70% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.98);
+  }
 }
-
 
 .home-title:hover {
   color: #dfebe7;
   opacity: 1;
-
 }
 
 .welcome-user {
   font-size: 15px;
   color: #dfebe7;
-  opacity: 1;
+  opacity: 0.9;
   letter-spacing: 1px;
-  font-family: "lato";
+  font-family: "Lato", sans-serif;
+  font-weight: regular;
 }
 
 .MuiDataGrid-overlay {
@@ -168,33 +170,45 @@ strong {
 }
 
 .home-logo {
-	background: rgba(0, 0, 0, 0.4);
-	box-shadow: 0px 0px 100px black;
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 100px black;
   border-radius: 800px;
-
-
-	animation: pulse-white 2s infinite;
+  animation: pulse-white 2s infinite;
 }
 
 @keyframes pulse-white {
   0% {
-		transform: scale(0.98);
-		box-shadow: 1px rgba(255, 82, 82, 0.1);
-	}
-	
-	70% {
-		transform: scale(1);
-		box-shadow: 5px rgba(255, 82, 82, 0.3);
-	}
-	
-	100% {
-		transform: scale(0.98);
-		box-shadow: 1px rgba(255, 82, 82, 0.2);
-}
+    transform: scale(0.98);
+    box-shadow: 1px rgba(255, 82, 82, 0.2);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 5px rgba(255, 82, 82, 0.4);
+  }
+
+  100% {
+    transform: scale(0.98);
+    box-shadow: 1px rgba(255, 82, 82, 0.2);
+  }
 }
 
 .MuiDataGrid-columnHeadersInner {
   color: #dfebe7 !important;
   font-size: 20px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
+
+.MuiBox-root {
+  color: #dfebe7 !important;
+  font-size: 20px;
+  font-family: "Lato", sans-serif;
+}
+
+.ql-text {
+  color: #dfebe7 !important;
+  font-size: 20px;
+  font-family: "Lato", sans-serif;
+}
+
+
