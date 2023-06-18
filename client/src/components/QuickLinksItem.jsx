@@ -11,7 +11,7 @@ const QuickLinksItem = ({ quickLink, handleCopyLink, handleEditLink, handleDelet
         <span>{quickLink.name}</span>
       </Box>
       <Box sx={{ flex: 2 }}>
-        <input type="text" value={quickLink.url} readOnly style={{ width: '160%', borderRadius: '5px', border: "none", background: "transparent", color: "white" }} />
+        <input type="text" class="ql-text" value={quickLink.url} readOnly style={{ width: '160%', borderRadius: '5px', border: "none", background: "transparent", color: "white" }} />
       </Box>
       <Box sx={{
         flex: 2,

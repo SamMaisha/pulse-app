@@ -31,7 +31,7 @@ const User = () => {
         sx={{ width: '200px', height: '200px' }}
    
       />
-    <h5 class="welcome-user">Hello, {user.name}!</h5>
+    <p class="welcome-user">Hello, {user.name}!</p>
     </Box>
   );
 };

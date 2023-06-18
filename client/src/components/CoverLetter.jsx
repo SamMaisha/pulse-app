@@ -52,36 +52,33 @@ import { set } from "date-fns";
 const CoverLetter = () => {
   const [open, setOpen] = useState(false);
   const [state, setState] = useState({
-    careers: [], // store the careers data fetched from the API 
-    skills: [], // store the skills data fetched from the API 
-    selectedCareer: '', // track the selected career and store it as an Array [position, company], or "custom"
-    position: '', // track selected careers's position or store the custom position
-    company: '', // track selected careers's company or store the custom company
-    experience: '',
+    careers: [], // store the careers data fetched from the API
+    skills: [], // store the skills data fetched from the API
+    selectedCareer: "", // track the selected career and store it as an Array [position, company], or "custom"
+    position: "", // track selected careers's position or store the custom position
+    company: "", // track selected careers's company or store the custom company
+    experience: "",
     topSkills: [], // track selected skills (0-3)
-    extraInfo: '',
-  })
+    extraInfo: "",
+  });
   const [response, setResponse] = useState("");
   const [isloading, setIsLoading] = useState(false);
 
   // Axios GET request to fetch data from API
   useEffect(() => {
-    Promise.all([
-      axios.get('/api/careers'),
-      axios.get('/api/skills'),
-    ])
+    Promise.all([axios.get("/api/careers"), axios.get("/api/skills")])
       .then((response) => {
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
           careers: response[0].data,
           skills: response[1].data,
-        }))
+        }));
         console.log(response.data);
       })
       .catch((error) => {
         console.log("Error on fetching data: " + error);
-      })
-  }, [])
+      });
+  }, []);
 
   // Save all the information from the client
   // Generate the message and send it to OpenAI
@@ -89,10 +86,7 @@ const CoverLetter = () => {
     setOpen(false);
     try {
       setIsLoading(true); //set state at beginning of call
-      const gptResponse = await axios.post(
-        "/api/openAI",
-        state
-      );
+      const gptResponse = await axios.post("/api/openAI", state);
       setResponse(gptResponse.data); //setResponse to chatgpt data
     } catch (err) {
       console.log("Error", err);
@@ -168,43 +162,68 @@ const CoverLetter = () => {
               fontSize: "18px",
             }}
           >
-            <ClimbingBoxLoader sx={{ opacity: "70%" }} loading={isloading} color={'#003933'} />
+            <ClimbingBoxLoader
+              sx={{ opacity: "70%" }}
+              loading={isloading}
+              color={"#003933"}
+            />
             <Box>Loading Response</Box>
           </Box>
         ) : (
           <Box
             sx={{
               position: "relative",
-              padding: 1,
+              padding: 2,
               borderRadius: 5,
               height: "60%",
               marginLeft: "50px",
               bgcolor: "rgba(91, 130, 130, 0.4)",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
               fontWeight: "bold",
               fontSize: "18px",
             }}
           >
-            <Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+              }}
+            >
               <div className="title">Cover Letter Generator</div>
             </Box>
 
-            <Box mt={4}>
-              <p> Generated Cover Letter here. </p>
+            <Box
+              mt={4}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontFamily: "Lato",
+                fontWeight: "regular",
+              }}
+            >
+              <h7 class="cover-letter-ex"> Generated Cover Letter here. </h7>
             </Box>
 
-            <Box mt="auto" mb={2}>
+            <Box
+              mt="auto"
+              mb={2}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <Button
                 variant="contained"
                 onClick={() => setOpen(true)}
-                color="secondary"
                 sx={{
                   borderRadius: "5px",
                   background: "rgba(184, 134, 11)",
                   fontSize: "15px",
+                  fontFamily: "Lato",
                 }}
               >
                 Create my Cover Letter
@@ -224,13 +243,13 @@ const CoverLetter = () => {
                     value={state.selectedCareer} // Use the state to track the selected position
                     onChange={(event) => {
                       const value = event.target.value;
-                      const isCustom = value === 'custom';
+                      const isCustom = value === "custom";
 
                       setState((prevState) => ({
                         ...prevState,
                         selectedCareer: value,
-                        position: isCustom ? '' : value.split(',')[0],
-                        company: isCustom ? '' : value.split(',')[1],
+                        position: isCustom ? "" : value.split(",")[0],
+                        company: isCustom ? "" : value.split(",")[1],
                       }));
                     }}
                   >
@@ -251,7 +270,7 @@ const CoverLetter = () => {
                 </FormControl>
 
                 {/* If want to input custom position and company, show the following textfield */}
-                {state.selectedCareer === 'custom' && (
+                {state.selectedCareer === "custom" && (
                   <Box mt={2}>
                     <TextField
                       label="Position"
