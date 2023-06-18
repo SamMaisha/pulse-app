@@ -94,7 +94,7 @@ const Skills = () => {
     {
       field: 'status',
       headerName: 'Status',
-      width: 150,
+      width: 180,
       renderCell: (params) => (
         <div>{params.value}</div>
       ),
