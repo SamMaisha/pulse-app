@@ -61,12 +61,6 @@ const CoverLetter = () => {
     topSkills: [], // track selected skills (0-3)
     extraInfo: '',
   })
-  // const [company, setCompany] = useState('');
-  // const [position, setPosition] = useState('');
-  // const [experience, setExperience] = useState('');
-  // const [skills, setSkills] = useState([]);
-  // const [strengths, setStrengths] = useState([]);
-  // const [extraInfo, setExtraInfo] = useState('');
   const [response, setResponse] = useState("");
   const [isloading, setIsLoading] = useState(false);
 
@@ -119,10 +113,10 @@ const CoverLetter = () => {
       event.target.querySelectorAll('input[type="checkbox"]:checked')
     ).map((checkbox) => checkbox.value);
 
-    setState({
-      ...state,
-      topSkills: selectedSkills,
-    });
+    setState((prevState) => ({
+      ...prevState,
+      topSkills: selectedSkills.slice(0, 3), // Limit the selected skills to a maximum of 3
+    }));
   };
 
   if (response !== "") {
@@ -346,46 +340,6 @@ const CoverLetter = () => {
                     </FormGroup>
                   </FormControl>
                 </Box>
-
-                {/* <Box mt={2}>
-                  <FormControl component="fieldset">
-                    <FormLabel component="legend">
-                      Choose your top 3 strengths
-                    </FormLabel>
-                    <FormGroup>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={strengths.includes("Strength 1")} // Check if the strength is in the selected strengths
-                            onChange={handleStrengthsChange}
-                            value="Strength 1"
-                          />
-                        }
-                        label="Strength 1"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={strengths.includes("Strength 2")}
-                            onChange={handleStrengthsChange}
-                            value="Strength 2"
-                          />
-                        }
-                        label="Strength 2"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={strengths.includes("Strength 3")}
-                            onChange={handleStrengthsChange}
-                            value="Strength 3"
-                          />
-                        }
-                        label="Strength 3"
-                      />
-                    </FormGroup>
-                  </FormControl>
-                </Box> */}
 
                 <Box mt={2}>
                   <TextField
