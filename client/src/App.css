@@ -135,3 +135,16 @@ strong {
   transition: 800ms ease-in;
   font-size: 40px;
 }
+
+.welcome-user {
+  font-size: 15px;
+  color: #dfebe7;
+  opacity: 1;
+  letter-spacing: 1px;
+  font-family: "lato";
+}
+
+.MuiDataGrid-overlay {
+  color: transparent !important;
+  background-color: transparent !important;
+}

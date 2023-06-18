@@ -200,7 +200,8 @@ const Careers = () => {
             value={newCareer.company_name}
             onChange={(e) => handleInputChange(e, 'company_name')}
             fullWidth
-            margin="normal"
+            varient="standard"
+            margin="dense"
           />
           <TextField
             label="Position"
