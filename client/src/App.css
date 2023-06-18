@@ -128,7 +128,7 @@ strong {
   font-family: "lato";
   margin-bottom: 50px;
   background: transparent;
-	animation: pulse-white 3s infinite;
+	animation: pulse-white 2s infinite;
   border-radius: 50%;
 }
 
@@ -168,23 +168,27 @@ strong {
 }
 
 .home-logo {
-	background: transparent;
-	animation: pulse-white 3s infinite;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(255, 255, 255, 1);
+	background: rgba(0, 0, 0, 0.4);
+	box-shadow: 0px 0px 100px black;
+  border-radius: 800px;
+
+
+	animation: pulse-white 2s infinite;
 }
 
 @keyframes pulse-white {
-	0% {
-		transform: scale(0.98);
-
-  	}
+  0% {
+		transform: scale(0.95);
+		box-shadow: 1px rgba(255, 82, 82, 0.4);
+	}
 	
 	70% {
 		transform: scale(1);
+		box-shadow: 5px rgba(255, 82, 82, 0.1);
 	}
 	
 	100% {
-		transform: scale(0.98);
-	}
+		transform: scale(0.96);
+		box-shadow: 1px rgba(255, 82, 82, 0.1);
+}
 }
