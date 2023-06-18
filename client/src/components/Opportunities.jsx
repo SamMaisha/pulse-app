@@ -193,6 +193,8 @@ const Opportunities = () => {
           disableRowSelectionOnClick
           disableColumnMenu
           hideFooterPagination
+          hideFooterSelectedRowCount
+          hideFooter
           className="datagrid"
         />
       </Box>

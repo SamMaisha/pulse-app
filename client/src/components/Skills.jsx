@@ -86,7 +86,7 @@ const Skills = () => {
     {
       field: 'name',
       headerName: 'Skill',
-      width: 180,
+      width: 200,
       renderCell: (params) => (
         <div>{params.value}</div>
       ),
@@ -94,7 +94,7 @@ const Skills = () => {
     {
       field: 'status',
       headerName: 'Status',
-      width: 180,
+      width: 200,
       renderCell: (params) => (
         <div>{params.value}</div>
       ),
@@ -102,7 +102,7 @@ const Skills = () => {
     {
       field: 'edit',
       headerName: 'Edit',
-      width: 70,
+      width: 80,
       renderCell: (params) => (
         <IconButton onClick={() => handleEditSkill(params.row)} sx={{ color: 'rgba(184, 134, 11)' }}>
           <EditIcon />
@@ -112,7 +112,7 @@ const Skills = () => {
     {
       field: 'delete',
       headerName: 'Delete',
-      width: 70,
+      width: 80,
       renderCell: (params) => (
         <IconButton onClick={() => handleDeleteSkill(params.row.id)} sx={{ color: 'rgba(210, 77, 87)' }}>
           <DeleteIcon />
@@ -164,6 +164,8 @@ const Skills = () => {
           disableRowSelectionOnClick
           disableColumnMenu
           hideFooterPagination
+          hideFooterSelectedRowCount
+          hideFooter
         />
       </Box>
 
