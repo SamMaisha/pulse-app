@@ -32,14 +32,13 @@ const QuickLinks = () => {
   // selected link and setSelectedLink is being used to track the message that shows up in pop up
   const [selectedLink, setSelectedLink] = useState(null);
 
-  // Fetch auth0_id for user
-  const { user } = useAuth0();
-  const auth0ID = user.sub;
+  // get user id from session storage
+  const userId = window.sessionStorage.getItem('userId');
 
   // Axios GET request to fetch data from API
   useEffect(() => {
     axios
-      .get("/api/quicklinks")
+      .get(`/api/quicklinks/${userId}`)
       .then((response) => {
         setQuickLinks(response.data);
       })
@@ -71,7 +70,7 @@ const QuickLinks = () => {
   const handleDeleteLink = (id) => {
     // Axios DELETE request to delete data here
     axios
-      .delete(`/api/quicklinks/${id}`)
+      .delete(`/api/quicklinks/${userId}/${id}`)
       .then(() => {
         setQuickLinks((prevLinks) =>
           prevLinks.filter((link) => link.id !== id)
@@ -92,10 +91,10 @@ const QuickLinks = () => {
   // Save the edited or new link to quickLinks
   const handleSaveLink = () => {
     if (selectedLink) {
-      // update existing link
       // Axios PUT request to edit data
+      const linkId = selectedLink.id
       axios
-        .put(`/api/quicklinks/${selectedLink.id}`, newLink)
+        .put(`/api/quicklinks//${userId}/${linkId}`, newLink)
         .then(() => {
           setQuickLinks((prevLinks) =>
             prevLinks.map((quickLink) =>
@@ -109,16 +108,12 @@ const QuickLinks = () => {
           console.error("Failed to edit Quicklink:", error);
         });
     } else {
-      // add new link
-      // Axios POST request to add data
-      axios.post("/api/quicklinks", newLink).then((response) => {
-        setQuickLinks((prevLinks) => [...prevLinks, response.data]);
+      // Axios POST to add data
+      axios.post(`/api/quicklinks/${userId}`, newLink).then((response) => {
+        const newId = response.data.id
+        setQuickLinks((prevLinks) => [...prevLinks, { ...newLink, id: newId }])
       });
-      const newId =
-        quickLinks.length > 0 ? quickLinks[quickLinks.length - 1].id + 1 : 1;
-      setQuickLinks((prevLinks) => [...prevLinks, { ...newLink, id: newId }]);
     }
-
     setOpen(false);
   };
 
