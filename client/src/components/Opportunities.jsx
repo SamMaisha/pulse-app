@@ -5,8 +5,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
-import { format } from "date-fns";
 import axios from 'axios';
+import moment from 'moment';
 
 const Opportunities = () => {
   // opportunities state used to store the opportunities data fetched from the API 
@@ -29,6 +29,9 @@ const Opportunities = () => {
   useEffect(() => {
     axios.get(`/api/opportunities/${userId}`)
       .then((response) => {
+        response.data.forEach(element => {
+          element.date = moment(element.date).utc().format('YYYY-MM-DD');
+        });
         setOpportunities(response.data);
       })
   }, [])
@@ -45,7 +48,6 @@ const Opportunities = () => {
       const updatedOpportunities = opportunities.filter((opp) => opp.id !== id);
       setOpportunities(updatedOpportunities);
     })
-    
   };
 
   const handleEditOpportunity = (opportunity) => {
@@ -60,42 +62,31 @@ const Opportunities = () => {
       const opportunityId = selectedOpportunity.id;
       console.log(opportunityId);
       axios.put(`/api/opportunities/${userId}/${opportunityId}`, newOpportunity)
-      .then(() => {
-        setOpportunities((prevOpportunities) =>
-        prevOpportunities.map((opp) =>
-          opp.id === selectedOpportunity.id ? { ...newOpportunity, id: selectedOpportunity.id } : opp
-        )
-      );
-      })
+        .then(() => {
+          setOpportunities((prevOpportunities) =>
+            prevOpportunities.map((opp) =>
+              opp.id === selectedOpportunity.id ? { ...newOpportunity, id: selectedOpportunity.id } : opp
+            )
+          );
+        })
     } else {
       // Axios POST request to add data here
       axios.post(`/api/opportunities/${userId}`, newOpportunity)
-      .then((response) => {
-        console.log(response.data)
-        const newId = response.data.id;
-        setOpportunities((prevOpportunities) => [...prevOpportunities, { ...newOpportunity, id: newId }]);
-      })     
+        .then((response) => {
+          console.log(response.data)
+          const newId = response.data.id;
+          setOpportunities((prevOpportunities) => [...prevOpportunities, { ...newOpportunity, id: newId }]);
+        })
     }
 
     setOpen(false);
   };
 
   const handleInputChange = (event, field) => {
-    if (field === "date") {
-      // Parse the input date string into a Date object
-      const parsedDate = new Date(event.target.value);
-      // Format the Date object into the desired format
-      const formattedDate = format(parsedDate, "yyyy-MM-dd");
-      setNewOpportunity((prevOpportunity) => ({
-        ...prevOpportunity,
-        [field]: formattedDate,
-      }));
-    } else {
-      setNewOpportunity((prevOpportunity) => ({
-        ...prevOpportunity,
-        [field]: event.target.value,
-      }));
-    }
+    setNewOpportunity((prevOpportunity) => ({
+      ...prevOpportunity,
+      [field]: event.target.value,
+    }));
   };
 
   const columns = [

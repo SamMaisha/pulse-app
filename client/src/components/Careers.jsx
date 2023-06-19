@@ -221,20 +221,20 @@ const Careers = () => {
               checked={newCareer.is_coverletter_generated}
               onChange={(e) => handleInputChange(e, 'is_coverletter_generated')}
             />
-            <span>Cover Letter</span>
+            <span style={{ color: 'rgba(0, 0, 0, 0.6)', fontWeight: 'bold' }}>Cover Letter</span>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Checkbox
               checked={newCareer.is_applied}
               onChange={(e) => handleInputChange(e, 'is_applied')} />
-            <span>Applied</span>
+            <span style={{ color: 'rgba(0, 0, 0, 0.6)', fontWeight: 'bold' }}>Applied</span>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Checkbox
               checked={newCareer.is_interviewed}
               onChange={(e) => handleInputChange(e, 'is_interviewed')}
             />
-            <span>Interviewed</span>
+            <span style={{ color: 'rgba(0, 0, 0, 0.6)', fontWeight: 'bold' }}>Interviewed</span>
           </Box>
           <TextField
             label="Notes"
