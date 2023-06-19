@@ -195,19 +195,31 @@ strong {
 
 .MuiDataGrid-columnHeadersInner {
   color: #dfebe7 !important;
-  font-size: 20px;
+  font-size: 15px;
   font-family: "Lato", sans-serif;
 }
 
 .MuiBox-root {
   color: #dfebe7 !important;
-  font-size: 20px;
+  font-size: 15px;
   font-family: "Lato", sans-serif;
 }
 
 .ql-text {
   color: #dfebe7 !important;
-  font-size: 20px;
+  font-size: 15px;
+  font-family: "Lato", sans-serif;
+}
+
+.MuiDataGrid-cellContent {
+  color: #dfebe7 !important;
+  font-size: 15px;
+  font-family: "Lato", sans-serif;
+}
+
+.MuiDataGrid-virtualScrollerContent {
+  color: #dfebe7 !important;
+  font-size: 15px;
   font-family: "Lato", sans-serif;
 }
 
