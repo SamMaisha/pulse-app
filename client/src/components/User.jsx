@@ -28,7 +28,7 @@ const User = () => {
         alt="User Avatar"
         src={user.picture}
         srcSet={imageSources.join(',')}
-        sx={{ width: '200px', height: '200px' }}
+        sx={{ width: '200px', height: 'auto' }}
    
       />
     <p class="welcome-user">Hello, {user.name}!</p>

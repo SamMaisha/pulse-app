@@ -1,31 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
-import { Grid, Hidden } from '@mui/material';
-import User from '../components/User';
-import QuickLinks from '../components/QuickLinks';
-import Careers from '../components/Careers';
-import Skills from '../components/Skills';
-import Opportunities from '../components/Opportunities';
-import CoverLetter from '../components/CoverLetter';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Grid, Hidden } from "@mui/material";
+import User from "../components/User";
+import QuickLinks from "../components/QuickLinks";
+import Careers from "../components/Careers";
+import Skills from "../components/Skills";
+import Opportunities from "../components/Opportunities";
+import CoverLetter from "../components/CoverLetter";
+import axios from "axios";
 
 const Dashboard = () => {
-
   const { user } = useAuth0();
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const submitUserData = async () => {
-      const { data } = await axios.post('/api/user/', user);
+      const { data } = await axios.post("/api/user/", user);
       const userId = data[0].id;
-      window.sessionStorage.setItem('userId', userId)
+      window.sessionStorage.setItem("userId", userId);
       setLoading(true);
-    }
+    };
     if (!loading && user) {
       submitUserData();
     }
-  }, [])
+  }, []);
 
   if (loading) {
     return (
