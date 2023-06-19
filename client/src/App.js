@@ -16,7 +16,7 @@ import "./imgs/pulse.png";
 import "./App.css";
 
 function App() {
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
 
   if (isLoading) {
     return (
@@ -39,7 +39,8 @@ function App() {
         >
           <Routes>
             <Route index element={<Navigate to="/login" />} />
-            <Route path="/login" element={<Login />} />
+            {isAuthenticated && <Route path="/login" element={<Navigate to="/dashboard" />} />}
+            {!isAuthenticated && <Route path="/login" element={<Login />} />}
             <Route path="/" element={<Navigate to="/login" />} />
             <Route
               path="/dashboard"
