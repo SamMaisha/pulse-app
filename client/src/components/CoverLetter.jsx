@@ -171,7 +171,7 @@ const CoverLetter = () => {
               loading={isloading}
               color={"#003933"}
             />
-            <Box>Loading Response</Box>
+            <Box class="loading-message">Loading Response</Box>
           </Box>
         ) : (
           <Box

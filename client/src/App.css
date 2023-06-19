@@ -223,6 +223,13 @@ strong {
   font-family: "Lato", sans-serif;
 }
 
+.loading-message {
+  color: #dfebe7 !important;
+  font-size: 15px;
+  font-family: "Lato", sans-serif;
+  font-weight: lighter;
+}
+
 
   
 
