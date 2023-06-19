@@ -16,7 +16,11 @@ import {
   FormLabel,
   FormGroup,
   Checkbox,
+  Snackbar,
+  Container
 } from "@mui/material";
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import { set } from "date-fns";
 
 // // Sample data
@@ -63,8 +67,21 @@ const CoverLetter = () => {
   });
   const [response, setResponse] = useState("");
   const [isloading, setIsLoading] = useState(false);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const userId = window.sessionStorage.getItem('userId');
+
+  //handle user button click of copy paste button
+  const handleCopyText = (response) => {
+    navigator.clipboard.writeText(response);
+    setSnackbarMessage(`Cover letter copied!`);
+    setIsSnackbarOpen(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setIsSnackbarOpen(false);
+  };
 
   // Axios GET request to fetch data from API
   useEffect(() => {
@@ -141,9 +158,49 @@ const CoverLetter = () => {
         <Box sx={{ overflow: "auto", height: "85%", marginBottom: "10px" }}>
           {response}
         </Box>
-        <Button onClick={() => setResponse("")} variant="contained">
-          Reset
-        </Button>
+        <Snackbar
+          open={isSnackbarOpen}
+          autoHideDuration={2000}
+          onClose={handleCloseSnackbar}
+          message={snackbarMessage}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        />
+        <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', alignContent: 'center', marginBottom: '20px' }}>
+          <Box sx={{
+            height: '50px',
+            width: '100px',
+            border: 1,
+            borderRadius: '10%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            ":hover": {
+              opacity: '50%'
+            }
+          }} onClick={() => setResponse("")}>
+            <RotateLeftIcon sx={{ color: '#4ab5a1' }} variant="contained" size='medium' />
+            Reset
+          </Box>
+          <Box sx={{
+            height: '50px',
+            width: '100px',
+            border: 1,
+            borderRadius: '10%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            ":hover": {
+              opacity: '50%'
+            }
+          }} onClick={() => handleCopyText(response)}>
+            <FileCopyIcon sx={{ color: '#4ab5a1' }} />
+            Copy
+          </Box>
+        </Container>
+        <Box>
+        </Box>
       </Box>
     );
   } else {
