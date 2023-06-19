@@ -6,7 +6,6 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from 'axios';
-import { useAuth0 } from '@auth0/auth0-react';
 
 const Skills = () => {
   // skills state used to store the skills data fetched from the API 
@@ -23,6 +22,7 @@ const Skills = () => {
   const [open, setOpen] = useState(false);
 
   // get user id from session storage
+
   const userId = window.sessionStorage.getItem('userId');
 
   // Axios GET request to fetch data from API
@@ -32,6 +32,7 @@ const Skills = () => {
         setSkills(response.data);
       })
   }, [])
+
 
   const handleAddSkill = () => {
     setSelectedSkill(null);
@@ -44,7 +45,6 @@ const Skills = () => {
     axios.delete(`/api/skills/${userId}/${id}`, id).then(() => {
       setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
     })
-    
   };
 
   const handleEditSkill = (skill) => {
@@ -58,19 +58,20 @@ const Skills = () => {
       //Axios PUT request to edit data here
       const skillId = selectedSkill.id;
       axios.put(`/api/skills/${userId}/${skillId}`, newSkill)
-      .then(() => {
-        setSkills((prevSkills) =>
-        prevSkills.map((skill) => (skill.id === selectedSkill.id ? { ...newSkill, id: selectedSkill.id } : skill))
-      )}
-      )     
+        .then(() => {
+          setSkills((prevSkills) =>
+            prevSkills.map((skill) => (skill.id === selectedSkill.id ? { ...newSkill, id: selectedSkill.id } : skill))
+          )
+        }
+        )
     } else {
       //Axios POST request to add data here
       axios.post(`/api/skills/${userId}`, newSkill)
-      .then((response) => {
-        console.log(response.data)
-        const newId = response.data.id
-        setSkills((prevSkills) => [...prevSkills, { ...newSkill, id: newId }]);
-      })
+        .then((response) => {
+          console.log(response.data)
+          const newId = response.data.id
+          setSkills((prevSkills) => [...prevSkills, { ...newSkill, id: newId }]);
+        })
     }
     setOpen(false);
   };
