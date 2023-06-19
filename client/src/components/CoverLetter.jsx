@@ -64,11 +64,13 @@ const CoverLetter = () => {
   const [response, setResponse] = useState("");
   const [isloading, setIsLoading] = useState(false);
 
+  const userId = window.sessionStorage.getItem('userId');
+
   // Axios GET request to fetch data from API
   useEffect(() => {
     Promise.all([
-      axios.get('/api/careers'),
-      axios.get('/api/skills'),
+      axios.get(`/api/careers/${userId}`),
+      axios.get(`/api/skills/${userId}`),
     ])
       .then((response) => {
         setState(prev => ({
@@ -76,7 +78,6 @@ const CoverLetter = () => {
           careers: response[0].data,
           skills: response[1].data,
         }))
-        console.log(response.data);
       })
       .catch((error) => {
         console.log("Error on fetching data: " + error);

@@ -13,7 +13,6 @@ import {
 import QuickLinksItem from "./QuickLinksItem";
 import axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const QuickLinks = () => {
   //snack bar notifies user that link is copied
@@ -94,7 +93,7 @@ const QuickLinks = () => {
       // Axios PUT request to edit data
       const linkId = selectedLink.id
       axios
-        .put(`/api/quicklinks//${userId}/${linkId}`, newLink)
+        .put(`/api/quicklinks/${userId}/${linkId}`, newLink)
         .then(() => {
           setQuickLinks((prevLinks) =>
             prevLinks.map((quickLink) =>
