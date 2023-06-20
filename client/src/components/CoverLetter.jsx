@@ -337,6 +337,7 @@ const CoverLetter = () => {
                       onChange={(event) => {
                         handleInputChange(event, "experience");
                       }}
+                      style={{ color: 'black', fontWeight: 'bold' }}
                     >
                       <FormControlLabel
                         value="No experience"
@@ -372,7 +373,7 @@ const CoverLetter = () => {
                     <FormLabel component="legend">
                       Choose your top 3 job skills for this position
                     </FormLabel>
-                    <FormGroup>
+                    <FormGroup style={{ color: 'black', fontWeight: 'bold' }}>
                       {state.skills.map((skill) => (
                         <FormControlLabel
                           key={skill.id}
