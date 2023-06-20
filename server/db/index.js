@@ -9,6 +9,7 @@ const dbParams = {
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
+  connectionString: process.env.DB_CONNECTION,
 };
 
 const db = new Pool(dbParams);
