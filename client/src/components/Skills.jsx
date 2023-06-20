@@ -147,7 +147,6 @@ const Skills = () => {
         marginBottom: "25px",
         bgcolor: "rgba(91, 130, 130, 0.4)",
         flexGrow: 1,
-        overflow: "auto",
       }}
     >
       <Box
@@ -164,7 +163,6 @@ const Skills = () => {
 
       <div className="title">Skills</div>
 
-      <Box sx={{ marginTop: "20px" }}>
         <DataGrid
           rows={skills}
           columns={columns}
@@ -180,7 +178,6 @@ const Skills = () => {
           hideFooterSelectedRowCount
           hideFooter
         />
-      </Box>
 
       {/* Popup window */}
       <Dialog open={open} onClose={() => setOpen(false)}>
