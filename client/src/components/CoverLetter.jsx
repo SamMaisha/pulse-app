@@ -21,37 +21,6 @@ import {
 } from "@mui/material";
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
-import { set } from "date-fns";
-
-// // Sample data
-// const initialSkills = [
-//   { id: 1, skill: 'CSS', skillLevel: 'Intermediate' },
-//   { id: 2, skill: 'JavaScript', skillLevel: 'Advanced' },
-//   { id: 3, skill: 'Ruby', skillLevel: 'Beginner' },
-// ];
-
-// const initialCareers = [
-//   {
-//     id: 1,
-//     company: 'Lighthouse Labs',
-//     position: 'Lecturer',
-//     website: 'https://www.lighthouselabs.ca/',
-//     coverLetter: true,
-//     applied: true,
-//     interviewed: false,
-//     notes: 'Some notes here',
-//   },
-//   {
-//     id: 2,
-//     company: 'Company B',
-//     position: 'Position B',
-//     website: 'https://www.example.com',
-//     coverLetter: false,
-//     applied: true,
-//     interviewed: true,
-//     notes: 'Some notes for Company B',
-//   },
-// ];
 
 const CoverLetter = () => {
   const [open, setOpen] = useState(false);
