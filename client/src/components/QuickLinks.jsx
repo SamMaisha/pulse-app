@@ -13,6 +13,10 @@ import {
 import QuickLinksItem from "./QuickLinksItem";
 import axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { DataGrid } from '@mui/x-data-grid';
 
 const QuickLinks = () => {
   //snack bar notifies user that link is copied
@@ -124,6 +128,41 @@ const QuickLinks = () => {
     }));
   };
 
+  const columns = [
+    { field: 'name', headerName: 'Name', width: 100 },
+    { field: 'url', headerName: 'URL', width: 200 },
+    {
+      field: 'copy',
+      headerName: 'Copy',
+      width: 70,
+      renderCell: (params) => (
+        <IconButton onClick={() => handleCopyLink(params.row.url)}>
+          <FileCopyIcon sx={{ color: 'rgba(62, 144, 193, 0.8)', cursor: 'pointer' }} />
+        </IconButton>
+      ),
+    },
+    {
+      field: 'edit',
+      headerName: 'Edit',
+      width: 70,
+      renderCell: (params) => (
+        <IconButton onClick={() => handleEditLink(params.row)}>
+          <EditIcon sx={{ color: 'rgba(184, 134, 11)', cursor: 'pointer' }} />
+        </IconButton>
+      ),
+    },
+    {
+      field: 'delete',
+      headerName: 'Delete',
+      width: 70,
+      renderCell: (params) => (
+        <IconButton onClick={() => handleDeleteLink(params.row.id)}>
+          <DeleteIcon sx={{ color: 'rgba(210, 77, 87)', cursor: 'pointer' }} />
+        </IconButton>
+      ),
+    },
+  ];
+
   return (
     <Box
       sx={{
@@ -150,7 +189,26 @@ const QuickLinks = () => {
 
       <div className="title">Quick Links</div>
 
-      <Box
+      <DataGrid
+        rows={quickLinks}
+        columns={columns}
+        disableColumnMenu
+        hideFooterPagination
+        hideFooterSelectedRowCount
+        hideFooter
+        sx={{
+          borderColor: "transparent",
+          '& .MuiDataGrid-cell': {
+            color: 'white',
+          },
+          '& .MuiDataGrid-columnHeaderTitle': {
+            color: 'white',
+          }
+        }}
+
+      />
+
+      {/* <Box
         sx={{
           marginTop: "10px",
           height: "80%",
@@ -174,7 +232,7 @@ const QuickLinks = () => {
             handleDeleteLink={handleDeleteLink}
           />
         ))}
-      </Box>
+      </Box> */}
       <Snackbar
         open={isSnackbarOpen}
         autoHideDuration={2000}
