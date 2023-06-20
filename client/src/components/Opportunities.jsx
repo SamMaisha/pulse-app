@@ -93,19 +93,19 @@ const Opportunities = () => {
     {
       field: "date",
       headerName: "Date",
-      width: 110,
+      width: 200,
       cellClassName: "wrap-text",
     },
     {
       field: "name",
       headerName: "Opportunity",
-      width: 200,
+      width: 300,
       cellClassName: "wrap-text",
     },
     {
       field: "notes",
       headerName: "Notes",
-      width: 200,
+      width: 250,
       cellClassName: "wrap-text",
     },
     {

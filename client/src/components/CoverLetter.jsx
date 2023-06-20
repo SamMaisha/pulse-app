@@ -17,10 +17,10 @@ import {
   FormGroup,
   Checkbox,
   Snackbar,
-  Container
+  Container,
 } from "@mui/material";
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import FileCopyIcon from "@mui/icons-material/FileCopy";
+import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 
 const CoverLetter = () => {
   const [open, setOpen] = useState(false);
@@ -39,7 +39,7 @@ const CoverLetter = () => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
-  const userId = window.sessionStorage.getItem('userId');
+  const userId = window.sessionStorage.getItem("userId");
 
   //handle user button click of copy paste button
   const handleCopyText = (response) => {
@@ -63,7 +63,7 @@ const CoverLetter = () => {
           ...prev,
           careers: response[0].data,
           skills: response[1].data,
-        }))
+        }));
       })
       .catch((error) => {
         console.log("Error on fetching data: " + error);
@@ -108,65 +108,110 @@ const CoverLetter = () => {
       <Box
         sx={{
           position: "relative",
-          padding: 1,
+          padding: 2,
           borderRadius: 5,
+          height: "60%",
+          marginLeft: "50px",
           bgcolor: "rgba(91, 130, 130, 0.4)",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+
           fontWeight: "bold",
           fontSize: "18px",
         }}
       >
-        <Box mt={2}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+          }}
+        >
           <div className="title">Cover Letter Generator</div>
         </Box>
-        <Box sx={{ overflow: "auto", height: "85%", marginBottom: "10px" }}>
-          {response}
-        </Box>
-        <Snackbar
-          open={isSnackbarOpen}
-          autoHideDuration={2000}
-          onClose={handleCloseSnackbar}
-          message={snackbarMessage}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        />
-        <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', alignContent: 'center', marginBottom: '20px' }}>
-          <Box sx={{
-            height: '50px',
-            width: '100px',
-            border: 1,
-            borderRadius: '10%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            ":hover": {
-              opacity: '50%'
-            }
-          }} onClick={() => setResponse("")}>
-            <RotateLeftIcon sx={{ color: '#4ab5a1' }} variant="contained" size='medium' />
-            Reset
+
+        <Box
+          mt={4}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            fontFamily: "Lato",
+            fontWeight: "regular",
+            padding: "15px",
+            textAlign: "justify",
+          }}
+        >
+          <Box
+            sx={{
+              height: "100%",
+              marginBottom: "50%",
+              padding: "0px",
+              position: "relative",
+            }}
+          >
+            {response}
           </Box>
-          <Box sx={{
-            height: '50px',
-            width: '100px',
-            border: 1,
-            borderRadius: '10%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            ":hover": {
-              opacity: '50%'
-            }
-          }} onClick={() => handleCopyText(response)}>
-            <FileCopyIcon sx={{ color: '#4ab5a1' }} />
-            Copy
-          </Box>
-        </Container>
-        <Box>
+          <Snackbar
+            open={isSnackbarOpen}
+            autoHideDuration={2000}
+            onClose={handleCloseSnackbar}
+            message={snackbarMessage}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          />
+          <Container
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              alignContent: "center",
+              marginBottom: "20px",
+            }}
+          >
+            <Box
+              sx={{
+                height: "50px",
+                width: "100px",
+                border: 1,
+                borderRadius: "10%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                ":hover": {
+                  opacity: "50%",
+                },
+              }}
+              onClick={() => setResponse("")}
+            >
+              <RotateLeftIcon
+                sx={{ color: "#4ab5a1" }}
+                variant="contained"
+                size="medium"
+              />
+              Reset
+            </Box>
+            <Box
+              sx={{
+                height: "50px",
+                width: "100px",
+                border: 1,
+                borderRadius: "10%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                ":hover": {
+                  opacity: "50%",
+                },
+              }}
+              onClick={() => handleCopyText(response)}
+            >
+              <FileCopyIcon sx={{ color: "#4ab5a1" }} />
+              Copy
+            </Box>
+          </Container>
         </Box>
       </Box>
     );
@@ -177,25 +222,47 @@ const CoverLetter = () => {
           <Box
             sx={{
               position: "relative",
-              padding: 1,
+              padding: 2,
               borderRadius: 5,
               height: "60%",
               marginLeft: "50px",
               bgcolor: "rgba(91, 130, 130, 0.4)",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
               fontWeight: "bold",
               fontSize: "18px",
             }}
           >
-            <ClimbingBoxLoader
-              sx={{ opacity: "70%" }}
-              loading={isloading}
-              color={"#003933"}
-            />
-            <Box class="loading-message">Loading Response</Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                marginBottom: "200px",
+              }}
+            >
+              <div className="title">Cover Letter Generator</div>
+            </Box>
+
+            <Box
+              mt={4}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                fontFamily: "Lato",
+                fontWeight: "regular",
+                marginBottom: "50%",
+              }}
+            >
+              <ClimbingBoxLoader
+                sx={{ opacity: "70%" }}
+                loading={isloading}
+                color={"#003933"}
+              />
+              <Box class="loading-message">Loading Response</Box>
+            </Box>
           </Box>
         ) : (
           <Box
@@ -335,7 +402,7 @@ const CoverLetter = () => {
                       onChange={(event) => {
                         handleInputChange(event, "experience");
                       }}
-                      style={{ color: 'black', fontWeight: 'bold' }}
+                      style={{ color: "black", fontWeight: "bold" }}
                     >
                       <FormControlLabel
                         value="No experience"
@@ -371,7 +438,7 @@ const CoverLetter = () => {
                     <FormLabel component="legend">
                       Choose your top 3 job skills for this position
                     </FormLabel>
-                    <FormGroup style={{ color: 'black', fontWeight: 'bold' }}>
+                    <FormGroup style={{ color: "black", fontWeight: "bold" }}>
                       {state.skills.map((skill) => (
                         <FormControlLabel
                           key={skill.id}

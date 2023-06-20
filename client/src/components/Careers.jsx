@@ -94,11 +94,11 @@ const Careers = () => {
   const columns = [
     { field: 'company_name', headerName: 'Company', width: 150 },
     { field: 'job_title', headerName: 'Position', width: 150 },
-    { field: 'job_link', headerName: 'Website', width: 200 },
+    { field: 'job_link', headerName: 'Website', width: 150 },
     {
       field: 'is_coverletter_generated',
       headerName: 'Cover Letter',
-      width: 100,
+      width: 110,
       renderCell: (params) => (
         <Checkbox checked={params.value} style={{ color: 'white' }} disabled />
       ),
@@ -106,7 +106,7 @@ const Careers = () => {
     {
       field: 'is_applied',
       headerName: 'Applied',
-      width: 80,
+      width: 100,
       renderCell: (params) => (
         <Checkbox checked={params.value} style={{ color: 'white' }} disabled />
       ),
@@ -119,7 +119,7 @@ const Careers = () => {
         <Checkbox checked={params.value} style={{ color: 'white' }} disabled />
       ),
     },
-    { field: 'notes', headerName: 'Notes', width: 200 },
+    { field: 'notes', headerName: 'Notes', width: 240 },
     {
       field: 'edit',
       headerName: 'Edit',
