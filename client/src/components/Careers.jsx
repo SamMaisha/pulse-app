@@ -145,16 +145,18 @@ const Careers = () => {
   return (
     <Box
       sx={{
-        position: 'relative',
+
         padding: 2,
         paddingBottom: 8,
         borderRadius: 5,
         height: 300,
-        width: '100%',
-        maxWidth: 850,
+        width: '99%',
         marginBottom: '20px',
-        marginTop: '20px',
+        marginTop: '40px',
+        marginRight: '20px',
         bgcolor: 'rgba(91, 130, 130, 0.4)',
+        overflow: 'hidden',
+
       }}
     >
       <Box
