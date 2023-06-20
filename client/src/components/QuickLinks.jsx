@@ -10,7 +10,6 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import QuickLinksItem from "./QuickLinksItem";
 import axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
 import FileCopyIcon from '@mui/icons-material/FileCopy';
@@ -120,7 +119,7 @@ const QuickLinks = () => {
     setOpen(false);
   };
 
-  // Hande input change for link name and url
+  // Handle input change for link name and url
   const handleInputChange = (event, field) => {
     setNewLink((prevLinks) => ({
       ...prevLinks,
@@ -208,34 +207,8 @@ const QuickLinks = () => {
             color: 'white',
           }
         }}
-
       />
 
-      {/* <Box
-        sx={{
-          marginTop: "10px",
-          height: "80%",
-          overflow: "auto",
-          fontSize: "large",
-        }}
-      >
-
-        <div style={{ display: "flex", marginBottom: "10px" }}>
-          <div style={{ flex: 2, fontSize: "15px" }}>Name</div>
-          <div style={{ flex: 8, fontSize: "15px" }}>URL</div>
-        </div>
-        <hr style={{ border: "none", borderTop: "1px solid #ccc", marginBottom: "10px" }} />
-
-        {quickLinks.map((quickLink) => (
-          <QuickLinksItem
-            key={quickLink.id}
-            quickLink={quickLink}
-            handleCopyLink={handleCopyLink}
-            handleEditLink={handleEditLink}
-            handleDeleteLink={handleDeleteLink}
-          />
-        ))}
-      </Box> */}
       <Snackbar
         open={isSnackbarOpen}
         autoHideDuration={2000}
