@@ -167,7 +167,7 @@ const QuickLinks = () => {
     <Box
       sx={{
         position: "relative",
-        padding: 3,
+        padding: 2,
         borderRadius: 5,
         height: 200,
         width: "110%",
@@ -197,6 +197,9 @@ const QuickLinks = () => {
         hideFooterSelectedRowCount
         hideFooter
         sx={{
+          overflow: "auto",
+          height: "90%",
+          border: 0,
           borderColor: "transparent",
           '& .MuiDataGrid-cell': {
             color: 'white',
