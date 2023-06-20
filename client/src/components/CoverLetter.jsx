@@ -118,7 +118,6 @@ const CoverLetter = () => {
           bgcolor: "rgba(91, 130, 130, 0.4)",
           display: "flex",
           flexDirection: "column",
-
           fontWeight: "bold",
           fontSize: "18px",
         }}
@@ -128,6 +127,8 @@ const CoverLetter = () => {
             display: "flex",
             alignItems: "flex-start",
             justifyContent: "flex-start",
+            marginTop: '10px',
+            marginLeft: '10px',
           }}
         >
           <div className="title">Cover Letter Generator</div>
@@ -144,14 +145,17 @@ const CoverLetter = () => {
             fontWeight: "regular",
             padding: "15px",
             textAlign: "justify",
+            marginTop: "auto", 
+            overflow: "auto",
           }}
         >
           <Box
             sx={{
               height: "100%",
-              marginBottom: "50%",
+              marginBottom: "10%",
               padding: "0px",
               position: "relative",
+              overflow: "auto",
             }}
           >
             {response}
@@ -169,7 +173,6 @@ const CoverLetter = () => {
               flexDirection: "row",
               justifyContent: "space-evenly",
               alignContent: "center",
-              marginBottom: "20px",
             }}
           >
             <Box
