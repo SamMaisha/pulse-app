@@ -160,18 +160,9 @@ const QuickLinks = () => {
       >
      
            <div style={{ display: "flex", marginBottom: "10px" }}>
-        <div style={{ flex: 3, fontSize: "15px"}}>Name</div>
+        <div style={{ flex: 2, fontSize: "15px"}}>Name</div>
         <div style={{ flex: 8, fontSize: "15px" }}>URL</div>
-        <div style={{ flex: 1, fontSize: "15px"}}>
-          Copy
         </div>
-        <div style={{ flex: 1, fontSize: "15px" }}>
-          Edit
-        </div>
-        <div style={{ flex: 1, fontSize: "15px" }}>
-          Delete
-        </div>
-      </div>
       <hr style={{ border: "none", borderTop: "1px solid #ccc", marginBottom: "10px" }} />
 
         {quickLinks.map((quickLink) => (

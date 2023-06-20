@@ -135,13 +135,13 @@ const Opportunities = () => {
     <Box
       sx={{
         position: "relative",
-        padding: 3,
+        padding: 2,
         borderRadius: 5,
         borderColor: "rgba(91, 130, 130, 0.4)",
         height: 300,
         width: "115%",
         marginLeft: "58%",
-        marginTop: "20px",
+        marginTop: "22px",
         marginBottom: "25px",
         bgcolor: "rgba(91, 130, 130, 0.4)",
         flexGrow: 1,

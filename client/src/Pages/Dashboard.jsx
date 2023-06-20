@@ -36,11 +36,15 @@ const Dashboard = () => {
                 <Grid item xs={3}>
                   <User />
                 </Grid>
-                <Grid item xs={8.1}>
+                <Grid item xs={8}>
                   <QuickLinks />
                 </Grid>
               </Grid>
+              <Grid container spacing={11}>
+                <Grid item xs={12}>
               <Careers />
+              </Grid>
+              </Grid>
               <Grid container spacing={2}>
                 <Grid item xs={4}>
                   <Skills />
@@ -56,7 +60,7 @@ const Dashboard = () => {
           </Grid>
         </Hidden>
         <Hidden mdUp>
-          <Grid container spacing={2} direction="column">
+          <Grid container direction="column">
             <Grid item>
               <User />
             </Grid>

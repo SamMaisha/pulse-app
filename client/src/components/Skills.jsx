@@ -141,7 +141,7 @@ const Skills = () => {
         padding: 3,
         borderRadius: 5,
         borderColor: "rgba(91, 130, 130, 0.4)",
-        height: 300,
+        height: 285,
         width: "200%",
         marginTop: "20px",
         marginBottom: "25px",
