@@ -93,15 +93,18 @@ const CoverLetter = () => {
   };
 
   const handleSkillsChange = (event) => {
-    const selectedSkills = Array.from(
-      event.target.querySelectorAll('input[type="checkbox"]:checked')
-    ).map((checkbox) => checkbox.value);
+    let selectedSkills = state.topSkills;
+    const selection = event.target.value;
+
+    selectedSkills.includes(selection)
+    ? selectedSkills = selectedSkills.filter(skill => skill !== selection)
+    : selectedSkills.push(selection);
 
     setState((prevState) => ({
       ...prevState,
-      topSkills: selectedSkills.slice(0, 3), // Limit the selected skills to a maximum of 3
+      topSkills: selectedSkills.slice(-3),
     }));
-  };
+  }
 
   if (response !== "") {
     return (
