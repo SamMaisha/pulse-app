@@ -145,7 +145,6 @@ const Opportunities = () => {
         marginBottom: "25px",
         bgcolor: "rgba(91, 130, 130, 0.4)",
         flexGrow: 1,
-        overflow: "auto",
       }}
     >
       <Box
@@ -159,36 +158,25 @@ const Opportunities = () => {
           <AddIcon sx={{ color: 'white' }} />
         </IconButton>
       </Box>
-      <Box
+
+      <div className="title">Opportunities</div>
+
+      <DataGrid
+        rows={opportunities}
+        columns={columns}
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "start",
-          fontWeight: "bold",
-          fontSize: "18px",
-          color: "white",
+          borderColor: "transparent",
+          '& .MuiDataGrid-cell, & .MuiDataGrid-columnHeaderTitle': {
+            color: 'white',
+          }
         }}
-      >
-        <div className="title">Opportunities</div>
-      </Box>
-      <Box sx={{ marginTop: "20px" }}>
-        <DataGrid
-          rows={opportunities}
-          columns={columns}
-          sx={{
-            borderColor: "transparent",
-            '& .MuiDataGrid-cell, & .MuiDataGrid-columnHeaderTitle': {
-              color: 'white',
-            }
-          }}
-          disableRowSelectionOnClick
-          disableColumnMenu
-          hideFooterPagination
-          hideFooterSelectedRowCount
-          hideFooter
-          className="datagrid"
-        />
-      </Box>
+        disableRowSelectionOnClick
+        disableColumnMenu
+        hideFooterPagination
+        hideFooterSelectedRowCount
+        hideFooter
+        className="datagrid"
+      />
 
       {/* Popup window */}
       <Dialog open={open} onClose={() => setOpen(false)}>

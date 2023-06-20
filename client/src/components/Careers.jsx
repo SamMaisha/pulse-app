@@ -66,10 +66,10 @@ const Careers = () => {
       const careerId = selectedCareer.id
       axios.put(`/api/careers/${userId}/${careerId}`, newCareer).then(() => {
         setCareers((prevCareers) =>
-        prevCareers.map((career) =>
-          career.id === selectedCareer.id ? { ...newCareer, id: selectedCareer.id } : career
-        )
-      );
+          prevCareers.map((career) =>
+            career.id === selectedCareer.id ? { ...newCareer, id: selectedCareer.id } : career
+          )
+        );
       })
     } else {
       // Axios POST request to add data here
@@ -155,21 +155,21 @@ const Careers = () => {
         marginTop: '40px',
         marginRight: '20px',
         bgcolor: 'rgba(91, 130, 130, 0.4)',
-   
+
 
       }}
     >
-     <Box
-  sx={{
-    position: 'absolute',
-    top: '10px',
-    right: '10px',
-  }}
->
-  <IconButton onClick={handleAddCareer}>
-    <AddIcon sx={{ color: 'white' }} />
-  </IconButton>
-</Box>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '10px',
+          right: '10px',
+        }}
+      >
+        <IconButton onClick={handleAddCareer}>
+          <AddIcon sx={{ color: 'white' }} />
+        </IconButton>
+      </Box>
 
       <div className="title">Careers</div>
 
