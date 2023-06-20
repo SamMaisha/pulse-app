@@ -145,7 +145,7 @@ const Careers = () => {
   return (
     <Box
       sx={{
-
+        position: 'relative',
         padding: 2,
         paddingBottom: 8,
         borderRadius: 5,
@@ -155,21 +155,21 @@ const Careers = () => {
         marginTop: '40px',
         marginRight: '20px',
         bgcolor: 'rgba(91, 130, 130, 0.4)',
-        overflow: 'hidden',
+   
 
       }}
     >
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '10px',
-          right: '10px',
-        }}
-      >
-        <IconButton onClick={handleAddCareer}>
-          <AddIcon sx={{ color: 'white' }} />
-        </IconButton>
-      </Box>
+     <Box
+  sx={{
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+  }}
+>
+  <IconButton onClick={handleAddCareer}>
+    <AddIcon sx={{ color: 'white' }} />
+  </IconButton>
+</Box>
 
       <div className="title">Careers</div>
 
