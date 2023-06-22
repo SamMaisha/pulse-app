@@ -128,8 +128,8 @@ const QuickLinks = () => {
   };
 
   const columns = [
-    { field: 'name', headerName: 'Name', width: 100 },
-    { field: 'url', headerName: 'URL', width: 200 },
+    { field: 'name', headerName: 'Name', width: 200 },
+    { field: 'url', headerName: 'URL', width: 400 },
     {
       field: 'copy',
       headerName: 'Copy',

@@ -15,15 +15,8 @@ const About = () => {
       <div class="about-header">
         <div class="header-text">
           <p class="header-text">
-            At Pulse, we understand the significance of building a successful
-            career and the challenges that come with it. That's why we've
-            developed an app specifically designed to empower individuals in
-            their professional journey.
-          </p>
-          <p class="header-text">
-            With Pulse, you'll have all the tools and resources you need to
-            excel in your career, from job opportunities and networking to skill
-            development and tracking.
+            Out team understands what it's like to pursue a new career and the challenges that come with it. That's why we've
+            developed Pulse, an app specifically designed to empower individuals in their professional journey.
           </p>
         </div>
         <div className="header-img">
@@ -34,10 +27,7 @@ const About = () => {
       <h2 class="about-title">Our Mission</h2>
 
       <p class="about-text">
-        At Pulse, our mission is to provide a comprehensive career management
-        platform that helps users navigate the ever-evolving job market and
-        achieve their professional goals. We strive to be the ultimate companion
-        for individuals seeking career growth in one convenient app.
+      At Pulse, our mission is to support individuals on their path to professional success. By equipping them with innovative tools, we enable individuals to unleash their full potential, and empower them to navigate their career journey with confidence.
       </p>
 
       <h2 class="about-title">Key Features</h2>

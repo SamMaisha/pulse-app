@@ -38,8 +38,6 @@ const CoverLetter = () => {
     snackBarMessage: "",
     open: false,
   });
-  ;
-
   const userId = window.sessionStorage.getItem("userId");
 
   // Axios GET request to fetch data from API
@@ -66,24 +64,24 @@ const CoverLetter = () => {
     setState((prev) => ({
       ...prev,
       open: false, //set open state of form to false
-    }))
+    }));
     try {
       setState((prev) => ({
         ...prev,
-        isLoading: true //set the isLoading state of the component to true to trigger loading animation
-      }))
+        isLoading: true, //set the isLoading state of the component to true to trigger loading animation
+      }));
       const gptResponse = await axios.post("/api/openAI", state); //await the response from openAI AI
       setState((prev) => ({
         ...prev,
-        response: gptResponse.data //set the state of response to chatGPT data
-      }))
+        response: gptResponse.data, //set the state of response to chatGPT data
+      }));
     } catch (err) {
       console.log("Error", err);
     } finally {
       setState((prev) => ({
         ...prev,
         isLoading: false, //once completed, set the isLoading state to false to expose the response
-      }))
+      }));
     }
   };
 
@@ -99,20 +97,20 @@ const CoverLetter = () => {
     const selection = event.target.value;
 
     selectedSkills.includes(selection)
-      ? selectedSkills = selectedSkills.filter(skill => skill !== selection)
+      ? (selectedSkills = selectedSkills.filter((skill) => skill !== selection))
       : selectedSkills.push(selection);
 
     setState((prevState) => ({
       ...prevState,
       topSkills: selectedSkills.slice(-3),
     }));
-  }
+  };
 
   const handleCloseSnackbar = () => {
     setState((prev) => ({
       ...prev,
       isSnackbarOpen: false,
-    }))
+    }));
   };
 
   //handle user button click of copy paste button
@@ -120,10 +118,9 @@ const CoverLetter = () => {
     navigator.clipboard.writeText(response);
     setState((prev) => ({
       ...prev,
-      snackBarMessage: 'Cover letter copied!',
-      isSnackbarOpen: true
-    })
-    )
+      snackBarMessage: "Cover letter copied!",
+      isSnackbarOpen: true,
+    }));
   };
 
   if (state.response !== "") {
@@ -147,8 +144,8 @@ const CoverLetter = () => {
             display: "flex",
             alignItems: "flex-start",
             justifyContent: "flex-start",
-            marginTop: '10px',
-            marginLeft: '10px',
+            marginTop: "10px",
+            marginLeft: "10px",
           }}
         >
           <div className="title">Cover Letter Generator</div>
@@ -159,13 +156,13 @@ const CoverLetter = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
             fontFamily: "Lato",
             fontWeight: "regular",
-            padding: "15px",
+            padding: "10px",
             textAlign: "justify",
-            marginTop: "auto",
+
             overflow: "auto",
           }}
         >
@@ -173,7 +170,6 @@ const CoverLetter = () => {
             sx={{
               height: "100%",
               marginBottom: "10%",
-              padding: "0px",
               position: "relative",
               overflow: "auto",
             }}
@@ -352,7 +348,10 @@ const CoverLetter = () => {
             </Box>
 
             {/* Popup window */}
-            <Dialog open={state.open} onClose={() => setState((prev) => ({ ...prev, open: false }))}>
+            <Dialog
+              open={state.open}
+              onClose={() => setState((prev) => ({ ...prev, open: false }))}
+            >
               <DialogTitle>Information for your Cover Letter</DialogTitle>
               <DialogContent>
                 <FormControl component="fieldset">
@@ -496,7 +495,11 @@ const CoverLetter = () => {
                 </Box>
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => setState((prev) => ({ ...prev, open: false }))}>Cancel</Button>
+                <Button
+                  onClick={() => setState((prev) => ({ ...prev, open: false }))}
+                >
+                  Cancel
+                </Button>
                 <Button onClick={handleSave}>Submit</Button>
               </DialogActions>
             </Dialog>
