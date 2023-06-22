@@ -4,33 +4,20 @@ const { userValidator } = require("../functions/helpers");
 const router = express.Router();
 const userQueries = require("../db/queries/users");
 
-// router.get("/", (req, res) => {
-//   userQueries.getUserInfo().then((result) => {
-//     res.json(result);
-//   });
-// });
-
-// router.post("/find", (req, res) => {
-//   const user = req.body;
-//   console.log(user);
-//   console.log("FIRE");
-// });
-// module.exports = router;
-
+//POST user to api/user route...database
 router.post("/", (req, res) => {
-  console.log(req.body);
-  const user = req.body;
-  return userValidator(user.sub).then((result) => {
-    if (result === false) {
-      addUser(user)
+  const user = req.body; //set user to body of request
+  return userValidator(user.sub).then((result) => { //validate if user exists in database
+    if (result === false) { 
+      addUser(user) //if doesnt exist (false) add user
         .then((user) => {
           res.send(user);
         })
         .catch((e) => res.send(e));
     }
     if (result === true) {
-      console.log("user already in database");
-      getUserInfo(user.sub)
+      console.log("user already in database"); //if does exist in database (true)
+      getUserInfo(user.sub) //return the users information from database to populate components
         .then((user) => {
           res.send(user);
         })
