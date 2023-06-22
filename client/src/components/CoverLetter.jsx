@@ -23,7 +23,6 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 
 const CoverLetter = () => {
-  const [open, setOpen] = useState(false);
   const [state, setState] = useState({
     careers: [], // store the careers data fetched from the API
     skills: [], // store the skills data fetched from the API
@@ -33,24 +32,15 @@ const CoverLetter = () => {
     experience: "",
     topSkills: [], // track selected skills (0-3)
     extraInfo: "",
+    isLoading: false, //track state of the (response) loading animation
+    response: "", //store / track state of response (conditionally load if no response present or not)
+    isSnackbarOpen: false,
+    snackBarMessage: "",
+    open: false,
   });
-  const [response, setResponse] = useState("");
-  const [isloading, setIsLoading] = useState(false);
-  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
+  ;
 
   const userId = window.sessionStorage.getItem("userId");
-
-  //handle user button click of copy paste button
-  const handleCopyText = (response) => {
-    navigator.clipboard.writeText(response);
-    setSnackbarMessage(`Cover letter copied!`);
-    setIsSnackbarOpen(true);
-  };
-
-  const handleCloseSnackbar = () => {
-    setIsSnackbarOpen(false);
-  };
 
   // Axios GET request to fetch data from API
   useEffect(() => {
@@ -73,15 +63,27 @@ const CoverLetter = () => {
   // Save all the information from the client
   // Generate the message and send it to OpenAI
   const handleSave = async () => {
-    setOpen(false);
+    setState((prev) => ({
+      ...prev,
+      open: false, //set open state of form to false
+    }))
     try {
-      setIsLoading(true); //set state at beginning of call
-      const gptResponse = await axios.post("/api/openAI", state);
-      setResponse(gptResponse.data); //setResponse to chatgpt data
+      setState((prev) => ({
+        ...prev,
+        isLoading: true //set the isLoading state of the component to true to trigger loading animation
+      }))
+      const gptResponse = await axios.post("/api/openAI", state); //await the response from openAI AI
+      setState((prev) => ({
+        ...prev,
+        response: gptResponse.data //set the state of response to chatGPT data
+      }))
     } catch (err) {
       console.log("Error", err);
     } finally {
-      setIsLoading(false); //set loadingIconState back to false
+      setState((prev) => ({
+        ...prev,
+        isLoading: false, //once completed, set the isLoading state to false to expose the response
+      }))
     }
   };
 
@@ -97,8 +99,8 @@ const CoverLetter = () => {
     const selection = event.target.value;
 
     selectedSkills.includes(selection)
-    ? selectedSkills = selectedSkills.filter(skill => skill !== selection)
-    : selectedSkills.push(selection);
+      ? selectedSkills = selectedSkills.filter(skill => skill !== selection)
+      : selectedSkills.push(selection);
 
     setState((prevState) => ({
       ...prevState,
@@ -106,7 +108,25 @@ const CoverLetter = () => {
     }));
   }
 
-  if (response !== "") {
+  const handleCloseSnackbar = () => {
+    setState((prev) => ({
+      ...prev,
+      isSnackbarOpen: false,
+    }))
+  };
+
+  //handle user button click of copy paste button
+  const handleCopyText = (response) => {
+    navigator.clipboard.writeText(response);
+    setState((prev) => ({
+      ...prev,
+      snackBarMessage: 'Cover letter copied!',
+      isSnackbarOpen: true
+    })
+    )
+  };
+
+  if (state.response !== "") {
     return (
       <Box
         sx={{
@@ -145,7 +165,7 @@ const CoverLetter = () => {
             fontWeight: "regular",
             padding: "15px",
             textAlign: "justify",
-            marginTop: "auto", 
+            marginTop: "auto",
             overflow: "auto",
           }}
         >
@@ -158,13 +178,13 @@ const CoverLetter = () => {
               overflow: "auto",
             }}
           >
-            {response}
+            {state.response}
           </Box>
           <Snackbar
-            open={isSnackbarOpen}
+            open={state.isSnackbarOpen}
             autoHideDuration={2000}
             onClose={handleCloseSnackbar}
-            message={snackbarMessage}
+            message={state.snackBarMessage}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           />
           <Container
@@ -189,7 +209,7 @@ const CoverLetter = () => {
                   opacity: "50%",
                 },
               }}
-              onClick={() => setResponse("")}
+              onClick={() => setState((prev) => ({ ...prev, response: "" }))}
             >
               <RotateLeftIcon
                 sx={{ color: "#4ab5a1" }}
@@ -212,7 +232,7 @@ const CoverLetter = () => {
                   opacity: "50%",
                 },
               }}
-              onClick={() => handleCopyText(response)}
+              onClick={() => handleCopyText(state.response)}
             >
               <FileCopyIcon sx={{ color: "#4ab5a1" }} />
               Copy
@@ -224,7 +244,7 @@ const CoverLetter = () => {
   } else {
     return (
       <>
-        {isloading ? (
+        {state.isLoading ? (
           <Box
             sx={{
               position: "relative",
@@ -264,7 +284,7 @@ const CoverLetter = () => {
             >
               <ClimbingBoxLoader
                 sx={{ opacity: "70%" }}
-                loading={isloading}
+                loading={state.isLoading}
                 color={"#003933"}
               />
               <Box class="loading-message">Loading Response</Box>
@@ -319,7 +339,7 @@ const CoverLetter = () => {
             >
               <Button
                 variant="contained"
-                onClick={() => setOpen(true)}
+                onClick={() => setState((prev) => ({ ...prev, open: true }))}
                 sx={{
                   borderRadius: "5px",
                   background: "rgba(184, 134, 11)",
@@ -332,7 +352,7 @@ const CoverLetter = () => {
             </Box>
 
             {/* Popup window */}
-            <Dialog open={open} onClose={() => setOpen(false)}>
+            <Dialog open={state.open} onClose={() => setState((prev) => ({ ...prev, open: false }))}>
               <DialogTitle>Information for your Cover Letter</DialogTitle>
               <DialogContent>
                 <FormControl component="fieldset">
@@ -476,7 +496,7 @@ const CoverLetter = () => {
                 </Box>
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => setOpen(false)}>Cancel</Button>
+                <Button onClick={() => setState((prev) => ({ ...prev, open: false }))}>Cancel</Button>
                 <Button onClick={handleSave}>Submit</Button>
               </DialogActions>
             </Dialog>
