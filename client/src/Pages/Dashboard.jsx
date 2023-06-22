@@ -14,15 +14,15 @@ const Dashboard = () => {
 
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { //on render, submit new user or get existing user data
     const submitUserData = async () => {
       const { data } = await axios.post("/api/user/", user);
       const userId = data[0].id;
-      window.sessionStorage.setItem("userId", userId);
+      window.sessionStorage.setItem("userId", userId); //set sessionStorage to userId, use this for string interpolation for API calls app-wide
       setLoading(true);
     };
     if (!loading && user) {
-      submitUserData();
+      submitUserData(); //only once loading is false, and a user is set by auth0, submit user data
     }
   }, []);
 
@@ -40,9 +40,7 @@ const Dashboard = () => {
                   <QuickLinks />
                 </Grid>
               </Grid>
-
               <Careers />
-
               <Grid container spacing={2}>
                 <Grid item xs={4}>
                   <Skills />
