@@ -16,21 +16,23 @@ router.post("/", async (req, res) => {
     Hello chatGPT. Please craft a cover letter
     for the position of ${promptData.position}. 
     The company that I will be applying at is 
-    ${promptData.company}. The years of experience 
-    I have that can apply for this position is 
-    ${promptData.position}. The necessary skills
-    I have for this job are ${promptData.skills}. 
+    ${promptData.company}. The necessary experience that I
+    posses is ${promptData.experience} The top skills I 
+    possess for this job are ${promptData.topSkills}. 
     These are the strenghts that which I believe will
     help me excel and succeed in this job, 
     ${promptData.strengths}. Please use this additional
     information to really drive home an authentic and
-    genuine cover letter, ${promptData.extraInfo}.
+    genuine cover letter, ${promptData.extraInfo}. Please
+    contextualize the data relevant to the position being 
+    applied to.
     `;
 
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: prompt,
             max_tokens: 2500,
+            temperature: 0.4,
         });
         res.send(completion.data.choices[0].text);
     } catch (err) {
