@@ -4,7 +4,7 @@ A full stack web application that allows users to keep track of and organize dat
 ## Final Product
 ### Home Page and Login
 
-!["Home Page"](./docs/CoverLetterGenerator.gif)
+!["Home Page"](./docs/HomePage.gif)
 
 ### Landing Page and About Page
 !["Landing Page, About, and Logout Pages"](./docs/LandingAboutLogout.gif)
