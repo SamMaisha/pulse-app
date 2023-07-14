@@ -56,7 +56,7 @@ const CoverLetter = () => {
       .catch((error) => {
         console.log("Error on fetching data: " + error);
       });
-  }, []);
+  }, [state.open]);
 
   // Save all the information from the client
   // Generate the message and send it to OpenAI
